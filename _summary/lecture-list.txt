@@ -1,0 +1,293 @@
+Section 1: Getting Started
+1. Course Outline
+2. IMPORTANT. Please read!
+3. How to Get the Most Out of This Course
+4. Join Our Online Community!
+
+Section 2: Setting Up the Environment
+5. Linux Distributions
+6. Installing Ubuntu in a VM
+7. Things to Do After Installing Ubuntu
+8. Installing CentOS in a VM
+9. Ubuntu and CentOS Download Links (OVA Files)
+10. Migrating to Linux
+Q. Quiz for Setting up the Environment 4 questions
+
+Section 3: The Linux Terminal In Depth
+11. Terminals, Consoles, Shells and Commands
+12. Linux Command Structure
+13. Getting Help, Man Pages (man, type, help, apropos)
+14. Commands - Getting Help
+Q. Quiz for Getting Help in Linux 5 questions
+15. Mastering the Terminal: The TAB Key
+16. Mastering the Terminal: Keyboard Shortcuts
+17. Commands - Keyboard Shortcuts
+Q. Quiz for Mastering the Terminal 7 questions
+18. Mastering the Terminal: The Bash History
+19. Running Commands Without Leaving a Trace
+20. Recording the Date and Time for Each Line in History
+21. Commands - The Bash History
+22. root vs. Non-privileged Users. Getting root Access (sudo, su, passwd)
+23. Commands - Getting root access
+Q. Quiz for Bash history and root access 7 questions
+
+Section 4: Challenges - The Linux Terminal
+24. Challenges - The Linux Terminal
+
+Section 5: The Linux File System
+25. Intro to The Linux Files System
+26. The Filesystem Hierarchy Standard (FHS)
+27. Absolute vs. Relative Paths. Walking through the File System (pwd, cd, tree)
+28. Commands - Paths
+Q. Quiz for The Linux File System 10 questions
+29. The LS Command In Depth (ls)
+30. Commands - ls
+31. Understanding File Timestamps: atime, mtime, ctime (stat, touch, date)
+32. Sorting Files by Timestamp
+33. File Types in Linux (ls -F, file)
+34. Commands - File Types and Timestamps
+Q. Quiz for LS, File Types and Timestamps 9 questions
+35. Viewing Files - Part 1 (cat)
+36. Viewing Files - Part 2 (less)
+37. Viewing Files - Part 3 (tail, head, watch)
+38. Commands - Viewing Files
+Q. Quiz for Viewing Files 5 questions
+39. Creating Files and Directories (touch, mkdir)
+40. Copying Files and Directories (cp)
+41. Moving and Renaming Files and Directories (mv)
+42. Removing Files and Directories (rm, shred)
+43. Commands - touch, mkdir, cp, mv, rm, shred
+Q. Quiz for mkdir, cp, mv, rm, shred 8 questions
+44. Working With Pipes in Linux (|, wc)
+45. Command Redirection (>, >>, 2> &>, cut, tee)
+46. Commands - Piping and Redirection
+Q. Quiz for Piping and Command Redirection 7 questions
+47. Finding Files and Directories - Part 1 (locate, which)
+48. Commands - locate, find
+49. Finding Files and Directories - Part 2 (find)
+50. Find and Exec
+51. Searching for String Patterns in Text Files (grep)
+52. Commands - grep
+53. Searching for Strings in Binary Files (strings)
+Q. Quiz for locate, find and grep 8 questions
+54. Comparing Files (cmp, diff, sha256)
+55. The Basics of VIM Text Editor
+56. The VIM Editor In Depth - Part 1
+57. The VIM Editor In Depth - Part 2
+58. Commands - VIM
+Q. Quiz for VIM Editor 6 questions
+59. Compressing and Archiving Files and Directories (tar, gzip)
+60. Hard Links and the Inode Structure
+61. Working With Symlinks. Symlinks vs. Hard Links
+Q. Quiz for Hard and Symlinks 5 questions
+
+Section 6: Challenges - The Linux File System
+62. Challenges - Paths, ls, File Timestamps and Types, Viewing Files
+63. Challenges - cp, mv, rm, shred
+64. Challenges - tar, ln
+65. Challenges - locate, find
+
+Section 7: User Account Management
+66. Understanding passwd and shadow files
+67. Understanding Linux Groups (groups, id)
+68. Creating User Accounts (useradd)
+69. Changing and Removing User Accounts (usermod, userdel)
+70. Creating Admin Users
+71. Group Management (groupadd, groupdel, groupmod)
+72. User Account Monitoring (whoami, who am i, who, id, w, uptime, last)
+73. Commands - Account Management
+Q. Quiz for Accounts Management 10 questions
+
+Section 8: Challenges - User Account Management
+74. Challenges - User Account Management
+
+Section 9: Linux File Permissions
+75. Understanding File Permissions
+76. Octal (Numeric) Notation of File Permissions
+77. Changing File Permissions (chmod)
+78. The Effect of Permissions on Directories
+79. Combining Find and Chmod Commands Together
+80. Changing File Ownership (chown, chgrp)
+81. Understanding SUID (Set User ID)
+82. Understanding SGID (Set Group ID)
+83. Understanding the Sticky Bit
+84. Umask
+85. Understanding Files Attributes (lsattr, chattr)
+86. Commands - File Permissions
+Q. Quiz for File Permissions 10 questions
+
+Section 10: Challenges - File Permissions
+87. Challenges - File Permissions
+
+Section 11: Linux Process Management
+88. Processes and The Linux Security Model
+89. Listing Processes (ps, pstree)
+90. Commands - ps, pstree, pgrep
+91. Getting a Dynamic Real-Time View of the Running System (top, htop)
+92. Commands - top
+93. Signals and Killing Processes (kill, pkill, killall, pidof)
+94. Foreground and Background Processes
+95. Job Control (jobs, fg, bg)
+96. Commands - kill, pkill, killall, jobs, fg, bg, nohup
+Q. Quiz for Process Management 15 questions
+
+Section 12: Challenges - Process Management
+97. Challenges - Processes
+
+Section 13: Networking on Linux
+98. Getting Information about the Network Interfaces (ip, ifconfig)
+99. Configuring the Network On The Fly (ifconfig, ip, route)
+100. Commands - ifconfig, ip, route
+Q. Quiz for Network Interfaces 5 questions
+101. Setting Up Static IP on Ubuntu (netplan)
+102. Commands - netplan
+103. Testing and Troubleshooting Network Connectivity
+104. Using SSH
+105. Troubleshooting SSH
+106. Securing the OpenSSH Server (sshd)
+107. Commands - SSH
+108. Copying Files Over the Network (scp)
+109. Synchronizing Files and Directories using rsync
+110. Using rsync Over the Network
+111. Commands - scp, rsync
+112. Using wget
+113. Checking for Listening Ports (netstat, ss, lsof, telnet, nmap)
+114. Commands - wget, netstat, ss, nmap
+Q. Quiz for SSH, scp, rsync, netstat 10 questions
+
+Section 14: Challenges - Networking in Linux
+115. Challenges - Network Interfaces
+116. Challenges - SSH, scp, rsync
+
+Section 15: Software Management
+117. DPKG (Debian and Ubuntu Based Distros)
+118. Intro to APT
+119. Using APT (Advanced Package Tool)
+120. Commands - dpkg, apt
+Q. Quiz for dpkg and apt 10 questions
+121. Compiling Programs from Source Code vs. Package Manager
+122. Compiling C Programs
+123. Compiling Software From Source Code: Lab ProFTPD
+
+Section 16: Challenges - Software Management
+124. Challenges - dpkg, apt
+
+Section 17: System Administration
+125. Task Automation and Scheduling Using Cron (crontab)
+126. Commands - Cron
+127. Scheduling Tasks Using Anacron (anacron)
+Q. Quiz for Cron and Anacron 5 questions
+128. Mounting and Unmounting File Systems (df, mount, umount, fdisk, gparted)
+129. Working With Device Files (dd)
+130. Getting System Hardware Information (lwhw, lscpu, lsusb, lspci,dmidecode,hdparm)
+131. Commands - Getting Hardware Information
+Q. Quiz for Getting Hardware Information 5 questions
+132. Intro to systemd
+133. Service Management (systemd and systemctl)
+134. Commands - systemd, systemctl
+Q. Quiz for systemd and systemctl 5 questions
+
+Section 18: Challenges - System Administration
+135. Challenges - System Administration
+
+Section 19: [EXTRA]: Configure a Linux Server from Scratch (VPS,DNS,WEB,PHP,MySql,Wordpress)
+136. Overview: The Big Picture
+137. Running a Linux Server in the Cloud
+138. Securing SSH with Key Authentication
+139. Getting a Domain Name
+140. Diving into the DNS Protocol and Installing a DNS Server (Bind9)
+141. Setting Up the Authoritative BIND9 DNS Server
+142. Installing a Web Server (Apache2)
+143. Setting Up Virtual Hosting
+144. Securing Apache with OpenSSL and Digital Certificates
+145. Installing PHP
+146. Installing and Securing the MySql Server
+147. Installing a Web Application (WordPress)
+148. Securing WordPress
+
+Section 20: Bash Shell Scripting
+149. Bash Aliases
+150. Commands - Aliases
+151. Intro to Bash Shell Scripting
+152. The Bash Shebang and Comments
+153. Running Scripts
+Q. Quiz for Bash Shell Basics 6 questions
+154. Variables in Bash
+155. Environment Variables
+156. Getting User Input
+157. Special Variables and Positional Arguments
+158. Coding - Variables in Bash
+Q. Quiz for Bash Variables 10 questions
+159. If, Elif and Else Statements
+160. Testing Conditions For Numbers
+161. Multiple Conditions and Nested If Statements
+162. Command Substitution
+163. Comparing Strings in If Statements
+164. Lab: Testing Network Connections
+165. Coding - If...Elif...Else Statements
+Q. Quiz for If...Elif...Else Statements 6 questions
+166. For Loops
+167. Lab: Dropping a List of IP addresses Using a For Loop
+168. While Loops
+Q. Quiz for Loops 5 questions
+169. Case Statement
+170. Functions in Bash
+171. Variable Scope in Functions
+172. Menus in Bash. The Select Statement
+173. Lab: System Administration Script using Menus
+174. Running a DoS Attack Without root Access (ulimit)
+
+Section 21: Challenges - Bash Scripting
+175. Bash Scripting Basics
+176. Flow Control (if...elif...else) and Command Substitution
+177. Loops in Bash: for, while
+178. Functions and Menus in Bash
+
+Section 22: [EXTRA] Security: Information Gathering and Sniffing Traffic
+179. Scanning Networks with Nmap
+180. ARP Scanning (arp-scan and netdiscover)
+181. Hacking Google Searches (Google Dorks)
+182. Using Wireshark for Packet Sniffing and Analyzing
+183. Capture Traffic Using tcpdump
+
+Section 23: [EXTRA] IPFS - The Interplanetary File System
+184. What is IPFS and How It Works
+185. Installing IPFS on Linux
+186. Running an IPFS Node on Linux
+187. Pinning Objects
+
+Section 24: [EXTRA] Security: Netfilter and Iptables Firewall
+188. Introduction to Netfilter and Iptables
+189. Chain Traversal in a Nutshell
+190. Iptables Basic Usage
+191. Iptables Options (Flags) - Part 1
+192. Iptables Options (Flags) - Part 2
+193. Where Do We Write Iptables Rules
+194. Setting the Default Policy
+195. Deleting the Firewall
+196. Filter by IP Address
+197. Filter by Port
+198. Intro to Stateful Firewalls (Connection Tracking)
+199. Implementing Stateful Firewalls with Iptables
+200. Filter by MAC Address
+201. Match by Date and Time
+202. The ACCEPT and DROP Targets
+203. The LOG Target
+
+Section 25: Challenges - Netfilter and Iptables
+204. Challenges - Netfilter and Iptables
+
+Section 26: [EXTRA] Security: SSH Public Key Authentication
+205. SSH Public Key Authentication Overview
+206. Generating SSH Key Pair on Windows
+207. What about MacOS?
+208. Generating SSH Key Pair on Linux
+209. Configuring SSH Public Key Authentication on Linux
+
+Section 27: Where To Go From Here?
+210. What's Next?
+
+Section 28: Course Completion
+211. I'm Asking For Your Opinion
+212. Congratulations
+213. BONUS
