@@ -1,3 +1,5 @@
+- update apt up-to-date
+  - `sudo apt update`
 - install vscode
 - install git, `sudo apt install git`
   - set up ssh
@@ -7,3 +9,6 @@
 
 - Typing delay
   - Settings > Universal Access > Repeat Keys > Delay - 1cm from the left
+
+- install terminator
+  - `sudo apt update && sudo apt install terminator`

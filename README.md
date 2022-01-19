@@ -65,4 +65,23 @@ reboot
      - Make this user administrator
 - Once installation is done, remove optical disk from virtual drive
 
+### 11. Terminals, Consoles, Shells and Commands
+
+Ctrl + Alt + T : terminal
+
+- A *Terminal Emulator* and is a crucial part of any Linux system because it basically allows you to access the system through a shell
+- A *shell* is a program that takes commands from the user and gives them to the operating system's kernel to execute. It's also called the command interpreter. The shell gets started when the user logs in or starts the terminal
+- Linux is a case-sensitive operating system (windows is not)
+
+```sh
+ps
+#   PID TTY          TIME CMD
+#  2469 pts/0    00:00:00 bash
+#  4186 pts/0    00:00:00 ps
+```
+
+```sh
+sudo apt update && sudo apt install terminator
+```
+
 </details>
