@@ -110,4 +110,50 @@ df -h
 df -hi -all
 ```
 
+### 13. Getting Help, Man Pages (man, type, help, apropos)
+
+- Press h: you will see all short-cuts
+- Search: /
+  - /pattern          *  Search forward for (N-th) matching line.
+  - ?pattern          *  Search backward for (N-th) matching line.
+  - n                 *  Repeat previous search (for N-th occurrence).
+  - N                 *  Repeat previous search in reverse direction.
+
+- man
+  ```sh
+  type df
+  # df is /usr/bin/df
+  type rm
+  # rm is /usr/bin/rm
+  type apt
+  # apt is /usr/bin/apt
+  ```
+- help
+  ```sh
+  type cd
+  # cd is a shell builtin
+  type alias
+  # alias is a shell builtin
+  type umask
+  # umask is a shell builtin
+  help alias
+  # alias: alias [-p] [name[=value] ... ]
+  ```
+- the way both work
+  ```sh
+  rm --help
+  cd --help
+  ```
+
+```sh
+# To see what's available to see
+man -k ifconfig
+man -k uname
+man -k "copy files"
+
+# apropos = man -k
+apropos ifconfig
+apropos -k uname
+```
+
 </details>
