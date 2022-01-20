@@ -84,4 +84,30 @@ ps
 sudo apt update && sudo apt install terminator
 ```
 
+### 12. Linux Command Structure
+
+```sh
+# count 1 - only one ping
+ping -c 1 8.8.8.8
+# PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+# 64 bytes from 8.8.8.8: icmp_seq=1 ttl=115 time=31.8 ms
+
+# --- 8.8.8.8 ping statistics ---
+# 1 packets transmitted, 1 received, 0% packet loss, time 0ms
+# rtt min/avg/max/mdev = 31.750/31.750/31.750/0.000 ms
+ping -c 1 127.0.0.1
+
+# list directory contents
+man ls
+ls -a
+ls --all
+ls -l -all -h /var/
+ls -alh /var/
+
+# report file system disk space usage
+man df
+df -h
+df -hi -all
+```
+
 </details>
