@@ -156,4 +156,11 @@ apropos ifconfig
 apropos -k uname
 ```
 
+### 15. Mastering the Terminal: The TAB Key
+
+```sh
+if # double tab
+# if        ifconfig 
+```
+
 </details>

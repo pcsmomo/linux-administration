@@ -3,6 +3,17 @@
 
 - Ctrl + Alt + T : terminal
 
+# terminal
+- Ctrl + L : clean screen
+- Ctrl + D : close shell
+- Ctrl + A : moving the cursor to the first of the line
+- Ctrl + E : moving the cursor to the end of the line
+- Ctrl + U : delete the line (useful for fixing sudo password)
+
+- Ctrl + C : cancel the current running process
+- Ctrl + Z : pause the current running process
+  - (resume with bg %1) : we will learn in the process section
+
 # man page
   h  H                 Display this help.
   q  :q  Q  :Q  ZZ     Exit.
