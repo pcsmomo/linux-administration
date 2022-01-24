@@ -198,4 +198,36 @@ history -d 361
 history -c # delete entire history
 ```
 
+### 19. Running Commands Without Leaving a Trace
+
+```sh
+# download google image
+wget https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png
+
+# add white space not to add this command to the history in Ubuntu as default
+ wget https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png
+history
+```
+
+```sh
+# in CentOS, as default $HISCONTROL is 'ignoredups' not 'ignoreboth'
+ wget https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png
+history
+
+HISTCONTROL=ignorespace
+ wget https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png
+history
+
+# append HISTCONTROL option to .bashrc file 
+echo "HISTCONTROL=ignoreboth" >> .bashrc
+```
+```
+
+- $HISTCONTROL
+  - `echo $HISTCONTROL`
+  - `HISTCONTROL=ignorespace`
+  - ignorespace :
+  - ignoredups
+  - ignoreboth
+
 </details>
