@@ -163,4 +163,39 @@ if # double tab
 # if        ifconfig 
 ```
 
+### 18. Mastering the Terminal: The Bash History
+
+```sh
+# command history
+cat ~/.bash_history
+# in the file
+echo $HISTFILESIZE
+# 2000
+
+history
+ # in memory
+echo $HISTSIZE
+# 1000
+```
+
+> `.bash_history` file will be updated when logging out the user
+
+```sh
+history
+! 349 # execute the specific command number
+!! # execute the last command
+!-7 # execute 7th previous command
+!ping # execute the last ping command
+!ping:p # print the last ping command with full options, not executing
+```
+
+- Ctrl + R : search in history
+- Ctrl + G : leave from the search
+
+```sh
+# delete a specific command in history
+history -d 361
+history -c # delete entire history
+```
+
 </details>
