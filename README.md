@@ -219,8 +219,7 @@ HISTCONTROL=ignorespace
 history
 
 # append HISTCONTROL option to .bashrc file 
-echo "HISTCONTROL=ignoreboth" >> .bashrc
-```
+echo "HISTCONTROL=ignoreboth" >> ~/.bashrc
 ```
 
 - $HISTCONTROL
@@ -229,5 +228,13 @@ echo "HISTCONTROL=ignoreboth" >> .bashrc
   - ignorespace :
   - ignoredups
   - ignoreboth
+
+### 20. Recording the Date and Time for Each Line in History
+
+```sh
+HISTTIMEFORMAT="%d/%m/%y %T "
+echo "HISTTIMEFORMAT=\"%d/%m/%y %T \"" >> .bashrc
+
+```
 
 </details>
