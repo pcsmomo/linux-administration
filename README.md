@@ -237,4 +237,29 @@ echo "HISTTIMEFORMAT=\"%d/%m/%y %T \"" >> .bashrc
 
 ```
 
+
+## Section 5: The Linux File System
+
+### 25. Intro to The Linux Files System
+
+- /bin: contains binaries or user executable files which are available to all users.
+- /sbin: contains applications that only the superuser (hence the initial s) will need.
+- /boot: contains files required for starting your system.
+- /home: is where you will find your users' home directories. Under this directory there is another directory for each user, if that particular user has a home directory. 
+- /root: root has its home directory separated from the rest of the users' home directories
+- dev: contains device files.
+- etc: contains most, if not all system-wide configuration files.
+- lib: contains shared library files used by different applications.
+- media: is used for external storage will be automatically mounted.
+- mnt: is like /media but it's not very often used these days.
+- opt: 
+- srv: 
+- sys: 
+- usr: 
+
+```sh
+# file system disk space usage
+df -h
+```
+
 </details>
