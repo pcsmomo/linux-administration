@@ -244,22 +244,41 @@ echo "HISTTIMEFORMAT=\"%d/%m/%y %T \"" >> .bashrc
 
 - /bin: contains binaries or user executable files which are available to all users.
 - /sbin: contains applications that only the superuser (hence the initial s) will need.
+  - for e.g) ifconfig
 - /boot: contains files required for starting your system.
 - /home: is where you will find your users' home directories. Under this directory there is another directory for each user, if that particular user has a home directory. 
 - /root: root has its home directory separated from the rest of the users' home directories
-- dev: contains device files.
-- etc: contains most, if not all system-wide configuration files.
-- lib: contains shared library files used by different applications.
-- media: is used for external storage will be automatically mounted.
-- mnt: is like /media but it's not very often used these days.
-- opt: 
-- srv: 
-- sys: 
-- usr: 
+- /dev: contains device files.
+- /etc: contains most, if not all system-wide configuration files.
+- /lib: contains shared library files used by different applications.
+- /media: is used for external storage will be automatically mounted.
+- /mnt: is like /media but it's not very often used these days. (cd-rom or floppy disk)
+- /tmp: contains temporary files, usually saved there by applications that are running.
+  - Non-priviledged users may also store files here temporarily.
+- /proc: is a virtual directory. It contains information about your compouter hardware, 
+  - such as information about your CPU, RAM memory or Kernel. 
+  - The files and directories are generated when your computer starts, 
+  - or on the fly, as your system is running and things change. 
+- /sys: contains information about devices, drivers, and some kernel features.
+- /srv: contains data for servers.
+- /run: is a temporary file system which runs in RAM
+- /usr: contains many other subdirectories binaries files, shared libraries and so on.
+  - On some distributions like Cent OS many commands are saved in /usr/bin and /usr/sbin instead of /bin and /sbin
+- /var: typically contains variable-length files such as logs which are files that register events that happen on the system.
 
 ```sh
 # file system disk space usage
 df -h
+
+# first partition of hard drive 
+ls -l /dev/sda1
+
+# cpu information and ram information
+cat /proc/cpuinfo
+cat /proc/meminfo
+
+# see logs
+cat /var/log/auth.log
 ```
 
 </details>
