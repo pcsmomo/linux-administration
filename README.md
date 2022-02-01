@@ -281,4 +281,18 @@ cat /proc/meminfo
 cat /var/log/auth.log
 ```
 
+### 27. Absolute vs. Relative Paths. Walking through the File System (pwd, cd, tree)
+
+```sh
+sudo tail /var/log/boot.log
+ls /etc/cron.daily
+
+# tree command
+sudo apt install tree
+tree /etc       # => Ex: tree .
+tree -d /etc    # => prints only directories
+tree -df /etc   # => prints absolute paths
+```
+
+
 </details>
