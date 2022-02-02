@@ -294,5 +294,26 @@ tree -d /etc    # => prints only directories
 tree -df /etc   # => prints absolute paths
 ```
 
+## 29. The LS Command In Depth (ls))
+
+```sh
+ls /etc/ /var/ .
+ls -ld /etc # only directories
+ls -lh /etc # human readable
+ls -lSh /etc # order by file size
+ls -lX /etc # order by extension
+ls --hide=*.conf /etc # hide .conf file
+ls -lR /etc/  # recursively display under the path
+
+# size indicates differently
+ls -lh /
+# drwxr-xr-x 128 root root  12K Feb  3 08:19 etc
+du -sh /etc
+# 11M	/etc
+
+# default ls alias
+type ls
+# ls is aliased to `ls --color=auto'
+```
 
 </details>
