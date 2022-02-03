@@ -294,7 +294,7 @@ tree -d /etc    # => prints only directories
 tree -df /etc   # => prints absolute paths
 ```
 
-## 29. The LS Command In Depth (ls))
+## 29. The LS Command In Depth (ls)
 
 ```sh
 ls /etc/ /var/ .
@@ -314,6 +314,46 @@ du -sh /etc
 # default ls alias
 type ls
 # ls is aliased to `ls --color=auto'
+```
+
+### 31. Understanding File Timestamps: atime, mtime, ctime (stat, touch, date)
+
+1. atime: (ls -lu) The access timestamp is the last time the file was read
+2. mtime: (ls -l, ls -lt) The modified timestamp is the last time the contents of the file was modified 
+3. ctime: (ls -lc) The changed timestamp ctime is the last time when some metadata related to the file was changed 
+
+```sh
+stat /etc/passwd
+#   File: /etc/passwd
+#   Size: 2780      	Blocks: 8          IO Block: 4096   regular file
+# Device: 805h/2053d	Inode: 1574499     Links: 1
+# Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
+# Access: 2022-02-04 08:15:34.812933718 +1100
+# Modify: 2021-07-26 16:12:32.396190867 +1000
+# Change: 2021-07-26 16:12:32.396190867 +1000
+#  Birth: -
+
+ls -l --full-time /etc/
+# change timestamp
+touch ~/linux.txt
+# stat ~/linux.txt
+touch -a ~/linux.txt
+# stat ~/linux.txt
+touch -m ~/linux.txt
+# stat ~/linux.txt
+touch -m -t 202202040823.00 ~/linux.txt # specific modified timestamp
+touch -d "2020-02-04 08:30:33" ~/linux.txt  # access timestamp
+
+touch ubuntu.txt
+touch linux.txt -r ubuntu.txt
+```
+
+```sh
+# date
+date
+# Fri 04 Feb 2022 08:32:02 AEDT
+date -u
+# Thu 03 Feb 2022 21:32:05 UTC
 ```
 
 </details>
