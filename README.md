@@ -356,4 +356,15 @@ date -u
 # Thu 03 Feb 2022 21:32:05 UTC
 ```
 
+### 32. Sorting Files by Timestamp
+
+```sh
+ls -lt  # sorted by and show modification time
+ls -lu  # sorted by and show the access time
+ls -lu -r # reverse sorted
+ls -ltur
+ls -ltu --reverse
+```
+
+
 </details>
