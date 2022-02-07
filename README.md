@@ -366,5 +366,47 @@ ls -ltur
 ls -ltu --reverse
 ```
 
+### 33. File Types in Linux (ls -F, file)
+
+```sh
+# files with no extensions
+ls /etc/passwd
+ls /etc/passwd
+ls -l /etc/group
+ls /var/log/syslog
+ls -l /bin
+
+# file details
+file ~/Desktop/linux.jpeg
+mv ~/Desktop/linux.jpeg ~/Desktop/linux.png
+file ~/Desktop/linux.png
+# the results are the same
+
+### file types
+ls -l 
+# 1. block devices
+ls -l /dev/sda1
+# brw-rw---- 1 root disk 8, 1 Feb  7 17:23 /dev/sda1
+# 2. char type
+ls -l /dev/
+# crw-------  1 root    root     10, 249 Feb  7 17:23 zfs
+
+# 3. socket type
+ls -l /run/
+# srw-rw-rw-  1 root              root     0 Feb  7 17:23 snapd.socket
+# 4. pipe type
+# prw-------  1 root              root     0 Feb  7 17:23 initctl 
+
+# -F option : display indicator
+ls -lF
+ls -lF /run/
+
+# symbolic link
+ls -F /usr/bin/ls
+
+# all file information
+file /run/*
+```
+
 
 </details>
