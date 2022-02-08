@@ -408,5 +408,12 @@ ls -F /usr/bin/ls
 file /run/*
 ```
 
+### 35. Viewing Files - Part 1 (cat)
+
+```sh
+cat /var/log/auth.log
+cat -n /etc/passwd
+cat /etc/hosts /etc/host.conf > my_host.txt
+```
 
 </details>
