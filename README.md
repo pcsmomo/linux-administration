@@ -425,5 +425,31 @@ less /var/log/dmesg
 
 > `man` command is using `less` as default
 
+### 37. Viewing Files - Part 3 (tail, head, watch)
+
+```sh
+# display last 10 lins
+tail /etc/passwd
+tail -n 2 /etc/group
+# from line 20 to the end
+tail -n +20 /var/log/syslog
+# watching - attached mode to see your login
+tail -f /var/log/auth.log
+sudo su # put wrong/correct passwords to see the log changing
+```
+
+```sh
+head /etc/passwd
+head -n 3 /etc/group
+head -7 /etc/group
+```
+
+```sh
+# it runs 'ls' every 2 seconds 
+watch ls
+# highlight the changed line
+watch -n 3 -d ls -l
+watch -n 1 -d ifconfig  # if run firefox browser, we can see the changed packets
+```
 
 </details>
