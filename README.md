@@ -416,4 +416,14 @@ cat -n /etc/passwd
 cat /etc/hosts /etc/host.conf > my_host.txt
 ```
 
+### 36. Viewing Files - Part 2 (less)
+
+```sh
+less /var/log/dmesg
+# Press 'h' to see short cuts
+```
+
+> `man` command is using `less` as default
+
+
 </details>
