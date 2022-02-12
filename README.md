@@ -452,4 +452,20 @@ watch -n 3 -d ls -l
 watch -n 1 -d ifconfig  # if run firefox browser, we can see the changed packets
 ```
 
+### 39. Creating Files and Directories (touch, mkdir)
+
+```sh
+touch report.txt logs
+stat report.txt logs
+touch rePort.txt
+touch reporT.txt
+# case sensitive
+```
+
+```sh
+mkdir -v dir2   # showing message
+mkdir -p first/second/third # it will create all directories
+three first
+```
+
 </details>
