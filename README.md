@@ -468,4 +468,17 @@ mkdir -p first/second/third # it will create all directories
 three first
 ```
 
+### 40. Copying Files and Directories (cp)
+
+```sh
+cp -v /etc/group ./users.txt  # display message
+cp -i /etc/group ./users.txt  # ask if duplicated on prompt
+cp learning_linux.txt logs users.txt first/ # copy 3 files to the first folder 
+cp -i learning_linux.txt logs users.txt first/
+sudo cp -r /etc/ ~/Desktop/ # copy all files in the etc to Desktop
+sudo cp users.txt u.txt # the owner changes to the root user
+sudo cp -p users.txt u1.txt # the owner remain same
+```
+
 </details>
+
