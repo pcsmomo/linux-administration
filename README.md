@@ -480,5 +480,21 @@ sudo cp users.txt u.txt # the owner changes to the root user
 sudo cp -p users.txt u1.txt # the owner remain same
 ```
 
+### 41. Moving and Renaming Files and Directories (mv)
+
+```sh
+mv -i dir1/dir2/a.txt dir1/ # ask if duplicated on prompt
+mv -n dir1/dir2/a.txt dir1/ # do not overwrite an existing file
+mv -u dir1/b.txt dir1/dir2/ # move  only  when  the  SOURCE file is newer than the destination file or when the destination file is missing
+
+# rename
+mv dir1/a.txt dir/abc.txt
+mv dir1/ dir10
+
+# move and rename at the same time
+mv dir10/c.txt dir10/dir2/cc.txt
+```
+
 </details>
+
 
