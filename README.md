@@ -495,6 +495,17 @@ mv dir1/ dir10
 mv dir10/c.txt dir10/dir2/cc.txt
 ```
 
+### 42. Removing Files and Directories (rm, shred)
+
+```sh
+rm -i dir10/dir2/b.txt  # interact
+rm -v dir10/b.txt # message
+rm -r dir10 # recursive
+rm -rf Music/ Pictures/ # -f is force
+
+echo *.txt  # to see what files are matching
+```
+
 </details>
 
 
