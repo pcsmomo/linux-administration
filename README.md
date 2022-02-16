@@ -502,8 +502,14 @@ rm -i dir10/dir2/b.txt  # interact
 rm -v dir10/b.txt # message
 rm -r dir10 # recursive
 rm -rf Music/ Pictures/ # -f is force
+rm -ri file dir/  # remove file/directory recursive with prompting
 
 echo *.txt  # to see what files are matching
+```
+
+```sh
+# secure removal of a file (verdose with 100 rounds of overwriting)
+shred -vu -n 100 passwd
 ```
 
 </details>
