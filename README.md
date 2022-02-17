@@ -512,6 +512,27 @@ echo *.txt  # to see what files are matching
 shred -vu -n 100 passwd
 ```
 
+### 44. Working With Pipes in Linux (|, wc)
+
+1. STDIN (0) - Standard Input
+2. STDOUT (1) - Standard Output
+3. STDERR (2) - Standard Error
+
+```sh
+ls -lSh /etc/
+ls -lSh /etc/ | head  # display top 10 list
+ls -lSh /etc/ | head -n 20 | tail -n 1
+
+cat -n /var/log/auth.log  # with line number
+cat -n /var/log/auth.log | grep -a "authentication failure"
+cat -n /var/log/auth.log | grep -a "authentication failure" | wc -l # print line count
+
+wc /etc/passwd
+wc -l /etc/group  # display only line count
+wc -w /usr/share/dict/american-english  # word count
+wc -c /usr/share/dict/american-english  # character count
+```
+
 </details>
 
 
