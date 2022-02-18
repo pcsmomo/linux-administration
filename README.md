@@ -533,6 +533,49 @@ wc -w /usr/share/dict/american-english  # word count
 wc -c /usr/share/dict/american-english  # character count
 ```
 
+### 45. Command Redirection (>, >>, 2> &>, cut, tee)
+
+```sh
+ls -l > ls.txt
+ifconfig > ls.txt # overwrite
+
+ls -l >> output.txt
+ifconfig >> output.txt  # append
+```
+
+```sh
+tty
+# /dev/pts/0
+
+# open the new terminal
+ifconfig > /dev/pts/0 # dispaly to the first terminal
+```
+
+```sh
+tail -n 3 /etc/shadow # Permission denied
+tail -n 3 /etc/shadow 2> error.txt
+tail -n 3 /etc/shadow 2>> error.txt # append
+tail -n 2 /etc/passwd /etc/shadow > output.txt 2> error.txt # output goes to output.txt and error goes to the error.txt
+tail -n 2 /etc/passwd /etc/shadow > output.txt 2>&1 # consider STDERR (2) as STDOUT (1)
+```
+
+```sh
+ifconfig | grep ether > mac.txt
+ifconfig | grep ether | cut -d" " -f10 > mac.txt # cut only mac address, split with " " and take the 10th field
+cat /etc/passwd
+cut -d":" -f1 /etc/passwd # split with ":" and take the 1st field
+cut -d":" -f3 /etc/passwd # split with ":" and take the 3rd field
+```
+
+```sh
+ifconfig | grep ether
+ifconfig | grep ether > mac.txt
+ifconfig | grep ether | tee mac.txt # combine those two command above. display and save
+who | tee -a m.txt  # append
+uname -r  # display kernel version
+uname -r | tee -a mac.txt kernel.txt  # append to two files
+```
+
 </details>
 
 
