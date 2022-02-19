@@ -576,6 +576,53 @@ uname -r  # display kernel version
 uname -r | tee -a mac.txt kernel.txt  # append to two files
 ```
 
+### 47. Finding Files and Directories - Part 1 (locate, which)
+
+```sh
+sudo apt install mlocate
+sudo updatedb
+ls /var/lib/mlocate
+
+locate passwords
+locate eahorse
+locate -b eahorse
+locate -b *eahorse*
+locate -b '\eahorse'  # back slush matches the exact name
+
+touch myfile123x
+locate myfile123x  # can't find anything
+sudo updatedb
+locate myfile123x # found!
+
+rm myfile123x
+locate myfile123x # hm.. still there
+locate -e myfile123x
+
+locate Rainshadow # nothing found
+locate -i Rainshadow
+
+locate -b -r '^shadow\.[0-9]'
+
+which ls
+# /usr/bin/ls
+which rm
+# /usr/bin/rm
+which -a find
+# /usr/bin/find
+# /bin/find  
+ls -l /bin/find
+# -rwxr-xr-x 1 root root 320160 Feb 18  2020 /bin/find
+ls -ld /bin
+# lrwxrwxrwx 1 root root 7 Jul 26  2021 /bin -> usr/bin
+
+which pwd ifconfig find grep firefox
+# /usr/bin/pwd
+# /usr/sbin/ifconfig
+# /usr/bin/find
+# /usr/bin/grep
+# /usr/bin/firefox
+```
+
 </details>
 
 
