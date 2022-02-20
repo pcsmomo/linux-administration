@@ -623,6 +623,41 @@ which pwd ifconfig find grep firefox
 # /usr/bin/firefox
 ```
 
+### 49. Finding Files and Directories - Part 2 (find)
+
+```sh
+man find
+mkdir projects
+touch projects/report.txt
+touch projects/todo.txt
+tree projects
+find . -name todo.txt
+find . -iname todo.txt  # case insensitive
+find . -name todo  # found nothing
+find . -name todo*
+find . -name todo.txt -delete
+
+find /etc/ -name passwd
+sudo find /etc/ -name passwd -ls
+find /etc/ -type d  # list up directories recursively
+find /etc/ -type d -maxdepth 2 # depth 2
+find /etc/ -type d -maxdepth 2 -perm 755 | wc -l
+
+sudo find /var/ -type f -size 100k -ls  # around 100k
+sudo find /var/ -type f -size +10M -ls  # larger than 10m
+sudo find /var/ -type f -size -10k -ls  # smaller than 10k
+sudo find /var/ -type f -size +5M -size -10M -ls
+
+sudo find /var -type f -mtime 0 -ls # files modified less than 24 hours
+sudo find /var -type f -mtime 1 -ls # files modified less than 48 hours
+sudo find /var -type f -mtime +1 -ls # files modified at least 2 days ago
+sudo find /var -type f -mmin -50 -ls # modificatino time is less than 50 minutes
+
+sudo find /var/ -type f -user gdm -ls # search by the owner
+
+sudo find /etc/ -type f -not -group root -ls # files "not beloned" to the root group
+```
+
 </details>
 
 
