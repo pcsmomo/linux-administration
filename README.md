@@ -658,6 +658,14 @@ sudo find /var/ -type f -user gdm -ls # search by the owner
 sudo find /etc/ -type f -not -group root -ls # files "not beloned" to the root group
 ```
 
+### 50. Find and Exec
+
+```sh
+sudo find /etc -type f -mtime 0
+sudo find /etc -type f -mtime 0 -exec cat {} \; # display contents of the results found
+sudo mkdir /root/backup
+sudo find /etc/ -mtime -7 -type f -exec cp {} /root/backup \;   # copy files changed in the last 7 days to the /root/backup
+```
+
+
 </details>
-
-
