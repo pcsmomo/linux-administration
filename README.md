@@ -667,5 +667,25 @@ sudo mkdir /root/backup
 sudo find /etc/ -mtime -7 -type f -exec cp {} /root/backup \;   # copy files changed in the last 7 days to the /root/backup
 ```
 
+### 51. Searching for String Patterns in Text Files (grep)
+
+```sh
+grep user /etc/ssh/ssh_config
+grep "command line" /etc/ssh/ssh_config
+grep "SSH" /etc/ssh/ssh_config  # no result
+grep -i "SSH" /etc/ssh/ssh_config  # case insensitive
+grep -i -n "SSH" /etc/ssh/ssh_config  # line number
+
+grep body /etc/passwd   # find partial
+grep -w body /etc/passwd  # whole word
+
+grep kernel /var/log/dmesg
+grep -v kernel /var/log/dmesg # invert : not including kernel
+
+grep root /var/log/auth.log # it works, but in the lecture the auth.log file is data not ASCII text
+file /var/log/auth.log
+# /var/log/auth.log: ASCII text
+grep -a root /var/log/auth.log  # to search binary file
+```
 
 </details>
