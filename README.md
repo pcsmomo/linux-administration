@@ -686,6 +686,30 @@ grep root /var/log/auth.log # it works, but in the lecture the auth.log file is 
 file /var/log/auth.log
 # /var/log/auth.log: ASCII text
 grep -a root /var/log/auth.log  # to search binary file
+
+sudo grep -R 127.0.0.1 /etc  # search recursively in the /etc folder
+grep -s -R 127.0.0.1 /etc  # suppress nonexist messages
+
+grep -c error /var/log/syslog # count
+grep error /var/log/syslog | wc -l
+
+dmesg # print or control the kernel ring buffer
+dmesg | grep error
+dmesg | grep -A 3 -B 4 error  # print after 3 lines, before 4 lines together
+dmesg | grep -C 3 error  # print before/after 3 lines together
+
+sudo netstat -tupan # list all open ports
+sudo netstat -tupan | grep 53
+sudo netstat -tupan | grep 80
+
+ls -RF /etc/  # all file recursively
+ls -RF /etc/ | grep / # only directories
+ls -RF /etc/ | grep -v / | grep -v "^$" # invert directories and invert empty strings
+sudo ls -RF /etc/ | grep -v / | grep -v "^$" | wc -l  # count
+sudo ls -RF /etc/ | grep -v / | grep -v "^$" | sort -r  # desc sort by file name
+sudo ls -RF /etc/ | grep -v / | grep -v "^$" | sort -r | less # display less
+sudo ls -RF /etc/ | grep -v / | grep -v "^$" | sort | less # ascending order
+sudo ls -RF /etc/ | grep -v / | grep -v "^$" | sort > result.txt # save it into the file
 ```
 
 </details>
