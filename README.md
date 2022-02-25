@@ -712,4 +712,23 @@ sudo ls -RF /etc/ | grep -v / | grep -v "^$" | sort | less # ascending order
 sudo ls -RF /etc/ | grep -v / | grep -v "^$" | sort > result.txt # save it into the file
 ```
 
+### 53. Searching for Strings in Binary Files (strings)
+
+```sh
+which ls
+sudo apt install binutils
+strings /usr/bin/ls
+strings /usr/bin/ls | less
+
+# my partition
+df -h
+# /dev/sda5 : my main partition
+sudo strings -a /dev/sda5
+
+# look into computer memory
+ls -l /dev/mem
+man mem # for more information
+sudo strings /dev/mem | less
+```
+
 </details>
