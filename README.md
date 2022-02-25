@@ -731,4 +731,42 @@ man mem # for more information
 sudo strings /dev/mem | less
 ```
 
+### 54. Comparing Files (cmp, diff, sha256)
+
+```sh
+man cmp # compare binary file
+
+ifconfig > a
+ping 8.8.8.8
+ifconfig > b
+cmp a b # it displays the first different line
+
+which ls
+cp /usr/bin/ls .
+cmp /usr/bin/ls ./ls  # they are the same
+sha256sum /usr/bin/ls ./ls  # the hashes are the same
+
+echo "a" > ls # change ls in local
+cmp /usr/bin/ls ./ls  # different
+sha256sum /usr/bin/ls ./ls  # different
+```
+
+```sh
+man diff # compare only text file
+diff a b
+
+sudo apt install ssh  # install ssh
+cp /etc/ssh/sshd_config .
+vi sshd_config # and modify port to 29
+diff /etc/ssh/sshd_config ./sshd_config 
+
+man patch
+diff -B a b   # ignore blank line
+diff -w /etc/ssh/sshd_config ./sshd_config # ignore spaces
+diff -i /etc/ssh/sshd_config ./sshd_config # ignore case differences
+diff -c /etc/ssh/sshd_config ./sshd_config # display a few more line before/after
+diff -y /etc/ssh/sshd_config ./sshd_config # display two files in two panels
+diff -y /etc/ssh/sshd_config ./sshd_config | less
+```
+
 </details>
