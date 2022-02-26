@@ -769,4 +769,35 @@ diff -y /etc/ssh/sshd_config ./sshd_config # display two files in two panels
 diff -y /etc/ssh/sshd_config ./sshd_config | less
 ```
 
+### 55. The Basics of VIM Text Editor
+
+```sh
+sudo apt install vim
+sudo dnf install vim # on CentOS
+
+vi a.txt  # vi is an alias of vim on CentOS
+cp /etc/ssh/sshd_config .
+vim sshd_config
+```
+
+vim has 3 mods
+- command (via ESC key)
+- insert (i,I,a,A,o,O)
+- last line (:)
+
+vim shortcuts
+
+x : delete
+r : replace a character
+u : undo
+i, I, a, A, o, O : change to insert mode
+":" : change to last mode
+
+ZZ : save and quit
+
+```sh
+vimtutor  # to practice vim shortcuts - it's read only
+``` 
+
+
 </details>
