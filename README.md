@@ -799,5 +799,20 @@ ZZ : save and quit
 vimtutor  # to practice vim shortcuts - it's read only
 ``` 
 
+### 56. The VIM Editor In Depth - Part 1
+
+:ifconfig : shell command
+
+/ssh : search
+n : next search
+N : previous search
+
+G : jump to the end
+?ssh : search backward
+
+* : search the word on the current cursor
+
+:%s/no/XXX/g  : replace all 'no' to 'XXX'
+:e! : undo to the last saved file
 
 </details>
