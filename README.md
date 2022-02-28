@@ -790,6 +790,7 @@ vim shortcuts
 x : delete
 r : replace a character
 u : undo
+r : redo
 i, I, a, A, o, O : change to insert mode
 ":" : change to last mode
 
@@ -814,5 +815,31 @@ G : jump to the end
 
 :%s/no/XXX/g  : replace all 'no' to 'XXX'
 :e! : undo to the last saved file
+u : undo
+r : redo
+
+dd : cut the line
+press number + dd : cut as many lines as we put
+p : paste
+
+Selection
+v : from the cursor
+Shift + v : line
+Ctrl + v : rectenglar selection
+y : copy
+p: paste after the cursor
+Shift + p : paste before the cursor
+
+:set nu
+:set nonu
+
+:syntax on
+:syntax on
+
+## customise configure file
+vim ~/.vimrc
+set nu
+syntax on
+
 
 </details>
