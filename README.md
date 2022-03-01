@@ -841,5 +841,38 @@ vim ~/.vimrc
 set nu
 syntax on
 
+### 57. The VIM Editor In Depth - Part 2
+
+:100 : move to line 100
+Shift + g : move to the last line
+gg : move to the first line 
+
+```sh
+ifconfig > a
+who -a >b
+vim a b
+```
+type `n` or `next` in the last line mode: move to the next file
+
+```sh
+vim -o a b
+```
+
+Ctrl + w : move to the next file
+> this is useful to copy files
+
+```sh
+vim -d /etc/ssh/sshd_config sshd_config 
+vimdiff /etc/ssh/sshd_config sshd_config
+```
+
+```sh
+vim sshd_config
+Ctrl + z
+# [1]+  Stopped                 vim sshd_config
+# [O]pen Read-Only, (E)dit anyway, (R)ecover, (Q)uit, (A)bort: 
+R # recover
+rm .sshd_config.swp
+```
 
 </details>
