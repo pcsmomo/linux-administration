@@ -935,4 +935,53 @@ vim -d file1 file2
 Ctrl+w => move between files
 ```
 
+### 59. Compressing and Archiving Files and Directories (tar, gzip)
+
+- Archive : combine and compress
+- tar - archive file (can compress with specific options)
+
+useful tar options
+c : create an archive
+x : extract the archive
+t : display the contents of the archive
+z : use gzip compression
+f : specify file name (for tar option file name must be after this -f option, -fczv won't work)
+j : use bz2 zip? (more compressed and slower than gzip but nowadays computer is fast enough)
+
+```sh
+# gzip
+sudo tar -czvf etc.tar.gz /etc/
+# bzip2
+sudo tar -cjvf etc.tar.bz2 /etc/
+# multiple
+sudo tar -czvf archive.tar.gz /etc/passwd /etc/group /var/log/dmesg /etc/ssh 
+# exclude
+tar --exclude='*.mkv' --exclude='.config' --exclude='.cache' --exclude='node_modules' -czvf myhome.tar.gz ~
+```
+```sh
+# extract zip file to target destination
+tar -xjvf etc.tar.bz2 -C my_back/
+```
+```sh
+ls -lh
+# -rw-r--r-- 1 root root 1.1M Mar  4 07:43 etc.tar.bz2
+# -rw-r--r-- 1 root root 1.3M Mar  4 07:38 etc.tar.gz
+tar -xzvf etc.tar.bz2 -C my_back/ # this won't work. cannot use -z option for bzip2 file
+tar -xvf etc.tar.bz2 -C my_back/  # works
+
+tar -tf etc.tar.bz2 | grep sshd_config
+tar -tf etc.tar.bz2 | grep apache2
+
+tar -cjvf etc-$(date +%F).tar.bz2 /etc/ # specify file name including date string of today
+# etc-2022-03-04.tar.bz2
+
+gzip --help
+gunzip --help
+bzip2 --help
+bunzip2 --help
+```
+
+GNU core util - all core linux commands are here
+https://github.com/coreutils/coreutils
+
 </details>
