@@ -984,4 +984,29 @@ bunzip2 --help
 GNU core util - all core linux commands are here
 https://github.com/coreutils/coreutils
 
+### 60. Hard Links and the Inode Structure
+
+```sh
+touch a.txt
+la -li # inode
+# 6160408 -rw-rw-r-- 2 kimn kimn     0 Mar  5 19:32 a.txt
+stat a.txt
+ln a.txt b.txt
+# 6160408 -rw-rw-r-- 2 kimn kimn     0 Mar  5 19:32 a.txt
+# 6160408 -rw-rw-r-- 2 kimn kimn     0 Mar  5 19:32 b.txt
+ifconfig > a.txt
+cat b.txt
+# they are the same file now with just different names
+mkdir my_backup
+ln b.txt my_backup/c.txt
+
+stat b.txt  # links - 3
+rm a.txt
+stat b.txt  # links - 2
+
+find . -inum 6160408
+
+ln /etc/ dir1
+```
+
 </details>
