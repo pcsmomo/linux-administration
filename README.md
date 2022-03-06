@@ -1007,6 +1007,22 @@ stat b.txt  # links - 2
 find . -inum 6160408
 
 ln /etc/ dir1
+
+find /usr/ -type f -links +1 -ls
+```
+
+### 61. Working With Symlinks. Symlinks vs. Hard Links
+
+```sh
+ln -s /etc/passwd ./pswd
+ls -l pswd
+
+ps aux > processes.txt
+ln processes.txt p.txt # hard link
+ln -s processes.txt symlink_p.txt # sym link
+
+mv p.txt ~/Desktop  # no problem
+mv symlink_p.txt ~/Desktop  # the symlink_p.txt is unlinked
 ```
 
 </details>
