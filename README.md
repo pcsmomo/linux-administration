@@ -65,6 +65,7 @@ reboot
      - Make this user administrator
 - Once installation is done, remove optical disk from virtual drive
 
+## Section 3: The Linux Terminal In Depth
 ### 11. Terminals, Consoles, Shells and Commands
 
 Ctrl + Alt + T : terminal
@@ -1024,5 +1025,26 @@ ln -s processes.txt symlink_p.txt # sym link
 mv p.txt ~/Desktop  # no problem
 mv symlink_p.txt ~/Desktop  # the symlink_p.txt is unlinked
 ```
+
+## Section 7: User Account Management
+### 66. Understanding passwd and shadow files
+
+- /etc/passwd : all users
+- /etc/shadow : secret information
+
+```sh
+less /etc/passwd
+# nm-openvpn:x:118:124:NetworkManager OpenVPN,,,:/var/lib/openvpn/chroot:/usr/sbin/nologin
+# kimn:x:1000:1000:kimn,,,:/home/kimn:/bin/bash
+```
+- passwd
+  - Column 1 - kimn : user name
+  - Column 2 - x : if password has been assigned and stored in the shadow file, 'x', otherwise, blank
+  - Column 3 - 1000 : assigned id number
+  - Column 4 - 1000 : assigned id number
+  - Column 5 - kimn,,, : comment
+  - Column 6 - /home/kimn : home directory
+  - Column 7 - kimn : user id
+  - Column 8 - /bin/bash : default shell
 
 </details>
