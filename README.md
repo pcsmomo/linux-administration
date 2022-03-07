@@ -1046,5 +1046,20 @@ less /etc/passwd
   - Column 6 - /home/kimn : home directory
   - Column 7 - kimn : user id
   - Column 8 - /bin/bash : default shell
+  - ... there's every explanation in `man passwd`
+
+```sh
+sudo /etc/shadow
+# kimn:$6$NFoLRKax9SEqzB7P$4EVvUtkHlGqEQUh2KhElIrgyApQS70RNsrr1cbzp97w5EXOw2DG4..Ti4NnC2qvhjJsrMktXs2a2iAJcaAWEb/:18834:0:99999:7:::
+
+man shadow
+```
+
+- shadow - encrypted format
+  - Column 1 - kimn : user name
+  - Column 2 - encrypted password
+  - Column 3
+  - ... there's every explanation in `man shadow`
+
 
 </details>
