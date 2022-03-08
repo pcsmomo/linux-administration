@@ -1062,4 +1062,23 @@ man shadow
   - ... there's every explanation in `man shadow`
 
 
+- password structure $typ$salt$hash
+  - 1 : MD5
+  - 2a : Blowfish
+  - 2y : Eksblowfish
+  - 5 : SHA-256
+  - 6 : SHA-512 
+
+```sh
+sudo useradd user1
+sudo passwd user1 # 1234
+sudo useradd user2
+sudo passwd user2 # 1234
+tail /etc/shadow
+# user1:$6$jm9D3xXpj8BM.B2C$ULfORyth7ZbTRaox/v2Ivor/56oqhhjrYcBTVr5ELxpna8pwoxgZBLi.rI4t7spzi1QDDvW.ON1z5LmdSHgr.0:19059:0:99999:7:::
+# user2:$6$AFm8dWJdnX7HBOtr$n.0unMz95.KpIpsn8DB1pK7zZtLvNqpbVJkYYcYV0JMYm.3ByDMa1hIQKtTZ0uvBzlDr4YT/.NUvJ8UM6L.tH1:19059:0:99999:7:::
+```
+
+> they are using unique salt
+
 </details>
