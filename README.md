@@ -1081,4 +1081,35 @@ tail /etc/shadow
 
 > they are using unique salt
 
+### 67. Understanding Linux Groups (groups, id)
+
+1. The primary group: the id is stored in `/etc/passwd` and the group name in `/etc/group`
+2. Secondary groups : stored in `/etc/group`
+
+```sh
+tail -n 3 /etc/group
+
+touch abs.txt
+ls -l abs.txt
+
+grep kimn /etc/passwd
+# kimn:x:1000:1000:kimn,,,:/home/kimn:/bin/bash
+# first 1000 - user id, second 1000 - group id
+grep 1000 /etc/group
+# kimn:x:1000:
+less /etc/group
+# /kimn   to search
+# adm:x:4:syslog,kimn
+# syslog, kimn users are under adm group
+groups
+# kimn adm cdrom sudo dip plugdev lpadmin lxd sambashare
+groups root
+groups kimn
+# kimn : kimn adm cdrom sudo dip plugdev lpadmin lxd sambashare
+id
+# uid=1000(kimn) gid=1000(kimn) groups=1000(kimn),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),120(lpadmin),131(lxd),132(sambashare)
+```
+
+
+
 </details>
