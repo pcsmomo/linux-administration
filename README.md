@@ -1110,6 +1110,16 @@ id
 # uid=1000(kimn) gid=1000(kimn) groups=1000(kimn),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),120(lpadmin),131(lxd),132(sambashare)
 ```
 
+### 68. Creating User Accounts (useradd)
 
+```sh
+sudo useradd u1
+tail -n 5 /etc/passwd
+less /etc/default/useradd # to see some explanation of useradd
+
+groups u1
+less /etc/login.defs
+
+```
 
 </details>
