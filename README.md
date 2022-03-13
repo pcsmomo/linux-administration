@@ -1118,8 +1118,20 @@ tail -n 5 /etc/passwd
 less /etc/default/useradd # to see some explanation of useradd
 
 groups u1
-less /etc/login.defs
-
+less /etc/login.defs # document
+sudo passwd u1
+sudo useradd -m -d /home/james -c "C++ Developer" -s /bin/bash -G sudo,adm,mail james
+man useradd
+sudo useradd -e 2022-03-13 u2
+sudo chage -l james  # change user password expiry information
+man chage
+less /etc/passwd
+# pulse:x:123:128:PulseAudio daemon,,,:/var/run/pulse:/usr/sbin/nologin
+# gnome-initial-setup:x:124:65534::/run/gnome-initial-setup/:/bin/false
+# not much difference between `nologin` and `false`
+man adduser
+# useradd - native binary
+# adduser - more user friendly comands based on useradd?
 ```
 
 </details>
