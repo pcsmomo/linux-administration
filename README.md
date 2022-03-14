@@ -1134,4 +1134,36 @@ man adduser
 # adduser - more user friendly comands based on useradd?
 ```
 
+### 69. Changing and Removing User Accounts (usermod, userdel)
+
+```sh
+cat /etc/passwd
+cat /etc/shadow
+cat /etc/group
+cat /etc/gshadow
+cat /etc/login.defs
+```
+
+```sh
+sudo usermod -c "Golang developer" james
+grep james /etc/passwd
+# james:x:1004:1004:Golang developer:/home/james:/bin/bash
+sudo usermod -g daemon james
+groups james
+# james : daemon adm mail sudo
+sudo groupadd developers
+sudo groupadd managers
+sudo usermod -G developers,managers james
+groups james
+# james : daemon developers managers
+sudo usermod -aG sudo james
+groups james
+```
+
+```sh
+sudo userdel u1
+sudo userdel -r james
+man deluser
+```
+
 </details>
