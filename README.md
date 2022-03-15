@@ -1166,4 +1166,18 @@ sudo userdel -r james
 man deluser
 ```
 
+### 70. Creating Admin Users
+
+```sh
+# Create a user
+sudo useradd -m -s /bin/bash toor
+sudo passwd toor
+su toor
+id
+
+cat /etc/shadow
+# cat: /etc/shadow: Permission denied
+sudo usermod -aG sudo toor  # I should login my acc (kimn) which is already sudo, to give the permission
+```
+
 </details>
