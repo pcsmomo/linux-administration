@@ -799,6 +799,7 @@ ZZ : save and quit
 
 ```sh
 vimtutor  # to practice vim shortcuts - it's read only
+:help   # to see manual
 ``` 
 
 ### 56. The VIM Editor In Depth - Part 1
@@ -1178,6 +1179,23 @@ id
 cat /etc/shadow
 # cat: /etc/shadow: Permission denied
 sudo usermod -aG sudo toor  # I should login my acc (kimn) which is already sudo, to give the permission
+# -a : append, without -a all group will be replaced
+```
+
+### 71. Group Management (groupadd, groupdel, groupmod)
+
+```sh
+sudo groupadd engineering
+tail -3 /etc/group
+sudo useradd u1
+sudo useradd -G engineering u2
+groups u1
+groups u2
+sudo usermod -aG engineering u1 # -a : append, without -a all group will be replace
+sudo groupmod -n engineers engineering  # change group name to 'engineers'
+groups u1
+sudo groupdel engineers
+# however, the primary group 'u1' cannot be deleted until the user is deleted
 ```
 
 </details>
