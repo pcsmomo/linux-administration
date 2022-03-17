@@ -1198,4 +1198,56 @@ sudo groupdel engineers
 # however, the primary group 'u1' cannot be deleted until the user is deleted
 ```
 
+### 72. User Account Monitoring (whoami, who am i, who, id, w, uptime, last)
+
+- RUID : user who initially logs in (never change)
+- EUID : (Effective uid) current user in the shell
+
+```sh
+whoami  # EUID
+# root
+id -un
+# root
+who   # RUID
+# kimn     :0           2022-03-18 08:08 (:0)
+```
+
+Files related to login
+- `sudo cat /var/run/utmp`
+- `cat /var/log/wtmp`
+
+```sh
+# to connect my ssh from CentOS with
+sudo apt install openssh-server
+sudo systemctl status ssh
+
+# Have to change the network to 'Bridged Adapter', not 'NAT'
+ifconfig # check my IP
+# 192.168.8.141
+```
+
+```sh
+# On CentOS
+ssh kimn@192.168.8.141
+ssh toor@192.168.8.141
+```
+
+```sh
+# On Ubuntu
+who
+# kimn     :0           2022-03-18 08:08 (:0)
+# kimn     pts/2        2022-03-18 08:30 (192.168.8.142)
+# toor     pts/3        2022-03-18 08:32 (192.168.8.142)
+who -a
+w
+uptime
+ls -l /var/log/wtmp # login information
+last
+last root
+last kimn
+last toor
+last kimn | head -n 5
+```
+
+
 </details>
