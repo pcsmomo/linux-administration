@@ -66,12 +66,13 @@ reboot
 - Once installation is done, remove optical disk from virtual drive
 
 ## Section 3: The Linux Terminal In Depth
+
 ### 11. Terminals, Consoles, Shells and Commands
 
 Ctrl + Alt + T : terminal
 
-- A *Terminal Emulator* and is a crucial part of any Linux system because it basically allows you to access the system through a shell
-- A *shell* is a program that takes commands from the user and gives them to the operating system's kernel to execute. It's also called the command interpreter. The shell gets started when the user logs in or starts the terminal
+- A _Terminal Emulator_ and is a crucial part of any Linux system because it basically allows you to access the system through a shell
+- A _shell_ is a program that takes commands from the user and gives them to the operating system's kernel to execute. It's also called the command interpreter. The shell gets started when the user logs in or starts the terminal
 - Linux is a case-sensitive operating system (windows is not)
 
 ```sh
@@ -115,10 +116,11 @@ df -hi -all
 
 - Press h: you will see all short-cuts
 - Search: /
-  - /pattern          *  Search forward for (N-th) matching line.
-  - ?pattern          *  Search backward for (N-th) matching line.
-  - n                 *  Repeat previous search (for N-th occurrence).
-  - N                 *  Repeat previous search in reverse direction.
+
+  - /pattern \* Search forward for (N-th) matching line.
+  - ?pattern \* Search backward for (N-th) matching line.
+  - n \* Repeat previous search (for N-th occurrence).
+  - N \* Repeat previous search in reverse direction.
 
 - man
   ```sh
@@ -161,7 +163,7 @@ apropos -k uname
 
 ```sh
 if # double tab
-# if        ifconfig 
+# if        ifconfig
 ```
 
 ### 18. Mastering the Terminal: The Bash History
@@ -219,7 +221,7 @@ HISTCONTROL=ignorespace
  wget https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png
 history
 
-# append HISTCONTROL option to .bashrc file 
+# append HISTCONTROL option to .bashrc file
 echo "HISTCONTROL=ignoreboth" >> ~/.bashrc
 ```
 
@@ -238,7 +240,6 @@ echo "HISTTIMEFORMAT=\"%d/%m/%y %T \"" >> .bashrc
 
 ```
 
-
 ## Section 5: The Linux File System
 
 ### 25. Intro to The Linux Files System
@@ -247,7 +248,7 @@ echo "HISTTIMEFORMAT=\"%d/%m/%y %T \"" >> .bashrc
 - /sbin: contains applications that only the superuser (hence the initial s) will need.
   - for e.g) ifconfig
 - /boot: contains files required for starting your system.
-- /home: is where you will find your users' home directories. Under this directory there is another directory for each user, if that particular user has a home directory. 
+- /home: is where you will find your users' home directories. Under this directory there is another directory for each user, if that particular user has a home directory.
 - /root: root has its home directory separated from the rest of the users' home directories
 - /dev: contains device files.
 - /etc: contains most, if not all system-wide configuration files.
@@ -256,10 +257,10 @@ echo "HISTTIMEFORMAT=\"%d/%m/%y %T \"" >> .bashrc
 - /mnt: is like /media but it's not very often used these days. (cd-rom or floppy disk)
 - /tmp: contains temporary files, usually saved there by applications that are running.
   - Non-priviledged users may also store files here temporarily.
-- /proc: is a virtual directory. It contains information about your compouter hardware, 
-  - such as information about your CPU, RAM memory or Kernel. 
-  - The files and directories are generated when your computer starts, 
-  - or on the fly, as your system is running and things change. 
+- /proc: is a virtual directory. It contains information about your compouter hardware,
+  - such as information about your CPU, RAM memory or Kernel.
+  - The files and directories are generated when your computer starts,
+  - or on the fly, as your system is running and things change.
 - /sys: contains information about devices, drivers, and some kernel features.
 - /srv: contains data for servers.
 - /run: is a temporary file system which runs in RAM
@@ -271,7 +272,7 @@ echo "HISTTIMEFORMAT=\"%d/%m/%y %T \"" >> .bashrc
 # file system disk space usage
 df -h
 
-# first partition of hard drive 
+# first partition of hard drive
 ls -l /dev/sda1
 
 # cpu information and ram information
@@ -320,8 +321,8 @@ type ls
 ### 31. Understanding File Timestamps: atime, mtime, ctime (stat, touch, date)
 
 1. atime: (ls -lu) The access timestamp is the last time the file was read
-2. mtime: (ls -l, ls -lt) The modified timestamp is the last time the contents of the file was modified 
-3. ctime: (ls -lc) The changed timestamp ctime is the last time when some metadata related to the file was changed 
+2. mtime: (ls -l, ls -lt) The modified timestamp is the last time the contents of the file was modified
+3. ctime: (ls -lc) The changed timestamp ctime is the last time when some metadata related to the file was changed
 
 ```sh
 stat /etc/passwd
@@ -384,7 +385,7 @@ file ~/Desktop/linux.png
 # the results are the same
 
 ### file types
-ls -l 
+ls -l
 # 1. block devices
 ls -l /dev/sda1
 # brw-rw---- 1 root disk 8, 1 Feb  7 17:23 /dev/sda1
@@ -396,7 +397,7 @@ ls -l /dev/
 ls -l /run/
 # srw-rw-rw-  1 root              root     0 Feb  7 17:23 snapd.socket
 # 4. pipe type
-# prw-------  1 root              root     0 Feb  7 17:23 initctl 
+# prw-------  1 root              root     0 Feb  7 17:23 initctl
 
 # -F option : display indicator
 ls -lF
@@ -446,7 +447,7 @@ head -7 /etc/group
 ```
 
 ```sh
-# it runs 'ls' every 2 seconds 
+# it runs 'ls' every 2 seconds
 watch ls
 # highlight the changed line
 watch -n 3 -d ls -l
@@ -474,7 +475,7 @@ three first
 ```sh
 cp -v /etc/group ./users.txt  # display message
 cp -i /etc/group ./users.txt  # ask if duplicated on prompt
-cp learning_linux.txt logs users.txt first/ # copy 3 files to the first folder 
+cp learning_linux.txt logs users.txt first/ # copy 3 files to the first folder
 cp -i learning_linux.txt logs users.txt first/
 sudo cp -r /etc/ ~/Desktop/ # copy all files in the etc to Desktop
 sudo cp users.txt u.txt # the owner changes to the root user
@@ -610,7 +611,7 @@ which rm
 # /usr/bin/rm
 which -a find
 # /usr/bin/find
-# /bin/find  
+# /bin/find
 ls -l /bin/find
 # -rwxr-xr-x 1 root root 320160 Feb 18  2020 /bin/find
 ls -ld /bin
@@ -759,7 +760,7 @@ diff a b
 sudo apt install ssh  # install ssh
 cp /etc/ssh/sshd_config .
 vi sshd_config # and modify port to 29
-diff /etc/ssh/sshd_config ./sshd_config 
+diff /etc/ssh/sshd_config ./sshd_config
 
 man patch
 diff -B a b   # ignore blank line
@@ -782,6 +783,7 @@ vim sshd_config
 ```
 
 vim has 3 mods
+
 - command (via ESC key)
 - insert (i,I,a,A,o,O)
 - last line (:)
@@ -800,7 +802,7 @@ ZZ : save and quit
 ```sh
 vimtutor  # to practice vim shortcuts - it's read only
 :help   # to see manual
-``` 
+```
 
 ### 56. The VIM Editor In Depth - Part 1
 
@@ -813,9 +815,9 @@ N : previous search
 G : jump to the end
 ?ssh : search backward
 
-* : search the word on the current cursor
+- : search the word on the current cursor
 
-:%s/no/XXX/g  : replace all 'no' to 'XXX'
+:%s/no/XXX/g : replace all 'no' to 'XXX'
 :e! : undo to the last saved file
 u : undo
 r : redo
@@ -839,6 +841,7 @@ Shift + p : paste before the cursor
 :syntax on
 
 ## customise configure file
+
 vim ~/.vimrc
 set nu
 syntax on
@@ -847,13 +850,14 @@ syntax on
 
 :100 : move to line 100
 Shift + g : move to the last line
-gg : move to the first line 
+gg : move to the first line
 
 ```sh
 ifconfig > a
 who -a >b
 vim a b
 ```
+
 type `n` or `next` in the last line mode: move to the next file
 
 ```sh
@@ -861,10 +865,11 @@ vim -o a b
 ```
 
 Ctrl + w : move to the next file
+
 > this is useful to copy files
 
 ```sh
-vim -d /etc/ssh/sshd_config sshd_config 
+vim -d /etc/ssh/sshd_config sshd_config
 vimdiff /etc/ssh/sshd_config sshd_config
 ```
 
@@ -872,7 +877,7 @@ vimdiff /etc/ssh/sshd_config sshd_config
 vim sshd_config
 Ctrl + z
 # [1]+  Stopped                 vim sshd_config
-# [O]pen Read-Only, (E)dit anyway, (R)ecover, (Q)uit, (A)bort: 
+# [O]pen Read-Only, (E)dit anyway, (R)ecover, (Q)uit, (A)bort:
 R # recover
 rm .sshd_config.swp
 ```
@@ -897,7 +902,7 @@ o  => insert on the next line
 # Entering the Last Line Mode from the Command Mode
 :
 
-# Returning to Command Mode from Insert or Last Line Mode 
+# Returning to Command Mode from Insert or Last Line Mode
 ESC
 
 # Shortcuts in Last Line Mode
@@ -956,14 +961,16 @@ sudo tar -czvf etc.tar.gz /etc/
 # bzip2
 sudo tar -cjvf etc.tar.bz2 /etc/
 # multiple
-sudo tar -czvf archive.tar.gz /etc/passwd /etc/group /var/log/dmesg /etc/ssh 
+sudo tar -czvf archive.tar.gz /etc/passwd /etc/group /var/log/dmesg /etc/ssh
 # exclude
 tar --exclude='*.mkv' --exclude='.config' --exclude='.cache' --exclude='node_modules' -czvf myhome.tar.gz ~
 ```
+
 ```sh
 # extract zip file to target destination
 tar -xjvf etc.tar.bz2 -C my_back/
 ```
+
 ```sh
 ls -lh
 # -rw-r--r-- 1 root root 1.1M Mar  4 07:43 etc.tar.bz2
@@ -1028,6 +1035,7 @@ mv symlink_p.txt ~/Desktop  # the symlink_p.txt is unlinked
 ```
 
 ## Section 7: User Account Management
+
 ### 66. Understanding passwd and shadow files
 
 - /etc/passwd : all users
@@ -1038,6 +1046,7 @@ less /etc/passwd
 # nm-openvpn:x:118:124:NetworkManager OpenVPN,,,:/var/lib/openvpn/chroot:/usr/sbin/nologin
 # kimn:x:1000:1000:kimn,,,:/home/kimn:/bin/bash
 ```
+
 - passwd
   - Column 1 - kimn : user name
   - Column 2 - x : if password has been assigned and stored in the shadow file, 'x', otherwise, blank
@@ -1057,18 +1066,18 @@ man shadow
 ```
 
 - shadow - encrypted format
+
   - Column 1 - kimn : user name
   - Column 2 - encrypted password
   - Column 3
   - ... there's every explanation in `man shadow`
-
 
 - password structure $typ$salt$hash
   - 1 : MD5
   - 2a : Blowfish
   - 2y : Eksblowfish
   - 5 : SHA-256
-  - 6 : SHA-512 
+  - 6 : SHA-512
 
 ```sh
 sudo useradd user1
@@ -1213,6 +1222,7 @@ who   # RUID
 ```
 
 Files related to login
+
 - `sudo cat /var/run/utmp`
 - `cat /var/log/wtmp`
 
@@ -1249,5 +1259,40 @@ last toor
 last kimn | head -n 5
 ```
 
+## Section 9: Linux File Permissions
+
+### 75. Understanding File Permissions
+
+- Each file or directory has an owner and a group. By default, the owner is the user who creates the file and the group is the primary group of that user
+- `chown`, `chgrp`
+- For each file the permissions are assigned to three different categories of users
+  - the file owner
+  - the group owner
+  - others
+
+```sh
+who -a > users.txt
+ls -l users.txt
+# -rw-rw-r-- 1 kimn kimn 320 Mar 19 08:14 users.txt
+chmod u-r users.txt
+ls -l users.txt
+# --w-rw-r-- 1 kimn kimn 320 Mar 19 08:14 users.txt
+cat users.txt
+# cat: users.txt: Permission denied
+id > users.txt
+chmod u-w users.txt
+ls -l users.txt
+```
+
+```sh
+sudo su
+ifconfig > interfaces.txt
+chmod 000 interfaces.txt
+ls -l interfaces.txt
+# ---------- 1 root root 881 Mar 19 08:17 interfaces.txt
+
+# However, root user can still read/write the file.
+# the permission is only for non-priviliged users
+```
 
 </details>
