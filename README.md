@@ -1295,4 +1295,13 @@ ls -l interfaces.txt
 # the permission is only for non-priviliged users
 ```
 
+### 76. Octal (Numeric) Notation of File Permissions
+
+```sh
+stat /etc/passwd
+```
+
+- 0755 = 755 (rwx r-x r-x)
+- 0644 = 644 (rw- r-- r--)
+
 </details>
