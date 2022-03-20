@@ -1304,4 +1304,22 @@ stat /etc/passwd
 - 0755 = 755 (rwx r-x r-x)
 - 0644 = 644 (rw- r-- r--)
 
+### 77. Changing File Permissions (chmod)
+
+chmod [who][operation][permissions] filename
+
+- who
+  - u: the user that owns the file.
+  - g: the group that the fille belongs to.
+  - o: the other users.
+- OPERATION
+  - `-`: remove the spicified permissions.
+  - `+`: add the specified permission.
+  - `=`: change the current permissions to the specified permissions.
+- permissions: r, w, x
+
+```sh
+man chmod
+```
+
 </details>
