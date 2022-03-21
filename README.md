@@ -1320,6 +1320,16 @@ chmod [who][operation][permissions] filename
 
 ```sh
 man chmod
+who > user.txt
+cat user.txt
+ls -l user.txt
+# -rw-rw-r-- 1 kimn kimn 44 Mar 22 07:36 user.txt
+chmod u-w user.txt
+# -r--rw-r-- 1 kimn kimn 44 Mar 22 07:36 user.txt
+chmod u+rwx user.txt
+# -rwxrw-r-- 1 kimn kimn 44 Mar 22 07:36 user.txt
+chmod u-x,g+w,o-rwx user.txt
+# -rw-rw---- 1 kimn kimn 44 Mar 22 07:36 user.txt
 ```
 
 </details>
