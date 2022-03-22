@@ -1309,9 +1309,10 @@ stat /etc/passwd
 chmod [who][operation][permissions] filename
 
 - who
-  - u: the user that owns the file.
-  - g: the group that the fille belongs to.
-  - o: the other users.
+  - `u`: the user that owns the file.
+  - `g`: the group that the fille belongs to.
+  - `o`: the other users.
+  - `a`: all
 - OPERATION
   - `-`: remove the spicified permissions.
   - `+`: add the specified permission.
@@ -1330,6 +1331,57 @@ chmod u+rwx user.txt
 # -rwxrw-r-- 1 kimn kimn 44 Mar 22 07:36 user.txt
 chmod u-x,g+w,o-rwx user.txt
 # -rw-rw---- 1 kimn kimn 44 Mar 22 07:36 user.txt
+chmod ug-r,u+x,o-rwx user.txt
+# --wx-w---- 1 kimn kimn 44 Mar 22 07:36 user.txt
+chmod a+r,a-wx user.txt
+# -r--r--r-- 1 kimn kimn 44 Mar 22 07:36 user.txt
+chmod ug=rw,o= user.txt
+# -rw-rw---- 1 kimn kimn 44 Mar 22 07:36 user.txt
+chmod 644 user.txt
+# -rw-r--r-- 1 kimn kimn 44 Mar 22 07:36 user.txt
+chmod 400 user.txt
+# -r-------- 1 kimn kimn 44 Mar 22 07:36 user.txt
+```
+
+```sh
+mkdir -p dir1/dir2
+touch dir1/a dir1/dir2/b dir1/dir2/c
+tree dir1
+# dir1
+# ├── a
+# └── dir2
+#     ├── b
+#     └── c
+ls -lR dir1/
+# dir1/:
+# total 4
+# -rw-rw-r-- 1 kimn kimn    0 Mar 23 09:33 a
+# drwxrwxr-x 2 kimn kimn 4096 Mar 23 09:33 dir2
+
+# dir1/dir2:
+# total 0
+# -rw-rw-r-- 1 kimn kimn 0 Mar 23 09:33 b
+# -rw-rw-r-- 1 kimn kimn 0 Mar 23 09:33 c
+chmod -R 750 dir1/
+# dir1/:
+# total 4
+# -rwxr-x--- 1 kimn kimn    0 Mar 23 09:33 a
+# drwxr-x--- 2 kimn kimn 4096 Mar 23 09:33 dir2
+
+# dir1/dir2:
+# total 0
+# -rwxr-x--- 1 kimn kimn 0 Mar 23 09:33 b
+# -rwxr-x--- 1 kimn kimn 0 Mar 23 09:33 c
+```
+
+```sh
+ifconfig > i.txt
+ls -l i.txt user.txt
+# -rw-rw-r-- 1 kimn kimn 886 Mar 23 09:36 i.txt
+# -r-------- 1 kimn kimn  44 Mar 22 07:36 user.txt
+chmod --reference=i.txt user.txt
+# -rw-rw-r-- 1 kimn kimn 886 Mar 23 09:36 i.txt
+# -rw-rw-r-- 1 kimn kimn  44 Mar 22 07:36 user.txt
 ```
 
 </details>
