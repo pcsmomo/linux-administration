@@ -1384,4 +1384,66 @@ chmod --reference=i.txt user.txt
 # -rw-rw-r-- 1 kimn kimn  44 Mar 22 07:36 user.txt
 ```
 
+### 78. The Effect of Permissions on Directories
+
+```sh
+mkdir -p linux/ubuntu
+who -a > linux/user.txt
+tree linux
+
+chmod 400 linux/
+ls -ld linux/
+# dr-------- 3 kimn kimn 4096 Mar 24 07:48 linux/
+ls -l linux
+# ls: cannot access 'linux/user.txt': Permission denied
+# ls: cannot access 'linux/ubuntu': Permission denied
+# total 0
+# d????????? ? ? ? ?            ? ubuntu
+# -????????? ? ? ? ?            ? user.txt
+cd linux/
+# bash: cd: linux/: Permission denied
+rm -rf linux/user.txt
+# rm: cannot remove 'linux/user.txt': Permission denied
+```
+
+Why `ls` cannot access?
+
+- becuase `ls` alias which is `ls --color=auto` tries to get file type
+- `\ls linux` using the original `ls` command (with `\`) works
+
+```sh
+chmod 600 linux/
+ls -ld linux/
+# drw------- 3 kimn kimn 4096 Mar 24 07:48 linux/
+ls -l linux
+cd linux/
+rm -rf linux/user.txt
+# it will get all the same errors as the 400
+```
+
+> I would still cannot access
+> Because without execution permission, write permission is not effective
+
+```sh
+chmod 700 linux/
+ls -ld linux
+# drwx------ 3 kimn kimn  4096 Mar 24 08:14 linux
+
+# now all command will work if I'm the owner
+cd linux
+ls > a.txt
+cat a.txt
+```
+
+```sh
+chmod 000 linux/a.txt
+ls -l linux/a.txt
+# ---------- 1 kimn kimn 22 Mar 24 08:02 a.txt
+rm linux/a.txt
+# rm: remove write-protected regular file 'linux/a.txt'? y
+# still can delete.
+```
+
+> Directory permission is more important than the file permission
+
 </details>
