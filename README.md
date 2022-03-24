@@ -1446,4 +1446,14 @@ rm linux/a.txt
 
 > Directory permission is more important than the file permission
 
+### 79. Combining Find and Chmod Commands Together
+
+```sh
+# chmod -R 644 ~
+find ~ -type f  # find all files under home directory
+find ~ -type f -exec chmod 640 {} \;
+find ~ -type f -exec chmod 750 {} \;  # change all files permission
+find ~ -type d -exec chmod 750 {} \;  # change all directories permission
+```
+
 </details>
