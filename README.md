@@ -1456,4 +1456,42 @@ find ~ -type f -exec chmod 750 {} \;  # change all files permission
 find ~ -type d -exec chmod 750 {} \;  # change all directories permission
 ```
 
+### 80. Changing File Ownership (chown, chgrp)
+
+```sh
+lscpu
+lscpu > cpu.txt
+ls -l cpu.txt
+tail /etc/passwd
+chown toor cpu.txt
+# chown: changing ownership of 'cpu.txt': Operation not permitted
+sudo chown toor cpu.txt
+ls -l cpu.txt
+# -rw-rw-r-- 1 toor kimn 1899 Mar 26 08:27 cpu.txt
+sudo chown toor cpu.txt linux/
+```
+
+```sh
+tail /etc/passwd
+# u1:x:1002:1002::/home/u1:/bin/sh
+sudo chown 1002 cpu.txt
+# -rw-rw-r-- 1 u1 kimn 1899 Mar 26 08:27 cpu.txt
+# but if we have the user id "1002", this will be that user. To avoid this
+sudo chown +1002 cpu.txt  # + means user id, not user name
+```
+
+```sh
+sudo chown kimn:daemon cpu.txt
+# -rw-rw-r-- 1 kimn daemon 1899 Mar 26 08:27 cpu.txt
+
+# some linux distributors use this syntax
+# sudo chown kimn.daemon cpu.txt
+
+sudo chgrp sudo cpu.txt
+# -rw-rw-r-- 1 kimn sudo 1899 Mar 26 08:27 cpu.txt
+sudo chown :sudo cpu.txt  # equivalent
+
+sudo chown -R kimn:kimn ~ # recursive
+```
+
 </details>
