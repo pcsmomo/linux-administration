@@ -1494,4 +1494,52 @@ sudo chown :sudo cpu.txt  # equivalent
 sudo chown -R kimn:kimn ~ # recursive
 ```
 
+### 81. Understanding SUID (Set User ID)
+
+S - sticky bit
+
+```sh
+which cat
+# /usr/bin/cat
+ls -l /usr/bin/cat
+# -rwxr-xr-x 1 root root 43416 Sep  5  2019 /usr/bin/cat
+```
+
+```sh
+cat /etc/shadow
+# cat: /etc/shadow: Permission denied
+ls -l /etc/shadow
+# -rw-r----- 1 root shadow 1661 Mar 17 08:06 /etc/shadow
+id
+stat /usr/bin/cat
+
+sudo chmod 4755 /usr/bin/cat
+ls -l /usr/bin/cat
+# -rwsr-xr-x 1 root root 43416 Sep  5  2019 /usr/bin/cat
+# there is 's' instead of 'x'
+sudo chmod u-x /usr/bin/cat
+ls -l /usr/bin/cat
+# -rwSr-xr-x 1 root root 43416 Sep  5  2019 /usr/bin/cat
+# 'S' has no execution permission
+
+sudo chmod u+x /usr/bin/cat
+stat /usr/bin/cat
+
+# after this command, non-priviliged users can see any file with cat command
+sudo chmod u+s /usr/bin/cat
+cat /etc/shadow
+
+# back to normal permission
+sudo chmod u-s /usr/bin/cat
+```
+
+```sh
+which passwd
+ls -l /usr/bin/passwd
+# -rwsr-xr-x 1 root root 68208 Jul 15  2021 /usr/bin/passwd
+find /usr/bin -perm 4000
+find /usr/bin -perm -4000
+find /usr/bin -perm -4000 -ls
+```
+
 </details>
