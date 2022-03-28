@@ -1542,4 +1542,57 @@ find /usr/bin -perm -4000
 find /usr/bin -perm -4000 -ls
 ```
 
+### 82. Understanding SGID (Set Group ID)
+
+```sh
+sudo su
+groupadd programmers
+useradd -s /bin/bash pr1
+useradd -s /bin/bash pr2
+usermod -aG programmers pr1
+usermod -aG programmers pr2
+
+mkdir /programming
+ls
+# cpu.txt  _initial-setup  linux  README.md  _summary
+chown pr1:programmers /programming/
+ls -ld /programming
+# drwxr-xr-x 2 pr1 programmers 4096 Mar 29 08:41 /programming
+chmod 770 /programming
+# drwxrwx--- 2 pr1 programmers 4096 Mar 29 08:41 /programming/
+
+su pr1
+cd /programming
+touch source1.cpp
+ls -l
+# total 0
+# -rw-rw-r-- 1 pr1 pr1 0 Mar 29 08:43 source1.cpp
+exit
+chmod 2770 /programming
+# or chmod g+s /programming
+ls -ld /programming
+# drwxrws--- 2 pr1 programmers 4096 Mar 29 08:43 /programming
+stat /programming/
+#   File: /programming/
+#   Size: 4096      	Blocks: 8          IO Block: 4096   directory
+# Device: 805h/2053d	Inode: 5505031     Links: 2
+# Access: (2770/drwxrws---)  Uid: ( 1004/     pr1)   Gid: ( 1008/programmers)
+# Access: 2022-03-29 08:43:29.833994937 +1100
+# Modify: 2022-03-29 08:43:16.594063584 +1100
+# Change: 2022-03-29 08:44:09.769792177 +1100
+#  Birth: -
+
+su pr2
+touch source2.cpp
+mkdir golang python
+ls -l
+# total 8
+# drwxrwsr-x 2 pr2 programmers 4096 Mar 29 08:45 golang
+# drwxrwsr-x 2 pr2 programmers 4096 Mar 29 08:45 python
+# -rw-rw-r-- 1 pr1 pr1            0 Mar 29 08:43 source1.cpp
+# -rw-rw-r-- 1 pr2 programmers    0 Mar 29 08:45 source2.cpp
+```
+
+> SGUI is useful when we use shared directories
+
 </details>
