@@ -1595,4 +1595,66 @@ ls -l
 
 > SGUI is useful when we use shared directories
 
+### 83. Understanding the Sticky Bit
+
+- The Sticky Bit is applied to directories
+- A user may only delete files that he owns or for which he has explicit write permission granted, even when he has write access to the directory.
+- The sticky bit allows you to create a directory that everyone can use as a shared file storage. The files are protected because, no one can delete anyone else's files.
+
+- Absolute mode: `chmod 1XXX directory`
+- Relative mode: `chmod o+t directory`
+
+```sh
+sudo su
+mkdir /temp
+chmod 777 /temp/
+ls -ld /temp
+# drwxrwxrwx 2 root root 4096 Mar 30 07:14 /temp
+```
+
+```sh
+su kimn
+cd /temp
+touch file1.txt file2.txt
+ls -l
+# total 0
+# -rw-rw-r-- 1 kimn kimn 0 Mar 30 07:15 file1.txt
+# -rw-rw-r-- 1 kimn kimn 0 Mar 30 07:15 file2.txt
+chmod 600 file*
+# -rw------- 1 kimn kimn 0 Mar 30 07:15 file1.txt
+# -rw------- 1 kimn kimn 0 Mar 30 07:15 file2.txt
+ls -ld .
+# drwxrwxrwx 2 root root 4096 Mar 30 07:15 .
+```
+
+```sh
+su toor
+cd /temp
+rm -rf file1.txt
+# removed
+```
+
+```sh
+sudo su
+chmod 1777 /temp
+# chmod o+t /temp
+ls -ld /temp
+# drwxrwxrwt 2 root root 4096 Mar 30 07:17 /temp
+```
+
+```sh
+su toor
+cd /temp
+rm -rf file2.txt
+# rm: cannot remove 'file2.txt': Operation not permitted
+```
+
+```sh
+# these directories are set to sticky bit
+ls -ld /var/tmp/
+# drwxrwxrwt 10 root root 4096 Mar 30 07:09 /var/tmp/
+ls -ld /tmp/
+# drwxrwxrwt 20 root root 4096 Mar 30 07:20 /tmp/
+```
+
 </details>
