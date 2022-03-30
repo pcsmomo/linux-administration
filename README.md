@@ -1657,4 +1657,40 @@ ls -ld /tmp/
 # drwxrwxrwt 20 root root 4096 Mar 30 07:20 /tmp/
 ```
 
+### 84. Umask
+
+```sh
+mkdir mydir
+touch myfile
+ls -l
+# drwxrwxr-x 2 kimn kimn  4096 Mar 31 07:52 mydir
+# -rw-rw-r-- 1 kimn kimn     0 Mar 31 07:52 myfile
+```
+
+Default permission
+
+- 0777 for directories
+- 0666 for files
+
+```sh
+umask
+# 0002
+```
+
+subtract with umask
+
+- 0777 - 0002 = 0775
+- 0666 - 0002 = 0664
+
+```sh
+umask 0022
+mkdir mydir1
+touch myfile1
+ls -l
+# drwxrwxr-x 2 kimn kimn  4096 Mar 31 07:52 mydir
+# drwxr-xr-x 2 kimn kimn  4096 Mar 31 07:57 mydir1
+# -rw-rw-r-- 1 kimn kimn     0 Mar 31 07:52 myfile
+# -rw-r--r-- 1 kimn kimn     0 Mar 31 07:57 myfile1
+```
+
 </details>
