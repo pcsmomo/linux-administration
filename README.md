@@ -1693,4 +1693,51 @@ ls -l
 # -rw-r--r-- 1 kimn kimn     0 Mar 31 07:57 myfile1
 ```
 
+### 85. Understanding Files Attributes (lsattr, chattr)
+
+```sh
+lsattr
+man chattr
+# 'aAcCdDeFijPsStTu'
+
+who > user.txt
+sudo chattr +a user.txt
+lsattr user.txt
+# -----a--------e----- ./user.txt
+# Now only 'append' is permitted. not even edit. not even root user.
+sudo ls > user.txt
+# bash: user.txt: Operation not permitted
+ls >> user.txt
+```
+
+```sh
+stat user.txt
+# Access: 2022-04-04 07:50:56.630770265 +1000
+sudo chattr +A user.txt  # Access time
+lsattr user.txt
+-----a-A------e----- user.txt
+```
+
+```sh
+# When you want to avoid accidental delete or change
+# i : immutable, the file become frozen
+ifconfig > i.txt
+cat i.txt
+sudo chattr +i i.txt
+lsattr i.txt
+# ----i---------e----- i.txt
+sudo rm -rf i.txt
+# rm: cannot remove 'i.txt': Operation not permitted
+sudo ls > i.txt
+sudo ls >> i.txt
+sudo chmod 700 i.txt
+# Operation not permitted
+
+sudo chattr -R +i dir1/
+lsattr -R dir1
+
+sudo chattr -R -i dir1
+# now we can modify or delete
+```
+
 </details>
