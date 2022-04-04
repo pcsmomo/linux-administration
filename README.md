@@ -1740,4 +1740,63 @@ sudo chattr -R -i dir1
 # now we can modify or delete
 ```
 
+### Section 11: Linux Process Management
+
+### 88. Processes and The Linux Security Model
+
+2 types of commands
+
+1. executable file
+2. shell built-in
+
+```sh
+type ls
+# ls is aliased to `ls --color=auto`
+type rm
+# rm is /usr/bin/rm
+type cp
+# cp is /usr/bin/cp
+type type
+# type is a shell builtin
+type cd
+# cd is a shell builtin
+type umask
+# umask is a shell builtin
+```
+
+> When executable file runs, process will be created. But when shell builtin runs process will not be created
+
+- Process properties:
+
+  - PID (Process ID) - a unique positive integer number
+  - User
+  - Group
+  - Priority / Nice
+
+- Type of Processes
+  - Parent
+  - Child
+  - Daemon
+  - Zombie (defunct) : data is not collected. When it will be removed quickly from the memory
+  - Orphan : child process that the parent process is quit earlier than the child
+
+```sh
+ps -ef | less
+# UID          PID    PPID  C STIME TTY          TIME CMD
+# root           1       0  0 07:26 ?        00:00:02 /sbin/init splash
+who
+# bash is the parent process and who is the child process
+```
+
+- Thread : kind of sub process within one process
+- Task : synonym of process
+
+```sh
+# most common process related commands
+ps
+pgrep
+pstree
+top
+```
+
 </details>
