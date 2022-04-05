@@ -1791,12 +1791,23 @@ who
 - Thread : kind of sub process within one process
 - Task : synonym of process
 
+### 89. Listing Processes (ps, pstree)
+
 ```sh
 # most common process related commands
 ps
 pgrep
 pstree
 top
+```
+
+```sh
+# -e : full list
+# -f : including detailed information
+ps -ef
+ps -ef | wc -l
+
+# TTY is '?', probably that process is a daemon
 ```
 
 </details>
