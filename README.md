@@ -1808,6 +1808,26 @@ ps -ef
 ps -ef | wc -l
 
 # TTY is '?', probably that process is a daemon
+man sshd
+
+ps -aux
+ps aux
+ps aux | less
+ps aux --sort=%mem | less
+ps aux --sort=-%mem | less
+ps -f -u kimn
+```
+
+```sh
+ps -ef | grep sshd
+ps -ef | grep xyz123 # `grep xyz123` command will be selected itself
+pgrep sshd
+pgrep -l sshd
+pgrep -l cups
+pgrep -u root sshd
+pstree | less
+pstree -c | less
+man pstree
 ```
 
 </details>
