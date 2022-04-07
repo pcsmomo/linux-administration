@@ -1830,4 +1830,35 @@ pstree -c | less
 man pstree
 ```
 
+### 91. Getting a Dynamic Real-Time View of the Running System (top, htop)
+
+```sh
+top
+# top - 07:24:51 up 1 min,  1 user,  load average: 2.32, 0.82, 0.29
+# Tasks: 228 total,   1 running, 227 sleeping,   0 stopped,   0 zombie
+# %Cpu(s):  1.7 us,  3.3 sy,  0.0 ni, 92.8 id,  0.3 wa,  0.0 hi,  1.7 si,  0.0 st
+# MiB Mem :   7952.0 total,   5381.2 free,   1136.8 used,   1434.0 buff/cache
+# MiB Swap:   2048.0 total,   2048.0 free,      0.0 used.   6541.1 avail Mem
+
+man top
+# search `DESCRIPTIONS of Fields`
+```
+
+- top - 07:24:51 up 1 min, 1 user, load average: 2.32, 0.82, 0.29
+- Tasks: 228 total, 1 running, 227 sleeping, 0 stopped, 0 zombie
+- %Cpu(s): 1.7 us, 3.3 sy, 0.0 ni, 92.8 id, 0.3 wa, 0.0 hi, 1.7 si, 0.0 st
+  - `man top` search `CPU States`
+- MiB Mem : 7952.0 total, 5381.2 free, 1136.8 used, 1434.0 buff/cache
+- MiB Swap: 2048.0 total, 2048.0 free, 0.0 used. 6541.1 avail Mem
+
+```sh
+top
+h # help
+2 # press number 1-?, change cpus when multi core cpus
+m # toggle summary
+d # set update interval
+space # refresh
+y # toggle highlight running task
+```
+
 </details>
