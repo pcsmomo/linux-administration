@@ -1859,6 +1859,20 @@ m # toggle summary
 d # set update interval
 space # refresh
 y # toggle highlight running task
+b # 'b' bold/reverse (only if 'x' or 'y')
+<, > # move columns
+R # Toggle: 'R' Sort
+e # 'E'/'e' summary/task memory scale
+
+F # Fields Management, # when quit the top, setting will be gone
+W # saving top settings
+
+top -d 1 -n 3 -b > top_processes.txt
+```
+
+```sh
+sudo apt update && sudo apt install htop
+htop
 ```
 
 </details>
