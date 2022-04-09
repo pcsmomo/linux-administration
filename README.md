@@ -1875,4 +1875,54 @@ sudo apt update && sudo apt install htop
 htop
 ```
 
+### 93. Signals and Killing Processes (kill, pkill, killall, pidof)
+
+```sh
+kill # sending a signal
+# default signal is `15` or `SEGTERM`
+kill -l
+# list of signals
+#  1) SIGHUP	 2) SIGINT	 3) SIGQUIT	 4) SIGILL	 5) SIGTRAP
+#  ...
+# 63) SIGRTMAX-1	64) SIGRTMAX
+```
+
+```sh
+# open the text editor
+pgrep -l gedit
+# 4056 gedit
+kill -2 4056  # 2) SIGINT
+
+# open the firefox browser
+pidof firefox
+4332 4309 4300 4241 4185 4092
+kill -INT 4332 4309 4300 4241 4185 4092  # 2) SIGINT
+
+# open the firefox browser
+kill -SIGINT $(pidof firefox)
+
+# they are all equivalent commands to kill processes
+```
+
+```sh
+# to check if the service is running
+sudo systemctl status ssh
+# sudo systemctl start ssh
+# sudo apt install ssh
+```
+
+```sh
+tail -f /var/log/auth.log
+
+# open a new tab and
+cat /var/run/sshd.pid
+# 684
+pgrep -l sshd
+# 684 sshd
+
+# restart sshd service
+sudo kill -1 684
+sudo kill -1 $(cat /var/run/sshd.pid)
+```
+
 </details>
