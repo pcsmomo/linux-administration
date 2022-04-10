@@ -1925,4 +1925,32 @@ sudo kill -1 684
 sudo kill -1 $(cat /var/run/sshd.pid)
 ```
 
+- `15) SIGTERM` : "soft kill" there would possibly be some processes remains
+- `9) SIGKILL` : "hard kill"
+
+```sh
+killall
+
+sleep 123&
+sleep 311&
+pgrep -l sleep
+# 4046 sleep
+# 4048 sleep
+killall -15 sleep
+# [1]-  Terminated              sleep 123
+# [2]+  Terminated              sleep 311
+
+sleep 311&
+sleep 331&
+pgrep -l sleep
+4079 sleep
+4082 sleep
+killall slee  # partial name won't work
+pkill slee  # partial name works
+# [1]-  Terminated              sleep 311
+# [2]+  Terminated              sleep 331
+```
+
+> Warning: SIGTERM and SIGKILL are extrememly strong commands. Be careful when using.
+
 </details>
