@@ -1953,4 +1953,20 @@ pkill slee  # partial name works
 
 > Warning: SIGTERM and SIGKILL are extrememly strong commands. Be careful when using.
 
+### 94. Foreground and Background Processes
+
+```sh
+sleep 15
+sleep 20 &
+
+ifconfig > output.txt 2> errors.txt &
+# `2` represents standard error
+
+ping -c 1 google.com # sending one packet
+ping -c 1 google.com > /dev/null 2>&1
+# https://stackoverflow.com/questions/10508843/what-is-dev-null-21#:~:text=%2Fdev%2Fnull%20is%20a%20special,stream%20gets%20redirected%20as%20well.
+# /dev/null is a special filesystem object that discards everything written into it. Redirecting a stream into it means hiding your program's output.
+# The 2>&1 part means "redirect the error stream into the output stream", so when you redirect the output stream, error stream gets redirected as well.
+```
+
 </details>
