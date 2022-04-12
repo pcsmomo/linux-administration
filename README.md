@@ -1969,4 +1969,81 @@ ping -c 1 google.com > /dev/null 2>&1
 # The 2>&1 part means "redirect the error stream into the output stream", so when you redirect the output stream, error stream gets redirected as well.
 ```
 
+### 95. Job Control (jobs, fg, bg)
+
+```sh
+ping -c 1 google.com > /dev/null 2>&1 &
+# [1] 5769
+# [1]+  Done                    ping -c 1 google.com > /dev/null 2>&1
+```
+
+1. Job ID : [1]
+2. Process ID : 5769
+
+```sh
+sleep 15&
+# [1] 5823
+sleep 20&
+# [2] 5824
+jobs
+# [1]-  Running                 sleep 15 &
+# [2]+  Running                 sleep 20 &
+```
+
+1. fg: bring the process to the foreground
+2. bg: take the process to the background
+
+```sh
+sleep 10&
+# [1] 5837
+jobs
+# [1]+  Running                 sleep 10 &
+fg %1
+# sleep 10
+```
+
+```sh
+# suspend the process
+# Ctrl + z
+
+sleep 10 # run the process in foreground
+Ctrl + z
+# [1]+  Stopped                 sleep 10
+pgrep -l sleep
+# 5889 sleep
+
+# resume it in the background
+jobs
+# [1]+  Stopped                 sleep 10
+bg %1
+# [1]+ sleep 10 &
+# [1]+  Done                    sleep 10
+
+sleep 432
+Ctrl + z
+jobs
+fg %1
+Ctrl + c  # quit the process
+```
+
+```sh
+# in the foreground
+sleep 123
+# close the terminal and open it again
+pgrep -l sleep
+# nothing - the process was quit
+
+# in the background
+sleep 123&
+# [1] 6265
+# close the terminal and open it again
+pgrep -l sleep
+# nothing - the process was quit
+
+kill -l
+```
+
+- When the terminal is closed, it sends `1) SIGHUP`. so the process will be quit
+- It would be problematic
+
 </details>
