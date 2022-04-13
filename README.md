@@ -2044,6 +2044,28 @@ kill -l
 ```
 
 - When the terminal is closed, it sends `1) SIGHUP`. so the process will be quit
-- It would be problematic
+- It would be problematic when connected through ssh
+
+```sh
+nohub sleep 123 &
+# [1] 3861
+# nohup: ignoring input and appending output to 'nohup.out'
+
+# close the terminal and open it again
+pgrep sleep
+# 3861
+```
+
+```sh
+nohup ifconfig &
+# [2] 3902
+# nohup: ignoring input and appending output to 'nohup.out'
+# [2]+  Done                    nohup ifconfig
+cat nohup.out
+```
+
+- Not to terminate the process when closing the terminal, these can be good tools
+- GNU screen: https://www.gnu.org/software/screen/
+- tmux : https://github.com/tmux/tmux/wiki
 
 </details>
