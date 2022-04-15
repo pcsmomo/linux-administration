@@ -2068,4 +2068,58 @@ cat nohup.out
 - GNU screen: https://www.gnu.org/software/screen/
 - tmux : https://github.com/tmux/tmux/wiki
 
+## Section 13: Networking on Linux
+
+### 98. Getting Information about the Network Interfaces (ip, ifconfig)
+
+```sh
+ifconfig  # from net-tools
+ip a  # new one from ip route package
+
+sudo apt install net-tools  # to use ifconfig
+
+# Split the view
+ifconfig -a
+ip address show
+ip addr show  # equivalent
+ip a show  # equivalent
+ip a  # equivalent
+```
+
+```sh
+ip -4 address
+ip -6 address
+```
+
+- enp0s3
+  - en : ethernet, wl : wireless lan
+  - p: port number
+  - s: slot number in PCI(Peripheral Component Interconnect) cards
+
+```sh
+ifconfig enp0s3
+ip addr show dev enp0s3
+ip a s dev enp0s3
+```
+
+```sh
+route -n
+# Kernel IP routing table
+# Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+# 0.0.0.0         10.0.2.2        0.0.0.0         UG    100    0        0 enp0s3
+# 10.0.2.0        0.0.0.0         255.255.255.0   U     100    0        0 enp0s3
+# 169.254.0.0     0.0.0.0         255.255.0.0     U     1000   0        0 enp0s3
+
+ip route show
+# default via 10.0.2.2 dev enp0s3 proto dhcp metric 100
+# 10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 metric 100
+# 169.254.0.0/16 dev enp0s3 scope link metric 1000
+
+systemd-resolve --status
+# ...
+# Current DNS Server: 192.168.8.1
+#        DNS Servers: 192.168.8.1
+#         DNS Domain: ~.
+```
+
 </details>
