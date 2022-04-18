@@ -2157,8 +2157,20 @@ route -n
 # Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 # 0.0.0.0         192.168.0.1     0.0.0.0         UG    20100  0        0 enp0s3
 # 192.168.0.0     0.0.0.0         255.255.255.0   U     100    0        0 enp0s3
-
-
 ```
+
+### 103. Testing and Troubleshooting Network Connectivity
+
+```sh
+ping ubuntu.com
+# PING ubuntu.com (185.125.190.20) 56(84) bytes of data.
+# 64 bytes from website-content-cache-1.canonical.com (185.125.190.20): icmp_seq=1 ttl=45 time=289 ms
+ping ubuntu.com -n
+ping -c 4 ubuntu.com  # 4 times
+```
+
+- 64 bytes : packet size
+- icmp_seq : number of packet. ICMP (Internet Control Message Protocol)
+- ttl : time to live, usually number of sources between source and destination
 
 </details>
