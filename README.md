@@ -2122,4 +2122,43 @@ systemd-resolve --status
 #         DNS Domain: ~.
 ```
 
+### 101. Setting Up Static IP on Ubuntu (netplan)
+
+```sh
+ls /etc/netplan
+# 01-network-manager-all.yaml
+```
+
+- set Network to 'Bridge Adapter'
+- On Ubuntu, actually we can set the manual IP on the setting GUI
+- But we can use `netplan` to set it up in terminal
+
+```sh
+# 1. Stop and disable NetworkManager
+sudo su
+id
+systemctl stop NetworkManager
+systemctl disable NetworkManager
+systemctl status NetworkManager
+
+systemctl is-enabled NetworkManager
+# disabled
+
+# 2. modify netplan
+vim /etc/netplan/01-netconfig.yaml
+cat /etc/netplan/01-netconfig.yaml
+ipconfig
+# enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+#         inet 192.168.0.20  netmask 255.255.255.0  broadcast 192.168.0.255
+#         inet6 fe80::a00:27ff:fe3b:7b03  prefixlen 64  scopeid 0x20<link>
+
+route -n
+# Kernel IP routing table
+# Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+# 0.0.0.0         192.168.0.1     0.0.0.0         UG    20100  0        0 enp0s3
+# 192.168.0.0     0.0.0.0         255.255.255.0   U     100    0        0 enp0s3
+
+
+```
+
 </details>
