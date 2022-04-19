@@ -2172,5 +2172,36 @@ ping -c 4 ubuntu.com  # 4 times
 - 64 bytes : packet size
 - icmp_seq : number of packet. ICMP (Internet Control Message Protocol)
 - ttl : time to live, usually number of sources between source and destination
+- time : response time
+  - less than 30ms: fast
+  - 30 to 50ms: average
+  - 50 to 100ms: somehow slow
+  - higher than 100ms: slow response
+
+```sh
+ping -i 0.4 -c 5 google.com  # interval - default is 1
+ping -i 0.1 -c 5 google.com  # general user is not allowed to set too fast
+# ping: cannot flood; minimal interval allowed for user is 200ms
+sudo ping -i 0.1 -c 5 google.com  # root can do
+
+sudo ping -q -c 5 google.com  # summary
+
+ping -t 1 -c 3 -n ubuntu.com  # first router
+ping -t 2 -c 3 -n ubuntu.com  # second router
+
+man ping
+```
+
+- Simple troubleshooting
+  1. check my gateway
+     1. route -n
+     2. ping to the default gateway
+        - `ping 10.0.2.2`
+     3. if it doesn't ping, my lan has a problem
+  2. check other website
+     1. `ping 8.8.8.8` - google.com
+     2. `ping 1.1.1.1`
+  3. check dns server working
+     1. `ping google.com`
 
 </details>
