@@ -2204,4 +2204,32 @@ man ping
   3. check dns server working
      1. `ping google.com`
 
+### 104. Using SSH
+
+- The SSH protocol is used for
+  - Secure Remote Management of Servers, Routers, other Networking Devices
+  - Network File Copy: rsync, scp, sftp, winscp
+  - Tunneling, SSH Port Forwarding
+- **sshd** is the SSH server (daemon) and **ssh** or **putty** is the client
+
+- Installation
+  - Ubuntu: `sudo apt update & sudo apt install openssh-server openssh-client`
+  - CentOS: `sudo dnf install openssh-server openssh-clients`
+- Checking its status: `sudo systelctl status ssh`
+- Stop/Restart/Start: `sudo systelctl [start|restart|stop] ssh`
+- Enable, Disable auto botting: `sudo systelctl [enable|disable] ssh`
+
+- Server config file: `/etc/ssh/sshd_config`
+- Client config file: `/etc/ssh/ssh_config`
+
+```sh
+sudo apt update & sudo apt install openssh-server openssh-client
+
+systemctl status ssh
+ps -ef | grep sshd
+
+systemctl is-enabled sshd
+enabled # it means it will start when boot time
+```
+
 </details>
