@@ -2232,4 +2232,26 @@ systemctl is-enabled sshd
 enabled # it means it will start when boot time
 ```
 
+### 105. Troubleshooting SSH
+
+```sh
+systemctl status ssh
+systemctl restart ssh
+systemctl stop ssh
+systemctl start ssh
+```
+
+```sh
+sudo apt install telnet
+telnet 10.135.30.xxx 22 # need to connect vpn
+```
+
+```sh
+sudo apt install nmap
+nmap -p 22 10.135.30.xxx
+
+# if it is down
+nmap -p 22 10.135.30.xxx -Pn
+```
+
 </details>
