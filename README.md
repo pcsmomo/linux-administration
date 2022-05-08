@@ -2254,4 +2254,24 @@ nmap -p 22 10.135.30.xxx
 nmap -p 22 10.135.30.xxx -Pn
 ```
 
+```sh
+sudo iptables -vnL
+sudo ufw status verbose # Uncomplicated Firewall
+# Status: inactive
+sudo ufw enable
+sudo ufw app list
+# Available applications:
+#   CUPS
+#   OpenSSH
+sudo ufw allow ssh
+# Rule added
+# Rule added (v6)
+ssh -v kimn@10.135.30.xxx # verbose : more logs
+ssh -vv kimn@10.135.30.xxx # more verbose : even more logs
+```
+
+```sh
+sudo tail -f /var/log/secure  # in CentOS
+```
+
 </details>
