@@ -2274,4 +2274,29 @@ ssh -vv kimn@10.135.30.xxx # more verbose : even more logs
 sudo tail -f /var/log/secure  # in CentOS
 ```
 
+### 106. Securing the OpenSSH Server (sshd)
+
+- Server config file: `/etc/ssh/sshd_config`
+- Client config file: `/etc/ssh/ssh_config`
+
+```sh
+# /etc/ssh/sshd_config
+# Port 22
+Port 2278
+PermitRootLogin no
+AllowUsers student toor u1
+ClientAliveInterval 300
+ClientAliveCountMax 0
+
+# All options can be found in the sshd_config man page
+man sshd_config
+```
+
+```sh
+# accpeting only two IP address to 2278 port which is sshd
+iptables -A INPUT -p tcp --dport 2278 -s 2.2.4.5 -j ACCEPT
+iptables -A INPUT -p tcp --dport 2278 -s 2.45.6.100 -j ACCEPT
+iptables -A INPUT -p tcp --dport 2278 -j DROP
+```
+
 </details>
