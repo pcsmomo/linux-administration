@@ -63,6 +63,7 @@ reboot
      - Server : no gui
   4. User Creation
      - Make this user administrator
+     - noah@sk12
 - Once installation is done, remove optical disk from virtual drive
 
 ## Section 3: The Linux Terminal In Depth
@@ -2297,6 +2298,18 @@ man sshd_config
 iptables -A INPUT -p tcp --dport 2278 -s 2.2.4.5 -j ACCEPT
 iptables -A INPUT -p tcp --dport 2278 -s 2.45.6.100 -j ACCEPT
 iptables -A INPUT -p tcp --dport 2278 -j DROP
+```
+
+### 108. Copying Files Over the Network (scp)
+
+```sh
+# Ubuntu - kimn@192.168.8.142 / skah4
+# CentOS - noah@192.168.8.141 / sk12
+
+# from CentOS
+ssh kimn@192.168.8.142
+ip add show > ip.txt
+cat ip.txt
 ```
 
 </details>
