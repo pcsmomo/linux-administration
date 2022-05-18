@@ -2307,9 +2307,21 @@ iptables -A INPUT -p tcp --dport 2278 -j DROP
 # CentOS - noah@192.168.8.141 / sk12
 
 # from CentOS
-ssh kimn@192.168.8.142
+ssh kimn@192.168.8.146
+# Ctrl + c
 ip add show > ip.txt
 cat ip.txt
+scp -P 22 ip.txt kimn@192.168.8.146:~
+scp -P 22 ip.txt kimn@192.168.8.146:~/ip_centos.txt
+
+mkdir mydir1
+my ip.txt mydir1/
+ls mydir1/
+scp -r -P 22 mydir1/ kimn@192.168.8.146:~ # copy folder
+scp -rp -P 22 mydir1/ kimn@192.168.8.146:~  # -p : preserve modification/access time
+# scp command will overwrite if the same file exists
+
+scp user1@IP1:/path_to_source_file user2@IP2:/path_to_destination_dir
 ```
 
 </details>
