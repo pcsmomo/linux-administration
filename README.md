@@ -2393,4 +2393,27 @@ rm -rf backup/
 rsync -av --exclude='*.png' --exclude='a.pdf' my_project/ backup/
 ```
 
+### 110. Using rsync Over the Network
+
+```sh
+sudo rsync -av -e ssh /etc/ student@192.168.0.20:~/etc-centos/
+
+# as the same as local, if nothing changes, it won't copy
+sudo rsync -av -e ssh /etc/ student@192.168.0.20:~/etc-centos/
+
+sudo groupadd devops
+sudo touch /etc/test-file
+sudo rsync -av -e ssh /etc/ student@192.168.0.20:~/etc-centos/
+
+# mirroring
+sudo rm /etc/test-file
+sudo rsync -av -e ssh --delete /etc/ student@192.168.0.20:~/etc-centos/
+
+# can use any ssh options like this
+sudo rsync -av -e 'ssh -p 22' --delete /etc/ student@192.168.0.20:~/etc-centos/
+
+# from remote to local
+sudo rsync -av -e ssh student@192.168.0.20:~/my_project/ .
+```
+
 </details>
