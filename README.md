@@ -1717,6 +1717,10 @@ stat user.txt
 sudo chattr +A user.txt  # Access time
 lsattr user.txt
 -----a-A------e----- user.txt
+
+# to remove user.txt
+sudo chattr -a -A user.txt
+rm user.txt
 ```
 
 ```sh
@@ -2322,6 +2326,71 @@ scp -rp -P 22 mydir1/ kimn@192.168.8.146:~  # -p : preserve modification/access 
 # scp command will overwrite if the same file exists
 
 scp user1@IP1:/path_to_source_file user2@IP2:/path_to_destination_dir
+```
+
+### 109. Synchronizing Files and Directories using rsync
+
+```sh
+man rsync
+
+sudo rsync -av /etc/ ~/etc-backup/
+# print all copying files
+sudo rsync -av /etc/ ~/etc-backup/
+# sending incremental file list
+# sent 98,681 bytes  received 376 bytes  198,114.00 bytes/sec
+# total size is 5,602,100  speedup is 56.55
+```
+
+> at the second execution, it won't copy anything.
+> It will check the modification time and pick to copy
+
+```sh
+sudo rsync -aq /etc/ ~/etc-backup/  # quiet: it won't print
+```
+
+```sh
+# creating or modifying file and rsync
+# It will pick up only those changed files
+sudo rsync -av /etc/ ~/etc-backup/
+# but not deleted file yet.
+# to include deleted files (= mirroring)
+sudo rsync -av --delete /etc/ ~/etc-backup/
+```
+
+```sh
+# rsync treats the last back slash(/)
+# the targets are contents inside /etc/
+sudo rsync -av --delete /etc/ ~/etc-backup/
+# the target is /etc/
+sudo rsync -av --delete /etc ~/etc-backup/
+```
+
+```sh
+# exclude specific folders/files
+mkdir -p my_project/dir1
+mkdir -p my_project/dir2
+touch my_project/a.png
+touch my_project/a.txt
+touch my_project/dir1/a.pdf
+touch my_project/dir1/a.png
+
+touch my_project/movie1.mkv
+tree my_project/
+
+vim exclude_files.txt
+cat exclude_files.txt
+# movie1.mkv
+# dir1/
+# *.png
+
+rsync -av --exclude-from='./exclude_files.txt' my_project/ backup/
+# actually absolte path is better
+# rsync -av --exclude-from='/home/kimn/exclude_files.txt' my_project/ backup/
+
+rsync -av --exclude='*.png' my_project/ backup/
+rm -rf backup/
+
+rsync -av --exclude='*.png' --exclude='a.pdf' my_project/ backup/
 ```
 
 </details>
