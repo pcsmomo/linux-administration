@@ -2416,4 +2416,21 @@ sudo rsync -av -e 'ssh -p 22' --delete /etc/ student@192.168.0.20:~/etc-centos/
 sudo rsync -av -e ssh student@192.168.0.20:~/my_project/ .
 ```
 
+### 112. Using wget (downloading)
+
+```sh
+wget [download_url]
+wget -P kali/ [download_url] # specific download path
+wget --limit-rate=100k [download_url] # download speed limited to 100k/s
+wget -c -P kali/ [download_url] # ro resume the the previous download (if it stops during downloading)
+```
+
+```sh
+# Download from the list in a text file
+vim images.txt
+# https://www.kali.org/images/kali-everywhere-baremetal.svg
+# https://www.kali.org/images/kali-everywhere-vm.svg
+wget -i images.txt
+```
+
 </details>
