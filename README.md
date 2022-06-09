@@ -2433,4 +2433,19 @@ vim images.txt
 wget -i images.txt
 ```
 
+```sh
+# background
+wget -b -c -P kali/ [download_url]
+tail -f wget-log
+pkill wget
+
+# even when the terminal is closed
+nohub wget -b -c -P kali/ [download_url]
+```
+
+```sh
+# when offline (no internet connection)
+wget --mirror --convert-links --adjust-extension --page-requisites --no-parent http://example.org
+```
+
 </details>
