@@ -2448,4 +2448,62 @@ nohub wget -b -c -P kali/ [download_url]
 wget --mirror --convert-links --adjust-extension --page-requisites --no-parent http://example.org
 ```
 
+### 113. Checking for Listening Ports (netstat, ss, lsof, telnet, nmap)
+
+```sh
+sudo netstat -tupan
+# -t: tcp, -u: udp
+# -p: PID, -a: All, -n: numeric
+sudo netstat -tupan | grep :22
+```
+
+```sh
+sudo apt install nginx
+sudo systemctl status nginx
+sudo netstat -tupan | grep :80
+```
+
+```sh
+# socket statistics: it's a newer command and faster than netstat
+ss
+ss -tupan
+```
+
+```sh
+# list open files
+lsof
+lsof -u kimn # open files by user kimn
+sudo lsof -u root
+sudo lsof -u ^root  # not by root
+sudo lsof -c nginx  # by nginx service
+sudo lsof -iTCP -sTCP:LISTEN  # LISTEN state of TCP
+sudo lsof -iTCP -sTCP:LISTEN -nP # display port number
+sudo lsof -iTCP:22 -sTCP:LISTEN -nP # specific port
+```
+
+```sh
+# turn on CentOS (e.g IP is 192.168.0.113)
+# check if the specific port is open or not
+telnet 192.168.0.113 22
+telnet 192.168.0.113 25
+telnet google.com 443
+# it's open
+# Trying 142.250.70.174...
+# Connected to google.com.
+# Escape character is '^]'.
+telnet google.com 22
+# it's closed
+# Trying 142.250.70.174...
+```
+
+```sh
+# nmap : professional port scanner
+sudo apt install nmap
+sudo nmap 192.168.0.113
+
+nmap -p 80 linux.com
+nmap -p 80 linux.com -sV # service/version detection
+nmap -p 81 linux.com -sV
+```
+
 </details>
