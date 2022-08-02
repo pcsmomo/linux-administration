@@ -58,4 +58,43 @@ sudo dpkg -r google-chrome-stable
 sudo dpkg -P google-chrome-stable
 ```
 
+### 119. Using APT (Advanced Package Tool)
+
+```sh
+sudo su
+apt update
+
+# install
+apt install apache2
+systemctl status nginx
+systemctl stop nginx
+systemctl start apache2
+systemctl status apache2
+```
+
+```sh
+apt install gparted vlc
+apt install /home/kimn/Downloads/google-chrome-stable_current_amd64.deb
+```
+
+```sh
+# upgrade
+apt list --upgradable
+apt list --upgradable | grep python
+apt install python3-ldb
+apt full-upgrade
+```
+
+```sh
+# remove
+apt remove apache2  # exclude configuration files
+apt purge gparted vlc # include configuration files
+apt autoremove  # remove unlinked dependencies
+```
+
+```sh
+# all apt packages are here
+ls -l /var/cache/apt/archieves
+```
+
 </details>
