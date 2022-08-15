@@ -93,8 +93,34 @@ apt autoremove  # remove unlinked dependencies
 ```
 
 ```sh
-# all apt packages are here
+# cache directory: all apt packages are here
 ls -l /var/cache/apt/archieves
+du -sh /var/cache/apt/archieves
+sudo apt clean
+```
+
+```sh
+# available apt list
+sudo apt list
+sudo apt list | wc -l
+# 79663 : that many packages are available
+
+# search specific one
+sudo apt list | grep postfix  # popular email server
+sudo apt search "transparent proxy"
+
+# see installed packages
+apt list --installed
+apt list --installed | wc -l
+# 1486
+
+# show description
+apt show apache2
+apt show zzuf
+
+# graphical package manager
+sudo apt install synaptic
+sudo synaptic
 ```
 
 </details>
