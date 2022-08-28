@@ -136,4 +136,39 @@ apt show apache2
 
 > There are a version difference
 
+### 122. Compiling C Programs
+
+1. Install the prerequisites: gcc, g++, make
+   - Ubuntu: `sudo apt update && sudo apt install build-essential`
+   - CentOS: `sudo dnf group install "Development Tools`
+2. Download the source files from the official Website
+3. Check the integrity of the tarball (hash or digital signature)
+4. Extract the archive and move into the resulting directory
+5. Run: `./configure --help` and set the required compilation options
+6. Run: `make`
+7. Run: `make install`
+
+```sh
+# for ubuntu
+sudo apt update && sudo apt install build-essential
+gcc --version
+g++ --version
+make --version
+
+vim hello.c
+gcc hello.c -o hello  # compile
+./hello
+# Hello, world!
+```
+
+```c
+// hello.c
+#include <stdio.h>
+
+int main() {
+  printf("Hello, world!\n");
+  return 0;
+}
+```
+
 </details>
