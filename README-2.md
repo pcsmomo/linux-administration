@@ -123,4 +123,17 @@ sudo apt install synaptic
 sudo synaptic
 ```
 
+### 121. Compiling Programs from Source Code vs. Package Manager
+
+- check the latest version on web
+  - https://downloads.apache.org/httpd/
+  - httpd-2.4.54.tar.gz
+
+```sh
+apt show apache2
+# Version: 2.4.41-4ubuntu3.12
+```
+
+> There are a version difference
+
 </details>
