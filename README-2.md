@@ -171,4 +171,68 @@ int main() {
 }
 ```
 
+### 123. Compiling Software From Source Code: Lab ProFTPD
+
+```sh
+# download ProFTPD v1.3.7e
+wget -c ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.7e.tar.gz
+
+# check the hash
+# 6e716a3b53ee069290399fce6dccf4c229fafe6ec2cb14db3778b7aa3f9a8c92
+sha256sum proftpd-1.3.7e.tar.gz
+# 6e716a3b53ee069290399fce6dccf4c229fafe6ec2cb14db3778b7aa3f9a8c92  proftpd-1.3.7e.tar.gz
+
+# md5
+# md5sum proftpd-1.3.7e.tar.gz
+tar -xzvf proftpd-1.3.7e.tar.gz
+# proftpd-1.3.7e folder is created
+```
+
+- src : source code
+- configure : check requirements and configure it itself
+
+```sh
+./configure --help
+# set up the configurations and check to build
+./configure --prefix=/opt/proftpd
+# compile - create required binaries
+make  # using Makefile
+# install
+sudo make install
+
+rm -rf proftpd-1.3.7e
+cd /opt/proftpd
+cd sbin/
+pwd
+# /opt/proftpd/sbin
+# execute at background
+sudo ./proftpd &
+# check the process
+ps -ef | grep proftpd
+pgrep -l proftpd
+# 44819 proftpd
+
+# kill the process
+kill 44819
+sudo pkill proftpd
+```
+
+```sh
+# run foreground with debugging mode
+sudo ./proftpd -n
+
+# connect it to check from the browser
+ftp://localhost/
+```
+
+```sh
+# configuration file
+cat /opt/proftpd/etc/proftpd.conf | less
+```
+
+```sh
+# configure and install the server in one command
+./configure --prefix=/opt/proftpd && make && make install
+```
+
 </details>
