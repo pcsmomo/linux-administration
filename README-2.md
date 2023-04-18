@@ -235,4 +235,79 @@ cat /opt/proftpd/etc/proftpd.conf | less
 ./configure --prefix=/opt/proftpd && make && make install
 ```
 
+## Section 17: System Administration
+
+### 125. Task Automation and Scheduling Using Cron (crontab)
+
+```sh
+pgrep -l cron
+# 643 anacron
+# 646 cron
+
+sudo ls /var/spool/cron/crontabs/
+# list of crontabs
+
+which crontab
+# /usr/bin/crontab
+
+ls -l /etc/crontab
+# -rw-r--r-- 1 root root 1042 Feb 14  2020 /etc/crontab
+
+crontab -l
+# no crontab for kimn
+
+# edit crontab script
+crontab -e
+2
+```
+
+[Crontab script examples](./_summary/crontab.sh)
+
+```sh
+# crontab -e
+*/2 * * * * date >> /tmp/date_and_time.txt
+
+# monitor the cron jobs
+tail -f /var/log/syslog # on Ubuntu
+tail -f /var/log/cron # on CentOS
+
+cat /tmp/date_and_time.txt
+```
+
+#### remove crontab
+
+```sh
+crontab -r
+```
+
+#### allow/deny crontab for users
+
+```sh
+man crontab
+# /etc/cron.allow
+# /etc/cron.deny
+```
+
+#### helpful websites
+
+- [Crontab Guru](https://crontab.guru)
+- [Crontab Generator](https://crontab-generator.org)
+
+#### apart from the crontab script, these also run
+
+```sh
+# scripts are in each folder: daily, hourly, montly, weekly
+ls -l /etc | grep cron
+# -rw-r--r--  1 root root     401 Jul 17  2019 anacrontab
+# drwxr-xr-x  2 root root    4096 Jun  8  2022 cron.d
+# drwxr-xr-x  2 root root    4096 Apr 18 16:08 cron.daily
+# drwxr-xr-x  2 root root    4096 Feb 10  2021 cron.hourly
+# drwxr-xr-x  2 root root    4096 Feb 10  2021 cron.monthly
+# -rw-r--r--  1 root root    1042 Feb 14  2020 crontab
+# drwxr-xr-x  2 root root    4096 Aug  2  2022 cron.weekly
+
+# description when those schedule run
+less /etc/crontab
+```
+
 </details>
