@@ -310,4 +310,60 @@ ls -l /etc | grep cron
 less /etc/crontab
 ```
 
+### 127. Scheduling Tasks Using Anacron (anacron)
+
+```sh
+man anacron
+
+cat /etc/anacrontab
+# # /etc/anacrontab: configuration file for anacron
+
+# # See anacron(8) and anacrontab(5) for details.
+
+# SHELL=/bin/sh
+# HOME=/root
+# LOGNAME=root
+
+# # These replace cron's entries
+# 1	5	cron.daily	run-parts --report /etc/cron.daily
+# 7	10	cron.weekly	run-parts --report /etc/cron.weekly
+# @monthly	15	cron.monthly	run-parts --report /etc/cron.monthly
+```
+
+- 7: period
+- 10: delay after starting computer
+- cron.weekly: identifier
+- command: period/delay/identifier/command
+
+```sh
+vim /etc/anacrontab
+# #2      1       backup  /root/backup.sh
+# 2       1       backup  date >> /tmp/anacron.txt
+
+anacron -T
+# -T     Anacrontab testing. The configuration file will be tested for validity. If there is
+              # an  error  in  the  file,  an  error will be shown and anacron will return 1. Valid
+              # anacrontabs will return 0.
+```
+
+> Basically anacron runs background.\
+> If you want to see on terminal use `-d` option
+
+```sh
+sudo anacron -d
+# Anacron 2.3 started on 2023-05-25
+# Will run job `backup' in 1 min.
+# Job `backup' started
+# Job `backup' terminated
+# Normal exit (1 job run)
+
+cat /tmp/anacron.txt
+# Thu 25 May 2023 09:01:41 AEST
+
+# all jobs done
+sudo anacron -d
+# Anacron 2.3 started on 2023-05-25
+# Normal exit (0 jobs run)
+```
+
 </details>
