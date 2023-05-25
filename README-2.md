@@ -366,4 +366,136 @@ sudo anacron -d
 # Normal exit (0 jobs run)
 ```
 
+### 128. Mounting and Unmounting File Systems (df, mount, umount, fdisk, gparted)
+
+```sh
+man mount
+
+mount
+# sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+# proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+#
+# ...
+#
+# nsfs on /run/snapd/ns/snap-store.mnt type nsfs (rw)
+
+# partitions (-l: list, -t: type)
+mount -l -t ext4
+# /dev/sda5 on / type ext4 (rw,relatime,errors=remount-ro)
+# /dev/sda5 on /var/snap/firefox/common/host-hunspell type ext4 (ro,noexec,noatime,errors=remount-ro)
+mount -l -t vfat
+# /dev/sda1 on /boot/efi type vfat (rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
+```
+
+#### Mount my USB
+
+- Virtual machine -> Menu -> Devices -> {my device name}
+
+```sh
+# It is auto mounted
+mount | grep media
+# /dev/sdb1 on /media/kimn/NOAH type exfat (rw,nosuid,nodev,relatime,uid=1000,gid=1000,fmask=0022,dmask=0022,iocharset=utf8,errors=remount-ro,uhelper=udisks2)
+
+# see what's in my usb
+ls -l /dev/sdb1
+# brw-rw---- 1 root disk 8, 16 May 25 09:14 /dev/sdb1
+
+# to find the name of device file
+sudo fdisk -l
+#
+# ...
+#
+# Device     Boot Start      End  Sectors  Size Id Type
+# /dev/sdb1  *        2 30529535 30529534 14.6G  7 HPFS/NTFS/exFAT
+
+# message log about devices
+sudo dmesg
+# [ 2101.638942] usb-storage 1-2:1.0: USB Mass Storage device detected
+# [ 2101.643698] scsi host3: usb-storage 1-2:1.0
+# [ 2101.644592] usbcore: registered new interface driver usb-storage
+# [ 2101.649190] usbcore: registered new interface driver uas
+# [ 2102.683901] scsi 3:0:0:0: Direct-Access     SanDisk  Cruzer Blade     1.27 PQ: 0 ANSI: 6
+# [ 2102.766709] sd 3:0:0:0: Attached scsi generic sg2 type 0
+# [ 2102.840649] sd 3:0:0:0: [sdb] 30529536 512-byte logical blocks: (15.6 GB/14.6 GiB)
+# [ 2102.870263] sd 3:0:0:0: [sdb] Write Protect is off
+# [ 2102.870267] sd 3:0:0:0: [sdb] Mode Sense: 43 00 00 00
+# [ 2102.897544] sd 3:0:0:0: [sdb] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+# [ 2103.124367]  sdb: sdb1
+# [ 2103.297079] sd 3:0:0:0: [sdb] Attached SCSI removable disk
+# [ 2104.889456] exFAT-fs (sdb1): Volume was not properly unmounted. Some data may be corrupt. Please run fsck.
+```
+
+```sh
+mkdir /home/kimn/Desktop/usb
+sudo mount /dev/sdb1 /home/kimn/Desktop/usb
+# it will appear on the desktop
+
+# Now my usb has mounted to locations
+ls ~/Desktop/usb/
+# list...
+ls /media/kimn/NOAH/
+# list...
+
+# mount -t vfat -l
+mount -t exfat -l  # (or mount -t exFat -l)
+# /dev/sdb1 on /media/kimn/NOAH type exfat (rw,nosuid,nodev,relatime,uid=1000,gid=1000,fmask=0022,dmask=0022,iocharset=utf8,errors=remount-ro,uhelper=udisks2) [NOAH]
+# /dev/sdb1 on /home/kimn/Desktop/usb type exfat (rw,relatime,uid=1000,gid=1000,fmask=0022,dmask=0022,iocharset=utf8,errors=remount-ro) [NOAH]
+```
+
+#### Basically linux automatically detect the file type, however if it doesn't?
+
+```sh
+sudo mount -t exfat /dev/sdb1 /home/kimn/Desktop/usb
+```
+
+#### Unmount
+
+```sh
+# ! it's not unmount, but `umount`
+sudo umount /home/kimn/Desktop/usb
+
+# Lazy option (wait until file using finished)
+sudo umount -l /home/kimn/Desktop/usb
+# umount: /home/kimn/Desktop/usb: not mounted.
+```
+
+#### Mount it with read-only option
+
+```sh
+sudo mount -o ro /dev/sdb1 /home/kimn/Desktop/usb
+# mount: /home/kimn/Desktop/usb: /dev/sdb1 already mounted on /media/kimn/NOAH.
+# because it is already mount in another location
+
+sudo umount /media/kimn/NOAH
+sudo mount -o ro /dev/sdb1 /home/kimn/Desktop/usb
+
+mount -t exfat -l
+# /dev/sdb1 on /home/kimn/Desktop/usb type exfat (ro,relatime,fmask=0022,dmask=0022,iocharset=utf8,errors=remount-ro) [NOAH]
+```
+
+#### Remount it with different option
+
+```sh
+sudo mount -o rw,remount /dev/sdb1 /home/kimn/Desktop/usb
+```
+
+#### Mount ISO file in any location
+
+```sh
+mkdir ~/iso
+sudo mount /path_to_iso_file /home/kimn/iso -o loop
+```
+
+#### Graphical partition managing tool - gparted
+
+```sh
+# fdisk is a powerful command, but you should be careful of losing your data
+# a suggestion is to use graphical tool such as gparted
+sudo fdisk
+
+sudo apt install gparted
+
+sudo gparted
+```
+
 </details>
