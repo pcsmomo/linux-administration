@@ -498,4 +498,61 @@ sudo apt install gparted
 sudo gparted
 ```
 
+### 129. Working With Device Files (dd)
+
+```sh
+man dd
+df -h
+```
+
+#### practice with my usb
+
+Plug in my USB and select it
+
+- Virtual machine -> Menu -> Devices -> {my device name}
+
+```sh
+sudo fdisk -l
+sudo lsblk
+
+# if: input file, of: output file
+sudo dd if=/dev/sdb1 of=/home/kimn/backup-usb.img status=progress
+# 281268736 bytes (281 MB, 268 MiB) copied, 130 s, 2.2 MB/s
+
+sudo dd if=/home/kimn/backup-usb.img of=/dev/sdb1 status=progress conf=sync
+```
+
+#### copy my partition root is mounted to usb
+
+```sh
+df -h
+# ...
+# /dev/sda5        98G   16G   77G  17% /
+# ...
+
+sudo dd if=/dev/sda5 of=/dev/sdb1 status=progress
+```
+
+#### backup master boot record (mbr)
+
+```sh
+# bs: block size, count: 1 (it will copy only one block)
+sudo dd if=/dev/sda of=/root/mbr.dat bs=512 count=1
+
+# Now if something goes wrong, we can restore it with the backup
+sudo dd if=/root/mbr.dat of=/dev/sda bs=512 count=1
+```
+
+#### make bootable USB with linux ISO file (Mint Linux)
+
+```sh
+# unmount my usb
+sudo umount /media/kimn/NOAH
+
+# format my usb
+mkfs.vfat /dev/sdb1
+
+sudo dd if=/home/kimn/Download/linuxmint-20-cinammon-64bit.iso of=/dev/sdb1 status=progress
+```
+
 </details>
