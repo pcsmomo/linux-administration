@@ -1170,4 +1170,43 @@ acpi -B
 # Report bugs to Michael Meskes <meskes@debian.org>.
 ```
 
+### 132. Intro to systemd
+
+#### Systemd vs SysVInit
+
+- Most modern Linux distributions are using `SystemD` as the default init system and service manager
+- It replaced the old `SysVint` script system, but it's backward compatible with SysVinit
+- `systemd` starts with PID 1 as the first process, than takes over and continues to mount the host's file systems and starts services
+- systemd starts the services in parallel (sysvinit doesn't)
+- Statistics
+  - systemd-analyze
+  - systemd-analyze blame
+
+```sh
+ps -ef | less
+# UID          PID    PPID  C STIME TTY          TIME CMD
+# root           1       0  0 May27 ?        00:00:03 /sbin/init splash
+# root           2       0  0 May27 ?        00:00:00 [kthreadd]
+# root           3       2  0 May27 ?        00:00:00 [rcu_gp]
+# ...
+
+man init  # which means systemd
+
+systemd --version
+# systemd 249 (249.11-0ubuntu3.9)
+# +PAM +AUDIT +SELINUX +APPARMOR +IMA +SMACK +SECCOMP +GCRYPT +GNUTLS +OPENSSL +ACL +BLKID +CURL +ELFUTILS +FIDO2 +IDN2 -IDN +IPTC +KMOD +LIBCRYPTSETUP +LIBFDISK +PCRE2 -PWQUALITY -P11KIT -QRENCODE +BZIP2 +LZ4 +XZ +ZLIB +ZSTD -XKBCOMMON +UTMP +SYSVINIT default-hierarchy=unified
+
+systemd-analyze
+# Startup finished in 2.653s (kernel) + 23.562s (userspace) = 26.215s
+# graphical.target reached after 23.531s in userspace
+
+systemd-analyze blame
+# 19.876s plymouth-quit-wait.service
+# 15.216s vboxadd.service
+#  6.519s apt-daily.service
+#  2.655s snapd.service
+#  1.755s plocate-updatedb.service
+# ...
+```
+
 </details>
