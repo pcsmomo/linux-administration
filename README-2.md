@@ -1209,4 +1209,65 @@ systemd-analyze blame
 # ...
 ```
 
+### 133. Service Management (systemd and systemctl)
+
+```sh
+man systemctl
+
+sudo su
+
+apt update && apt install nginx
+
+# systemctl status nginx.service  # the same
+systemctl status nginx
+# ● nginx.service - A high performance web server and a reverse proxy server
+#      Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
+#      Active: active (running) since Sat 2023-05-27 09:17:16 AEST; 1 day 5h ago
+#        Docs: man:nginx(8)
+#     Process: 859 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+#     Process: 881 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+#    Main PID: 882 (nginx)
+#       Tasks: 3 (limit: 9453)
+#      Memory: 9.3M
+#         CPU: 74ms
+#      CGroup: /system.slice/nginx.service
+#              ├─882 "nginx: master process /usr/sbin/nginx -g daemon on; master_process on;"
+#              ├─883 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+#              └─884 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+
+# May 27 09:17:15 kimn-VirtualBox systemd[1]: Starting A high performance web server and a reverse proxy server...
+# May 27 09:17:16 kimn-VirtualBox systemd[1]: Started A high performance web server and a reverse proxy server.
+
+systemctl stop nginx
+
+systemctl start nginx
+systemctl restart nginx
+
+# if you want to apply changed configurations without restarting
+systemctl reload nginx
+
+# reload if possible, if not it will restart
+systemctl reload-or-restart nginx
+
+# start nginx automatically when the system reboot
+systemctl enable nginx
+systemctl is-enable nginx
+# enabled
+systemctl disable nginx
+```
+
+```sh
+# This will link these unit files to /dev/null, making it impossible to start them.
+systemctl mask nginx
+systemctl start nginx
+# Failed to start nginx.service: Unit nginx.service is masked.
+systemctl unmask nginx
+```
+
+```sh
+# List units that systemd currently has in memory.
+systemctl list-units
+systemctl list-units --all
+```
+
 </details>
