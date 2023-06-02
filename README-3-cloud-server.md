@@ -179,3 +179,89 @@ If it is correctly applied, we will get answers
 ```sh
 dig -t ns ticketing-prod.site
 ```
+
+### 140. Diving into the DNS Protocol and Installing a DNS Server (Bind9)
+
+[Bind 9 - DNS system](https://www.isc.org/bind/)
+
+#### Install bind 9
+
+```sh
+ssh root@170.64.181.165
+
+apt update && apt install bind9 bind9utils bind9-doc
+
+systemctl status bind9
+# ● named.service - BIND Domain Name Server
+#      Loaded: loaded (/lib/systemd/system/named.service; enabled; preset: enabled)
+#      Active: active (running) since Wed 2023-05-31 10:21:18 UTC; 50s ago
+```
+
+> We installed `bind9`, but the daemon name is `bind`
+
+#### Configure DNS service
+
+```sh
+vim /etc/default/named
+# change Option to use ipv4
+OPTION="-u bind -4"
+
+systemctl reload-or-restart bind9
+
+# check google.com IP via my DNS server
+dig -t a @localhost google.com
+# ;; ANSWER SECTION:
+# google.com.		300	IN	A	172.217.167.78
+
+# check google.com IP via 1.1.1.1 cloudflare DNS server
+dig -t a @1.1.1.1 google.com
+# ;; ANSWER SECTION:
+# google.com.		281	IN	A	172.217.24.46
+```
+
+#### Bind server configuration
+
+```sh
+cat /etc/bind/named.conf
+# include "/etc/bind/named.conf.options";   # general server configurations
+# include "/etc/bind/named.conf.local";     # domains hosted on the server
+# include "/etc/bind/named.conf.default-zones"; # root server and default zone (we don't touch really)
+
+ps -ef | grep named
+# bind       37965       1  0 10:21 ?        00:00:00 /usr/sbin/named -u bind
+```
+
+#### DNS Query
+
+1. Recursive
+   - A recursive query is a kind of query in the DNS server that received your query, will do all the job, fetching the answer, and giving it back to you.
+   - In the end, you'll get the final answer
+2. Iterative
+   - The DNS name server will not go and fetch the complete answer for your query \
+     but will give back a referral to the other DNS servers, which might have the answer
+   - Now it's your job to query those servers and find the answer
+
+#### DNS Forwarder
+
+A `forwarder` is another DNS server that will be queried recursively by our server.
+
+- A DNS server, configured to use a forwarder, behaves as follows:
+  1. When the DNS server receives a query, it attempts to resolve this query.
+  2. If the query cannot be resolved using local data, the DNS server forwards the query recursively to the DNS server that is designated as a forwarder.
+  3. If the forwarder is not unavailable, the DNS server attempts to resolve the query by itself, using iterative queries.
+
+```sh
+vim /etc/bind/named.conf.options
+# add below next line of `listen-on-v6 { any; };`
+  forwarders {
+    8.8.8.8;
+    8.8.4.4;
+  };
+
+systemctl reload-or-restart bind9
+systemctl status bind9
+
+dig @localhost -t a parrotlinux.org
+# ;; ANSWER SECTION:
+# parrotlinux.org.	30	IN	A	143.42.34.14
+```
