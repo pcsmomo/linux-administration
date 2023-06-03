@@ -265,3 +265,112 @@ dig @localhost -t a parrotlinux.org
 # ;; ANSWER SECTION:
 # parrotlinux.org.	30	IN	A	143.42.34.14
 ```
+
+### 141. Setting Up the Authoritative BIND9 DNS Server
+
+```sh
+# They are Authoritative DNS servers
+dig -t ns google.com
+# ;; ANSWER SECTION:
+# google.com.		86400	IN	NS	ns3.google.com.
+# google.com.		86400	IN	NS	ns1.google.com.
+# google.com.		86400	IN	NS	ns2.google.com.
+# google.com.		86400	IN	NS	ns4.google.com.
+
+# and this is the IP address of the DNS server
+dig -t a ns1.google.com.
+# ;; ANSWER SECTION:
+# ns1.cisco.com.		600	IN	A	72.163.5.201
+
+dig -t ns linux.com
+# ;; ANSWER SECTION:
+# linux.com.		3600	IN	NS	ns3.dnsimple.com.
+# linux.com.		3600	IN	NS	ns2.dnsimple.com.
+# linux.com.		3600	IN	NS	ns1.dnsimple.comns1.dnsimple.com.
+# linux.com.		3600	IN	NS	ns4.dnsimple-edge.org.
+
+dig -t a ns1.dnsimple.com
+# ;; ANSWER SECTION:
+# ns1.dnsimple.com.	52289	IN	A	162.159.24.4
+```
+
+#### Configure our bind9 as an Authoritative DNS server
+
+```sh
+systemctl status bind9
+systemctl enable bind9
+# Failed to enable unit: Refusing to operate on alias name or linked unit file: bind9.service
+
+vim /etc/bind/named.conf.local
+# Add below ⬇️
+# zone "ticketing-prod.site" {
+#         type master;
+#         file "/etc/bind/db.ticketing-prod.site";
+# };
+
+cp /etc/bind/db.empty /etc/bind/db.ticketing-prod.site
+vim /etc/bind/db.ticketing-prod.site
+# Change like below ⬇️
+# $TTL    86400
+# @       IN      SOA     ns1.ticketing-prod.site. root.localhost. (
+#                               1         ; Serial
+#                          604800         ; Refresh
+#                           86400         ; Retry
+#                         2419200         ; Expire
+#                           86400 )       ; Negative Cache TTL
+# ;
+# @       IN      NS      ns1.ticketing-prod.site.
+# ;@      IN      NS      ns2.ticketing-prod.site.
+# ns1     IN      A       170.64.181.165
+# mail    IN      MX 10   mail.ticketing-prod.site.
+# ticketing-prod.site.    IN      A       170.64.181.165
+# www     IN      A       170.64.181.165
+# mail    IN      A       170.64.181.165
+# external        IN      A       91.189.88.1
+
+named-checkconf
+named-checkzone ticketing-prod.site /etc/bind/db.ticketing-prod.site
+# zone ticketing-prod.site/IN: loaded serial 1
+# OK
+
+systemctl restart bind9
+systemctl status bind9
+# May 31 11:14:53 ubuntu-s-1vcpu-1gb-syd1-01 named[38392]: zone ticketing-prod.site/IN: loaded serial 1
+
+dig @localhost -t ns ticketing-prod.site
+# ;; ANSWER SECTION:
+# ticketing-prod.site.	86400	IN	NS	ns1.ticketing-prod.site.
+
+dig @localhost -t a www.ticketing-prod.site
+# ;; ANSWER SECTION:
+# www.ticketing-prod.site. 86400	IN	A	170.64.181.165
+```
+
+- SOA : Start of Authority
+- @ : my domain name -> ticketing-prod.site
+
+#### Test it from my local machine
+
+```sh
+dig -t ns ticketing-prod.site
+# ;; ANSWER SECTION:
+# ticketing-prod.site.	60	IN	NS	ns1.ticketing-prod.site.
+
+dig -t a ticketing-prod.site
+# ;; ANSWER SECTION:
+# ticketing-prod.site.	60	IN	A	170.64.181.165
+```
+
+#### Add another domain for a test
+
+```sh
+vim /etc/bind/db.ticketing-prod.site
+# Add below ⬇️
+# public-dns      IN      A       8.8.8.8
+
+systemctl restart bind9
+
+dig -t a public-dns.ticketing-prod.site
+# ;; ANSWER SECTION:
+# public-dns.ticketing-prod.site.	60 IN	A	8.8.8.8
+```
