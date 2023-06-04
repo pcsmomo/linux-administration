@@ -374,3 +374,45 @@ dig -t a public-dns.ticketing-prod.site
 # ;; ANSWER SECTION:
 # public-dns.ticketing-prod.site.	60 IN	A	8.8.8.8
 ```
+
+### 142. Installing a Web Server (Apache2)
+
+Apache2 vs Nginx
+
+```sh
+apt update && apt install apache2
+systemctl status apache2
+# ● apache2.service - The Apache HTTP Server
+#      Loaded: loaded (/lib/systemd/system/apache2.service; enabled; preset: enabled)
+#      Active: active (running) since Wed 2023-05-31 21:25:17 UTC; 1min 6s ago
+systemctl enable apache2
+```
+
+#### make firewall to allow apache2
+
+```sh
+man ufw
+# This program is for managing a Linux firewall and aims to provide an easy to use interface for the user.
+
+ufw status
+# Status: inactive
+
+ufw allow 'Apache Full'
+# Rules updated
+# Rules updated (v6)
+```
+
+#### Check my address
+
+```sh
+id addr
+# 170.64.181.165
+
+# If I use private server?
+curl -4 ident.me
+# 170.64.181.165
+```
+
+Navigate `170.64.181.165` or `ticketing-prod.site` on the browser
+
+Ta-da! Apache2 webserver is running!
