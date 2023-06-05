@@ -416,3 +416,71 @@ curl -4 ident.me
 Navigate `170.64.181.165` or `ticketing-prod.site` on the browser
 
 Ta-da! Apache2 webserver is running!
+
+### 143. Setting Up Virtual Hosting
+
+```sh
+# apache work directory
+ls /var/www/html/index.html
+echo "Hello, that's me" > /var/www/html/me.txt
+
+mkdir /var/www/ticketing-prod.site
+
+# check the apache user and group
+ps -ef | grep apache2
+# root       40303       1  0 May31 ?        00:00:05 /usr/sbin/apache2 -k start
+# www-data   40305   40303  0 May31 ?        00:00:00 /usr/sbin/apache2 -k start
+# www-data   40306   40303  0 May31 ?        00:00:00 /usr/sbin/apache2 -k start
+# www-data   40397       1  0 May31 ?        00:00:04 /usr/bin/htcacheclean -d 120 -p /var/cache/apache2/mod_cache_disk -l 300M -n
+# root       51422   51398  0 21:45 pts/0    00:00:00 grep --color=auto apache2
+
+# change the ownership recursively (user.group)
+chown -R www-data.www-data /var/www/ticketing-prod.site/
+chmod 755 /var/www/ticketing-prod.site/
+vim /var/www/ticketing-prod.site/index.html
+# write any content
+```
+
+#### Configure for virtual hosting
+
+```sh
+cd /etc/apache2
+vim sites-available/ticketing-prod.site.conf
+# <VirtualHost *:80>
+# 	ServerName ticketing-prod.site
+# 	ServerAlias www.ticketing-prod.site
+# 	DocumentRoot /var/www/ticketing-prod.site
+
+# 	ServerAdmin webmaster@ticketing-prod.site
+# 	ErrorLog /var/log/apache2/ticketing-prod_site_error.log
+# 	CustomLog /var/log/apache2/ticketing-prod_site_access.log combined
+# </VirtualHost>
+
+# enable the conf (without .conf)
+a2ensite ticketing-prod.site
+# Enabling site ticketing-prod.site.
+# To activate the new configuration, you need to run:
+#   systemctl reload apache2
+```
+
+#### Disable the default config
+
+```sh
+ls -l /etc/apache2/sites-enabled
+# total 0
+# lrwxrwxrwx 1 root root 35 May 31 21:25 000-default.conf -> ../sites-available/000-default.conf
+# lrwxrwxrwx 1 root root 43 Jun  1 22:26 ticketing-prod.site.conf -> ../sites-available/ticketing-prod.site.conf
+
+a2dissite 000-default
+# Site 000-default disabled.
+# To activate the new configuration, you need to run:
+#   systemctl reload apache2
+
+systemctl reload apache2
+```
+
+Navigate "http://ticketing-prod.site/"
+
+Ta-da! It works!!
+
+> if you want to run more services, you can add configure file as the same as above
