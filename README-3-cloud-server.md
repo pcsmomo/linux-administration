@@ -484,3 +484,130 @@ Navigate "http://ticketing-prod.site/"
 Ta-da! It works!!
 
 > if you want to run more services, you can add configure file as the same as above
+
+### 144. Securing Apache with OpenSSL and Digital Certificates
+
+[Let's Encrypt - free SSL/TLS certificate](https://letsencrypt.org/)
+
+```sh
+apt update && apt install certbot python3-certbot-apache
+certbot -d ticketing-prod.site
+# Saving debug log to /var/log/letsencrypt/letsencrypt.log
+# Enter email address (used for urgent renewal and security notices)
+#  (Enter 'c' to cancel): dkim12444@gmail.com
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Please read the Terms of Service at
+# https://letsencrypt.org/documents/LE-SA-v1.3-September-21-2022.pdf. You must
+# agree in order to register with the ACME server. Do you agree?
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# (Y)es/(N)o: Y
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Would you be willing, once your first certificate is successfully issued, to
+# share your email address with the Electronic Frontier Foundation, a founding
+# partner of the Let's Encrypt project and the non-profit organization that
+# develops Certbot? We'd like to send you email about our work encrypting the web,
+# EFF news, campaigns, and ways to support digital freedom.
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# (Y)es/(N)o: Y
+# Account registered.
+# Requesting a certificate for ticketing-prod.site
+
+# Successfully received certificate.
+# Certificate is saved at: /etc/letsencrypt/live/ticketing-prod.site/fullchain.pem
+# Key is saved at:         /etc/letsencrypt/live/ticketing-prod.site/privkey.pem
+# This certificate expires on 2023-08-31.
+# These files will be updated when the certificate renews.
+# Certbot has set up a scheduled task to automatically renew this certificate in the background.
+
+# Deploying certificate
+# Successfully deployed certificate for ticketing-prod.site to /etc/apache2/sites-available/ticketing-prod.site-le-ssl.conf
+# Congratulations! You have successfully enabled HTTPS on https://ticketing-prod.site
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# If you like Certbot, please consider supporting our work by:
+#  * Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+#  * Donating to EFF:                    https://eff.org/donate-le
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+```
+
+On the video, there was option to choose redict or not when "http://" request comes, \
+but my version of certbot doesn't have the option initially
+
+It's done????? What!
+
+#### What certbot did?
+
+```sh
+# 1. Create {domain name}-le-ssl.conf file
+ls -l /etc/apache2/sites-available/
+# total 20
+# -rw-r--r-- 1 root root 1332 Mar  1 23:01 000-default.conf
+# -rw-r--r-- 1 root root 6340 Mar  1 23:01 default-ssl.conf
+# -rw-r--r-- 1 root root  550 Jun  2 07:08 ticketing-prod.site-le-ssl.conf
+# -rw-r--r-- 1 root root  509 Jun  2 07:08 ticketing-prod.site.conf
+
+cat /etc/apache2/sites-available/ticketing-prod.site-le-ssl.conf
+# <IfModule mod_ssl.c>
+# <VirtualHost *:443>
+# 	ServerName ticketing-prod.site
+# 	ServerAlias www.ticketing-prod-site
+# 	DocumentRoot /var/www/ticketing-prod.site
+
+# 	ServerAdmin webmaster@ticketing-prod.site
+# 	ErrorLog /var/log/apache2/ticketing-prod_site_error.log
+# 	CustomLog /var/log/apache2/ticketing-prod_site_access.log combined
+
+# SSLCertificateFile /etc/letsencrypt/live/ticketing-prod.site/fullchain.pem
+# SSLCertificateKeyFile /etc/letsencrypt/live/ticketing-prod.site/privkey.pem
+# Include /etc/letsencrypt/options-ssl-apache.conf
+# </VirtualHost>
+# </IfModule>
+
+cat /etc/apache2/sites-available/ticketing-prod.site.conf
+# ...
+# RewriteEngine on
+# RewriteCond %{SERVER_NAME} =ticketing-prod.site [OR]
+# RewriteCond %{SERVER_NAME} =www.ticketing-prod.site
+# RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+# </VirtualHost>
+
+
+# 2. enable the site
+ls -l /etc/apache2/sites-enabled
+# total 4
+# lrwxrwxrwx 1 root root 60 Jun  2 07:08 ticketing-prod.site-le-ssl.conf -> /etc/apache2/sites-available/ticketing-prod.site-le-ssl.conf
+# lrwxrwxrwx 1 root root 43 Jun  1 22:26 ticketing-prod.site.conf -> ../sites-available/ticketing-prod.site.conf
+```
+
+#### Renew the certificate
+
+> Let's encrypt certificate is valid for 90 days. \
+> Before it gets expired, we can renew it.
+
+```sh
+systemctl status certbot.timer
+# ● certbot.timer - Run certbot twice daily
+#      Loaded: loaded (/lib/systemd/system/certbot.timer; enabled; preset: enabled)
+#      Active: active (waiting) since Fri 2023-06-02 07:05:25 UTC; 54min ago
+#       Until: Fri 2023-06-02 07:05:25 UTC; 54min ago
+#     Trigger: Fri 2023-06-02 21:08:04 UTC; 13h left
+#    Triggers: ● certbot.service
+
+# Jun 02 07:05:25 ubuntu-s-1vcpu-1gb-syd1-01 systemd[1]: Started Run certbot twice daily.
+
+certbot renew --dry-run
+# Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Processing /etc/letsencrypt/renewal/ticketing-prod.site.conf
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Account registered.
+# Simulating renewal of an existing certificate for ticketing-prod.site
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Congratulations, all simulated renewals succeeded:
+#   /etc/letsencrypt/live/ticketing-prod.site/fullchain.pem (success)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+```
