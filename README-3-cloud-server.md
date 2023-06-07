@@ -611,3 +611,25 @@ certbot renew --dry-run
 #   /etc/letsencrypt/live/ticketing-prod.site/fullchain.pem (success)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ```
+
+### 145. Installing PHP
+
+```sh
+apt update && apt install php php-mysql libapache2-mod-php
+# libapache2-mod-php : apache module to use php
+
+systemctl restart apache2
+
+php -v
+# PHP 8.1.7-1ubuntu3.3 (cli) (built: Feb 22 2023 22:55:33) (NTS)
+# Copyright (c) The PHP Group
+# Zend Engine v4.1.7, Copyright (c) Zend Technologies
+#     with Zend OPcache v8.1.7-1ubuntu3.3, Copyright (c), by Zend Technologies
+
+vim /var/www/ticketing-prod.site/test.php
+# <?php
+#   phpinfo();
+# ?>
+```
+
+navigate https://ticketing-prod.site/test.php
