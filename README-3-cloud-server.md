@@ -633,3 +633,114 @@ vim /var/www/ticketing-prod.site/test.php
 ```
 
 navigate https://ticketing-prod.site/test.php
+
+### 146. Installing and Securing the MySql Server
+
+```sh
+apt update && apt install mysql-server
+
+systemctl status mysql
+# ● mysql.service - MySQL Community Server
+#      Loaded: loaded (/lib/systemd/system/mysql.service; enabled; preset: enabled)
+#      Active: active (running) since Fri 2023-06-02 21:03:04 UTC; 39s ago
+#     Process: 66528 ExecStartPre=/usr/share/mysql/mysql-systemd-start pre (code=exited, status=0/SUCCESS)
+#    Main PID: 66536 (mysqld)
+#      Status: "Server is operational"
+#       Tasks: 38 (limit: 1116)
+#      Memory: 357.5M
+#         CPU: 1.352s
+#      CGroup: /system.slice/mysql.service
+#              └─66536 /usr/sbin/mysqld
+
+ps -ef | grep mysql
+# mysql      66536       1  2 21:03 ?        00:00:01 /usr/sbin/mysqld
+# root       66707   57509  0 21:04 pts/0    00:00:00 grep --color=auto mysql
+
+mysql --version
+# mysql  Ver 8.0.33-0ubuntu0.22.10.2 for Linux on x86_64 ((Ubuntu))
+
+systemctl is-enabled mysql
+# enabled
+```
+
+#### mysql security update
+
+```sh
+mysql_secure_installation
+# on the video it answers all 'Y'
+
+# But for me I coulnd't go further, and I cannot exit the prompt
+# New password:
+
+# Re-enter new password:
+
+# Estimated strength of the password: 100
+# Do you wish to continue with the password provided?(Press y|Y for Yes, any other key for No) : y
+#  ... Failed! Error: SET PASSWORD has no significance for user 'root'@'localhost' as the authentication method used doesn't store authentication data in the MySQL server. Please consider using ALTER USER instead if you want to change authentication parameters.
+```
+
+To fix this issue, open another terminal
+
+```sh
+killall -9 mysql_secure_installation
+mysql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'SetRootPasswordHere';
+exit
+
+mysql_secure_installation
+# Securing the MySQL server deployment.
+
+# Enter password for user root:
+# The 'validate_password' component is installed on the server.
+# The subsequent steps will run with the existing configuration
+# of the component.
+# Using existing password for root.
+
+# Estimated strength of the password: 100
+# Change the password for root ? ((Press y|Y for Yes, any other key for No) : n
+
+#  ... skipping.
+# By default, a MySQL installation has an anonymous user,
+# allowing anyone to log into MySQL without having to have
+# a user account created for them. This is intended only for
+# testing, and to make the installation go a bit smoother.
+# You should remove them before moving into a production
+# environment.
+
+# Remove anonymous users? (Press y|Y for Yes, any other key for No) : y
+# Success.
+
+
+# Normally, root should only be allowed to connect from
+# 'localhost'. This ensures that someone cannot guess at
+# the root password from the network.
+
+# Disallow root login remotely? (Press y|Y for Yes, any other key for No) : y
+# Success.
+
+# By default, MySQL comes with a database named 'test' that
+# anyone can access. This is also intended only for testing,
+# and should be removed before moving into a production
+# environment.
+
+
+# Remove test database and access to it? (Press y|Y for Yes, any other key for No) : y
+#  - Dropping test database...
+# Success.
+
+#  - Removing privileges on test database...
+# Success.
+
+# Reloading the privilege tables will ensure that all changes
+# made so far will take effect immediately.
+
+# Reload privilege tables now? (Press y|Y for Yes, any other key for No) : y
+# Success.
+
+# All done!
+```
+
+```sh
+mysql -u root -p
+# mysql>
+```
