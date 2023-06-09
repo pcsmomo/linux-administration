@@ -744,3 +744,39 @@ mysql_secure_installation
 mysql -u root -p
 # mysql>
 ```
+
+### 147. Installing a Web Application (WordPress)
+
+#### create wordpress user
+
+```sh
+systemctl status apache2
+systemctl status mysql
+
+mysql -u root -p
+mysql> CREATE DATABASE wordpress;
+mysql> CREATE USER 'wordpressuser'@'localhost' IDENTIFIED BY 'Pass123.';
+mysql> GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpressuser'@'localhost';
+mysql> FLUSH PRIVILEGES;
+```
+
+#### Install wordpress
+
+```sh
+cd /tmp/
+wget https://wordpress.org/latest.tar.gz
+tar -xzvf latest.tar.gz
+ls -l /var/www/ticketing-prod.site
+rm -rf /var/www/ticketing-prod.site/*
+mv wordpress/* /var/www/ticketing-prod.site/
+
+ps -ef | grep apache2
+# www-data   73712   65561  0 00:00 ?        00:00:00 /usr/sbin/apache2 -k start
+chown -R www-data.www-data /var/www/ticketing-prod.site
+```
+
+Navigate https://ticketing-prod.site and install/setup
+
+- Input database crendentials as above
+- username: wpadmin/GwF4e^8oUKG01o@I(g
+- https://ticketing-prod.site/wp-admin
