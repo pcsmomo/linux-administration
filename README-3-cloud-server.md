@@ -780,3 +780,16 @@ Navigate https://ticketing-prod.site and install/setup
 - Input database crendentials as above
 - username: wpadmin/GwF4e^8oUKG01o@I(g
 - https://ticketing-prod.site/wp-admin
+
+### 148. Securing WordPress
+
+1. Alwaus use the latest version of WordPress and keep it all plugins up to date.
+2. Use only strong passwords
+3. Limit login attempts using a plugin or a WAF (Web Application Firewall)
+4. Install a security plugin or a WAF. Example: WordFence
+   - wp-admin -> Settings -> Plugins -> Search Wordfence and install it
+5. Add 2-step verification (using a security plugin)
+6. Protect wp-admin directory (source IP access or username and password)
+7. Make backups regularly and test them.
+
+[Wordpress Security Tips](https://www.wpbeginner.com/wordpress-security/)
