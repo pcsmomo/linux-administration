@@ -34,3 +34,15 @@ sudo ipfs add ipfs.txt
 # download it via scp
 scp -P 2299 ipfs.txt root@170.64.181.165:/var/www/html
 ```
+
+## Section 24: [EXTRA] Security: Netfilter and Iptables Firewall
+
+### 188. Introduction to Netfilter and Iptables
+
+- `Netfilter` is **software firewall, a packet filtering framework inside the Linux Kernel**
+- It enables **packet filtering, NAT, PAT, Port Forwarding and packet mangling**
+- Netfilter framework is controlled by the `iptables` command
+- Iptables is a tool that belongs to the **user-space** used to configure netfilter
+- Netfilter and iptables are often combined into a single expression netfilter/iptables
+- Every Linux distribution uses netfilter/iptables, there is nothing extra that should be installed
+- Only root user can use or configure the netfilter framework
