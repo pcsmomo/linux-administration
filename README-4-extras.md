@@ -46,3 +46,13 @@ scp -P 2299 ipfs.txt root@170.64.181.165:/var/www/html
 - Netfilter and iptables are often combined into a single expression netfilter/iptables
 - Every Linux distribution uses netfilter/iptables, there is nothing extra that should be installed
 - Only root user can use or configure the netfilter framework
+
+### 189. Chain Traversal in a Nutshell
+
+- `Incoming traffic` is filtered on the `INPUT CHAIN` of the `filter table`
+- `Outcoming traffic` is filtered on the `OUTPUT CHAIN` of the filter table
+- `Routed traffic` is filtered on the `FORWARD CHAIN` of the filter table
+- `SNAT/MASQUERADE` is performed on the `POSTROUTING CHAIN` of the `nat table`
+- `DNAT/Port Forwarding` is performed on the `PREROUTING CHAIN` of the `nat table`
+- To modify values from the packet's headers add rules to the `mangle table`
+- To skip the connection tracking add rules with `NOTRACK target` to the `raw table`
