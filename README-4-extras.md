@@ -56,3 +56,120 @@ scp -P 2299 ipfs.txt root@170.64.181.165:/var/www/html
 - `DNAT/Port Forwarding` is performed on the `PREROUTING CHAIN` of the `nat table`
 - To modify values from the packet's headers add rules to the `mangle table`
 - To skip the connection tracking add rules with `NOTRACK target` to the `raw table`
+
+### 190. Iptables Basic Usage
+
+`iptables [-t table_name] -COMMAND CHANGE_NAME matches -j TARGET`
+
+| Table            | Command      | CHAIN        | matches          | Target/Jump |
+| ---------------- | ------------ | ------------ | ---------------- | ----------- |
+| filter (default) | -A (append)  | INPUT        | -s source_ip     | ACCEPT      |
+| nat              | -i (insert)  | OUTPUT       | -d dest_ip       | DROP        |
+| mangle           | -D (delete)  | FORWARD      | -p protocol      | REJECT      |
+| raw              | -R (replace) | PREROUTING   | --sport source_p | LOG         |
+|                  | -F (flush)   | POSTROUTING  | --dport dest_p   | SNAT        |
+|                  | -Z (zero)    | USER_DEFINED | -i incoming_int  | DNAT        |
+|                  | -L (list)    |              | -o outgoing_int  | MASQUERADE  |
+|                  | -S (show)    |              | -m mac           | LIMIT       |
+|                  | -N           |              | -m time          | RETURN      |
+|                  | -X           |              | -m quota         | TEE         |
+|                  |              |              | -m limit         | TOS         |
+|                  |              |              | -m recent        | TTL         |
+
+```sh
+sudo iptables -L
+# Chain INPUT (policy ACCEPT)
+# target     prot opt source               destination
+
+# Chain FORWARD (policy ACCEPT)
+# target     prot opt source               destination
+
+# Chain OUTPUT (policy ACCEPT)
+# target     prot opt source               destination
+
+iptables -t nat -L
+# Chain PREROUTING (policy ACCEPT)
+# target     prot opt source               destination
+
+# Chain INPUT (policy ACCEPT)
+# target     prot opt source               destination
+
+# Chain OUTPUT (policy ACCEPT)
+# target     prot opt source               destination
+
+# Chain POSTROUTING (policy ACCEPT)
+# target     prot opt source               destination
+```
+
+- Open another terminal and ping to the server
+- on the main linux, drop it during ping
+
+```sh
+ping 170.64.181.165
+# PING 170.64.181.165 (170.64.181.165): 56 data bytes
+# 64 bytes from 170.64.181.165: icmp_seq=0 ttl=53 time=38.018 ms
+# 64 bytes from 170.64.181.165: icmp_seq=1 ttl=53 time=37.246 ms
+# 64 bytes from 170.64.181.165: icmp_seq=2 ttl=53 time=33.443 ms
+# Request timeout for icmp_seq 3
+# 64 bytes from 170.64.181.165: icmp_seq=4 ttl=53 time=371.452 ms
+# 64 bytes from 170.64.181.165: icmp_seq=5 ttl=53 time=1374.732 ms
+# 64 bytes from 170.64.181.165: icmp_seq=6 ttl=53 time=37.022 ms
+```
+
+#### INPUT
+
+- icmp (The Internet Control Message Protocol which): a protocol that devices within a network use to communicate problems with data transmission
+
+```sh
+iptables -t filter -A INPUT -p icmp --icmp-type echo-request -j DROP
+# "-t filter" is a default so this command is the same
+iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
+
+iptables -L
+# Chain INPUT (policy ACCEPT)
+# target     prot opt source               destination
+# DROP       icmp --  anywhere             anywhere             icmp echo-request
+
+iptables -vnL
+# Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+#   144 12096 DROP       icmp --  *      *       0.0.0.0/0            0.0.0.0/0            icmptype 8
+```
+
+#### OUTPUT
+
+Navigate www.ubuntu.com on the browser, it will work
+
+```sh
+iptables -t filter -A OUTPUT -p tcp --dport 80 -d www.ubuntu.com -j DROP
+iptables -t filter -A OUTPUT -p tcp --dport 443 -d www.ubuntu.com -j DROP
+
+iptables -L -vn
+# Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+#   381 32004 DROP       icmp --  *      *       0.0.0.0/0            0.0.0.0/0            icmptype 8
+
+# Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+
+# Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+#     0     0 DROP       tcp  --  *      *       0.0.0.0/0            185.125.190.21       tcp dpt:80
+#     0     0 DROP       tcp  --  *      *       0.0.0.0/0            185.125.190.29       tcp dpt:80
+#     0     0 DROP       tcp  --  *      *       0.0.0.0/0            185.125.190.20       tcp dpt:80
+#     0     0 DROP       tcp  --  *      *       0.0.0.0/0            185.125.190.21       tcp dpt:443
+#     0     0 DROP       tcp  --  *      *       0.0.0.0/0            185.125.190.20       tcp dpt:443
+#     0     0 DROP       tcp  --  *      *       0.0.0.0/0            185.125.190.29       tcp dpt:443
+
+# Output destinations are all for www.ubuntu.dom
+```
+
+Navigate www.ubuntu.com on the browser again and we cannot access now
+
+### DELETE rules
+
+> use `-D` flag. `-A OUTPUT -j ACCEPT` will just add ACCEPT
+
+```sh
+iptables -t filter -D OUTPUT -p tcp --dport 80 -d www.ubuntu.com -j DROP
+```
