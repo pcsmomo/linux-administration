@@ -173,3 +173,86 @@ Navigate www.ubuntu.com on the browser again and we cannot access now
 ```sh
 iptables -t filter -D OUTPUT -p tcp --dport 80 -d www.ubuntu.com -j DROP
 ```
+
+### 191. Iptables Options (Flags) - Part 1
+
+| Command            | Description                                                                                                  |
+| ------------------ | ------------------------------------------------------------------------------------------------------------ |
+| -A, --append       | Append one or more rules to the end of the selected chain.                                                   |
+| -I, --insert       | Insert one or more rules in the selected chain as the given rule number.                                     |
+| -L, --list         | List all rules in the selected chain. If no chain is selected, all chains are listed.                        |
+| -F, --flush        | Flush the selected chain (all the chains in the table if none is given).                                     |
+| -Z, --zero         | Zero the packet and byte counters in all chains, or only the given chain, or only the given rule in a chain. |
+| -N, --new-chain    | Create a new user-defined chain by the given name.                                                           |
+| -X, --delete-chain | Delete the optional user-defined chain specified.                                                            |
+| -P, --policy       | Set the policy for the built-in (non-user-defined) chain to the given target.                                |
+| -D, --delet        | Delete one or more rules from the selected chain.                                                            |
+| -R, --replace      | Replace a rule in the selected chain.                                                                        |
+
+#### -A option
+
+```sh
+# Before command this
+iptables -A INPUT -p tcp --dport 25 -j DROP
+iptables -A INPUT -p tcp --dport 80 -j DROP
+apt install apache2
+
+# -L: list, -v: verbose, -n: numiric
+iptables -vnL
+# Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+#     0     0 DROP       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:25
+#     0     0 DROP       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80
+
+# Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+
+# Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+
+## after namp from the other linux
+iptables -vnL
+# Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+#     8   416 DROP       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:25
+#    13   676 DROP       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80
+```
+
+On the other terminal
+
+```sh
+apt-get install namp
+nmap -p 25 170.64.181.165
+# Starting Nmap 7.80 ( https://nmap.org ) at 2023-06-09 07:33 AEST
+# Nmap scan report for 170.64.181.165
+# Host is up (0.031s latency).
+
+# PORT STATE SERVICE
+# 25/tcp filtered smtp
+
+# Nmap done: 1 IP address (1 host up) scanned in 0.75 seconds
+
+nmap -p 80 170.64.181.165
+# Starting Nmap 7.80 ( https://nmap.org ) at 2023-06-09 07:33 AEST
+# Nmap scan report for 170.64.181.165
+# Host is up (0.039s latency).
+
+# PORT STATE SERVICE
+# 80/tcp filtered http
+
+# Nmap done: 1 IP address (1 host up) scanned in 0.62 seconds
+```
+
+#### -I option
+
+- insert the rule at specific position
+- it is important as the rules at the bottom part can be ignored
+
+```sh
+iptables -I INPUT -p udp --dport 69 -j DROP
+iptables -I INPUT 3 -p udp --dport 69 -j DROP
+
+iptables -vnL
+
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+```
