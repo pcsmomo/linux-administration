@@ -256,3 +256,56 @@ iptables -vnL
 
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 ```
+
+### 192. Iptables Options (Flags) - Part 2
+
+```sh
+iptables -nvL
+
+# flush 'filter' table as default
+iptables -F INPUT
+
+iptables -nvL
+
+iptables -t nat -F
+```
+
+#### -Z: reset packets and bytes
+
+```sh
+iptables -A OUTPUT -p tcp --dport 22 -j ACCEPT
+ssh 192.168.0.20
+
+iptable -Z
+
+iptables -nvL
+# Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+#     0     0 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:22
+```
+
+#### -N, -X
+
+```sh
+iptables -N MYCHAIN
+iptables -vnL
+# Chain MYCHAIN (0 references)
+#  pkts bytes target     prot opt in     out     source               destination
+
+# delete the chain
+iptables -X MYCHAIN
+```
+
+#### -P
+
+```sh
+iptables -P FORWARD DROP
+```
+
+#### -D, -R
+
+We don't usually use these commands
+
+```sh
+iptables -D OUTPUT 2
+```
