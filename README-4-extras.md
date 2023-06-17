@@ -309,3 +309,54 @@ We don't usually use these commands
 ```sh
 iptables -D OUTPUT 2
 ```
+
+### 193. Where Do We Write Iptables Rules
+
+```sh
+iptable -A INPUT -p icmp -j DROP
+```
+
+> when the system is rebooted, all policy will be reset.\
+> how to persist them?
+
+```sh
+mkdir scripts
+cd scripts
+vim firewall.sh
+```
+
+`#!/bin/bash` : shebang
+
+```sh
+#!/bin/bash
+
+# flush all
+iptables -F
+iptables -t nat -F
+
+# droppping incoming ssh traffic
+# iptables -A INPUT -p tcp --dport 22 -j DROP
+
+# droppping outgoing http and https traffic
+iptables -A OUTPUT -p tcp --dport 80 -j DROP
+iptables -A OUTPUT -p tcp --dport 443 -j DROP
+
+# entire network
+iptables -t nat -A POSTROUTING -s 10.0.0.0/8 -o enp0s3 -j SNAT --to-source 80.0.0.1
+```
+
+> ⚠️ if you run this script, you won't be able to connect via ssh until reboot!
+
+```sh
+chmod 700 firewall.sh
+./firewall.sh
+iptables -vnL
+```
+
+```sh
+./firewall.sh
+./firewall.sh
+iptables -vnL
+# it will append rules again and again.
+# use `iptables -F`
+```
