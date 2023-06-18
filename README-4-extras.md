@@ -360,3 +360,30 @@ iptables -vnL
 # it will append rules again and again.
 # use `iptables -F`
 ```
+
+### 194. Setting the Default Policy
+
+- Policy specifies what happens to packets that are not matched against any rule
+- By default policy is set to accept all traffic
+- Policy can be changed only for INPUT, OUTPUT, and FORWARD chains
+- Policy can be changed using -P option
+
+```sh
+iptables -vnL
+# Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+
+# on the other terminal
+ping 170.64.181.165
+
+# it drops all input chain
+iptables -P INPUT DROP
+iptables -vnL
+# Chain INPUT (policy DROP 4 packets, 336 bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+
+# it only accepts ssh connection (port 22), but still blocking everything else
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+```
+
+> Be aware of that you could get blocked when you change the linux policy (e.g. if you're working via ssh but you block all input chains)
