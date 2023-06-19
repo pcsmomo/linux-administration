@@ -387,3 +387,34 @@ iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 ```
 
 > Be aware of that you could get blocked when you change the linux policy (e.g. if you're working via ssh but you block all input chains)
+
+### 195. Deleting the Firewall (reset)
+
+```sh
+cd ~/scripts
+vim delete_firewall.sh
+```
+
+```sh
+#!/bin/bash
+
+#1. Set the ACCEPT policy
+iptables -P INPUT ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -P FORWARD ACCEPT
+
+#2. flush all tables
+iptables -t filter -F
+iptables -t nat -F
+iptables -t mangle -F
+iptables -t raw -F
+
+#3. delete user-defined chains
+iptables -X
+```
+
+```sh
+chmod 700 delete_firewall.sh
+./delete_firewall.sh
+# and this is actually the default policy setup for linux system
+```
