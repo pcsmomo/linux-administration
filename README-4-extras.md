@@ -418,3 +418,128 @@ chmod 700 delete_firewall.sh
 ./delete_firewall.sh
 # and this is actually the default policy setup for linux system
 ```
+
+### 196. Filter by IP Address
+
+- Host address 192.168.0.1
+- Network address: 10.0.0.0/8
+- Domain name: www.linux.com
+
+1. Match by Source IP or Network Address
+   - Match: -s IP, --source IP
+   - Example
+     ```sh
+     iptables -A INPUT -s 100.0.0.0/16 -j DROP
+     ```
+2. Match by Destination IP or Network Address
+   - Match: -d IP, --destination IP
+   - Example
+     ```sh
+     iptables -A FORWARD -d 80.0.0.1 -j DROP
+     iptables -A OUTPUT -d www.ubuntu.com -j DROP
+     ```
+
+#### By source
+
+```sh
+# Linux 2: 192.168.0.20
+ping 192.168.0.10
+# ping will stop when ip is blocked
+```
+
+```sh
+# Linux 1: 192.168.0.10
+iptables -A INPUT -s 192.168.0.20 -j DROP
+```
+
+#### By Destination Network Address
+
+```sh
+# Linux 1: 192.168.0.10
+
+ping 8.8.8.8
+# PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+# 64 bytes from 8.8.8.8: icmp_seq=1 ttl=114 time=1.44 ms
+# 64 bytes from 8.8.8.8: icmp_seq=2 ttl=114 time=0.986 ms
+
+iptables -A OUTPUT -d 8.0.0.0/8 -j DROP
+
+# ping won't work
+ping 8.8.8.8
+# PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+
+iptables -vnL
+# Chain OUTPUT (policy ACCEPT 186K packets, 26M bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+#    21  1764 DROP       all  --  *      *       0.0.0.0/0            8.0.0.0/8
+```
+
+#### By Destination IP or domain
+
+```sh
+nslookup www.ubuntu.com
+# Server:		127.0.0.53
+# Address:	127.0.0.53#53
+
+# Non-authoritative answer:
+# Name:	www.ubuntu.com
+# Address: 185.125.190.20
+# Name:	www.ubuntu.com
+# Address: 185.125.190.29
+# Name:	www.ubuntu.com
+# Address: 185.125.190.21
+# Name:	www.ubuntu.com
+# Address: 2620:2d:4000:1::28
+# Name:	www.ubuntu.com
+# Address: 2620:2d:4000:1::27
+# Name:	www.ubuntu.com
+# Address: 2620:2d:4000:1::26
+
+dig www.ubuntu.com
+# ;; ANSWER SECTION:
+# www.ubuntu.com.		30	IN	A	185.125.190.20
+# www.ubuntu.com.		30	IN	A	185.125.190.29
+# www.ubuntu.com.		30	IN	A	185.125.190.21
+
+###################################
+# we could add IPs one by one
+# iptables -A OUTPUT -d 185.125.190.20 -j DROP
+# iptables -A OUTPUT -d 185.125.190.29 -j DROP
+# iptables -A OUTPUT -d 185.125.190.21 -j DROP
+
+# or
+iptables -A OUTPUT -d www.ubuntu.com -j DROP
+
+iptables -vnL
+# Chain OUTPUT (policy ACCEPT 186K packets, 26M bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+#     0     0 DROP       all  --  *      *       0.0.0.0/0            185.125.190.29
+#     0     0 DROP       all  --  *      *       0.0.0.0/0            185.125.190.21
+#     0     0 DROP       all  --  *      *       0.0.0.0/0            185.125.190.20
+```
+
+#### by Netmask
+
+```sh
+iptables -A OUTPUT -p tcp --dport 443 -d 0/0 -j ACCEPT
+
+iptables -vnL
+# Chain OUTPUT (policy ACCEPT 187K packets, 26M bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+#     0     0 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:443
+```
+
+```sh
+# reset
+./scripts/delete_firewall.sh
+
+iptables -vnL
+# Chain INPUT (policy ACCEPT 70 packets, 6928 bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+
+# Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+
+# Chain OUTPUT (policy ACCEPT 49 packets, 7415 bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+```
