@@ -543,3 +543,141 @@ iptables -vnL
 # Chain OUTPUT (policy ACCEPT 49 packets, 7415 bytes)
 #  pkts bytes target     prot opt in     out     source               destination
 ```
+
+### 197. Filter by Port
+
+1. Match by a single port
+   - Match: -p tcp --dport port, -p udp -sport port
+   - Example
+     ```sh
+     iptables -A INPUT -s tcp --dport 22 -j DROP
+     ```
+2. Match by multiple ports
+   - Match: -m multiport --sports | --dports port1,port2,...
+   - Example
+     ```sh
+     iptables -A OUTPUT -p tcp -m multiport --dports 80,443 -j DROP
+     ```
+
+```sh
+# Linux 2: 192.168.0.20
+nmap 192.168.0.10
+
+# I've tested to itself (the linux 1)
+
+# nmap 170.64.181.165
+# Starting Nmap 7.92 ( https://nmap.org ) at 2023-06-18 21:52 UTC
+# Nmap scan report for ubuntu-s-1vcpu-1gb-syd1-01 (170.64.181.165)
+# Host is up (0.0000050s latency).
+# Not shown: 996 closed tcp ports (reset)
+# PORT    STATE SERVICE
+# 22/tcp  open  ssh
+# 53/tcp  open  domain
+# 80/tcp  open  http
+# 443/tcp open  https
+```
+
+```sh
+# Linux 1: 192.168.0.10
+iptables -A INPUT -p tcp --dport 25 -j DROP
+iptables -vnL
+# Chain INPUT (policy ACCEPT 479K packets, 119M bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+#     0     0 DROP       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:25
+
+nmap 170.64.181.165
+# PORT    STATE    SERVICE
+# 22/tcp  open     ssh
+# 25/tcp  filtered smtp
+# 53/tcp  open     domain
+# 80/tcp  open     http
+# 443/tcp open     https
+
+nmap -p 55 170.64.181.165
+# PORT   STATE  SERVICE
+# 55/tcp closed isi-gl
+```
+
+```sh
+# Linux 1: 192.168.0.10
+iptables -A INPUT -p tcp --dport 80 -j DROP
+iptables -vnL
+# Chain INPUT (policy ACCEPT 482K packets, 119M bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+#     2    88 DROP       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:25
+#    18  1152 DROP       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80
+```
+
+#### filter the specific ip
+
+```sh
+cd scripts
+vim permit_ssh.sh
+```
+
+```sh
+#!/bin/bash
+
+iptables -F
+
+# one of my machine
+iptables -A INPIUT -p tcp --dport 22 -s 192.168.0.112 -j ACCEPT
+iptables -A INPIUT -p tcp --dport 22 -j DROP
+# iptables -A INPIUT -p tcp --dport 22 -s 0/0 -j DROP  # this is the same as above
+
+iptables -A INPUT -p tcp -m multiport --dports 80,443 -j DROP
+```
+
+```sh
+chmod 700 permit_ssh.sh
+./permit_ssh.sh
+```
+
+```sh
+# check if the port before/after running the script
+# Linux 2: 192.168.0.20
+
+# Before running the script
+nmap -p 22 192.168.0.10
+# PORT    STATE    SERVICE
+# 22/tcp  open     ssh
+
+# After running the script
+nmap -p 22 192.168.0.10
+# PORT    STATE    SERVICE
+# 22/tcp  filtered     ssh
+
+# Before running the script
+nmap -p 80,443 192.168.0.10
+# PORT    STATE    SERVICE
+# 80/tcp  open     http
+# 443/tcp open     https
+
+# After running the script
+nmap -p 80,443 192.168.0.10
+# Starting Nmap 7.80 ( https://nmap.org ) at 2023-06-19 08:10 AEST
+# Note: Host seems down. If it is really up, but blocking our ping probes, try -Pn
+# Nmap done: 1 IP address (0 hosts up) scanned in 3.04 seconds
+
+# but using ping, it is still accessible
+nmap -p 80,443 192.168.0.10 -P0
+# Starting Nmap 7.80 ( https://nmap.org ) at 2023-06-19 08:13 AEST
+# Nmap scan report for 170.64.181.165
+# Host is up.
+
+# PORT STATE SERVICE
+# 80/tcp filtered http
+# 443/tcp filtered https
+
+# Nmap done: 1 IP address (1 host up) scanned in 3.17 seconds
+```
+
+```sh
+iptables -vnL
+# Linux 1: 192.168.0.10
+# Chain INPUT (policy ACCEPT 484K packets, 119M bytes)
+#  pkts bytes target     prot opt in     out     source               destination
+#     2    88 DROP       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:25
+#   176 10912 DROP       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80
+#    11   628 DROP       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            multiport dports 80,443
+```
