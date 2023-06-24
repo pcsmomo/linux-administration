@@ -681,3 +681,30 @@ iptables -vnL
 #   176 10912 DROP       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80
 #    11   628 DROP       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            multiport dports 80,443
 ```
+
+### 198. Intro to Stateful Firewalls (Connection Tracking)
+
+Connection tracking = Stateful Firewall
+
+- Connection tracking = ability to maintain **state informatin** about connections
+- Stateful firewalls are **more secure** than stateless firewalls
+- Stateful firewalls decide to accept or to drop packets **based on the relations** these packets are with other packets.
+- Netfilter is a stateful firewall
+
+#### Packet states
+
+1. NEW - the first packet from a connection
+2. ESTABLISHED - packets that are part of an existing connection
+3. RELATED - packets that are requesting a new connection and are already part of an existing connection (Ex: FTP)
+4. INVALID - packets that are not part of any existing connection
+5. UNTRACKED - packets marked within the raw table with the NOTTRACK target
+
+Connection tracking can be used even if the protocol itself is stateless (EX: UDP, ICMP)
+
+#### Commands
+
+_-m state --state_ state, where state is a comma separated values of packet states written in UPPERCASE letter
+
+```sh
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+```
