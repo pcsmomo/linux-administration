@@ -739,3 +739,55 @@ iptables -P OUTPUT DROP
 ```sh
 chmod 700 stateful_firewall.sh
 ```
+
+### 200. Filter by MAC Address
+
+Match: -m mac --mac-source source_mac_address
+
+```sh
+iptables -A INPUT -i wlan0 -m mac --mac-source 08:00:27:55:6f:20 -j DROP
+```
+
+1. Drop packets from a specific mac address
+2. Permit only a list of trusted host (MACs) through the firewall (NAT Router)
+
+```sh
+# Linux 2: 192.168.0.20
+ping 192.168.0.10
+ifconfig
+```
+
+```sh
+# Linux 1: 192.168.0.10
+ifconfig
+iptables -A INPUT -i wlan0 -m mac --mac-source 08:00:27:55:6f:20 -j DROP
+
+# ping wouldn't work
+```
+
+```sh
+vim nat_filter.sh
+```
+
+```sh
+#!/bin/bash
+
+iptables -F FORWARD
+
+PERMITTED_MACS="08:00:27:55:6f:20 08:00:27:55:6f:21 08:00:27:55:6f:22 08:00:27:55:6f:23"
+
+for MAC in $PERMITTED_MACS
+do
+  iptables -A FORWARD -m mac --mac-source $MAC -j ACCEPT
+  echo "$MAC permitted"
+done
+
+iptables -P FORWARD DROP
+```
+
+```sh
+chmod 700 nat_filter.sh
+./nat_filter.sh
+```
+
+> INPUT? FORWARD?
