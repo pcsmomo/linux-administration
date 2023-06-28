@@ -791,3 +791,55 @@ chmod 700 nat_filter.sh
 ```
 
 > INPUT? FORWARD?
+
+### 201. Match by Date and Time
+
+`-m time` option
+
+#### Time match options
+
+```sh
+iptables -m time --help
+
+```
+
+```sh
+time match options:
+    --datestart time     Start and stop time, to be given in ISO 8601
+    --datestop time      (YYYY[-MM[-DD[Thh[:mm[:ss]]]]])
+    --timestart time     Start and stop daytime (hh:mm[:ss])
+    --timestop time      (between 00:00:00 and 23:59:59)
+[!] --monthdays value    List of days on which to match, separated by comma
+                         (Possible days: 1 to 31; defaults to all)
+[!] --weekdays value     List of weekdays on which to match, sep. by comma
+                         (Possible days: Mon,Tue,Wed,Thu,Fri,Sat,Sun or 1 to 7
+                         Defaults to all weekdays.)
+    --kerneltz           Work with the kernel timezone instead of UTC
+```
+
+#### By default it uses UTC, not system time
+
+`--kerneltz` : makes netfilter use system time instead of UTC time (!!!)
+
+```sh
+date
+
+vim 201_time.sh
+```
+
+```sh
+#!/bin/bash
+
+iptables -F
+
+iptables -A INPUT -p tcp --dport 22 -m time --timestart 10:00 --timestop 16:00 -j ACCEPT
+iptables -A INPUT -p tcp --dport 22 -m time -j DROP
+
+iptables -A FORWARD -p tcp --dport 442 -d www.ubuntu.com -m time --timestart 18:00 --timestop 8:00 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 442 -d www.ubuntu.com -j DROP
+```
+
+```sh
+chmod 700 time.sh
+./time.sh
+```
