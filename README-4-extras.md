@@ -843,3 +843,21 @@ iptables -A FORWARD -p tcp --dport 442 -d www.ubuntu.com -j DROP
 chmod 700 time.sh
 ./time.sh
 ```
+
+### 202. The ACCEPT and DROP Targets
+
+Ping
+
+- Source ➡️ ICMP echo-request
+- ICMP echo-reply ⬅️ Destination
+
+```sh
+iptables -p icmp --help
+# echo-request (ping)
+# echo-reply (pong)
+
+iptables -A INPUT -p icmp --icmp-type echo-request -s 192.168.0.20 -j ACCEPT
+iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
+```
+
+Test `ping 192.168.0.10`
