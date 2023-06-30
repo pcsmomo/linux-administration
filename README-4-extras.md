@@ -861,3 +861,36 @@ iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
 ```
 
 Test `ping 192.168.0.10`
+
+### 203. The LOG Target
+
+- LOG is a non-terminating target
+- It logs detailed information about packet headers
+- Logs can be read with dmesg or from syslogd daemon
+- LOG is used instead of DROP in the debugging phase
+- ULOG has MySql support (extensive logging)
+
+Options:
+
+- `--log-prefix`
+- `--log-level`
+
+Example:
+
+```sh
+./delete_firewall.sh
+iptables -A INPUT -p tcp --dport 22 --syn -j LOG --log-prefix="incoming ssh traffic:" --log-level info
+iptables -A INPUT -p tcp --dport 22 -j DROP
+
+# Try to ssh connect on the other linux
+
+# check the log message
+dmesg
+dmesg | grep "ssh traffic" > ssh.txt
+cat ssh.txt
+
+# display last 10 lines in real time
+tail -f /var/log/kern.log
+
+# Try to ssh connect on the other linux
+```
