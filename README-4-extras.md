@@ -2,6 +2,130 @@
 ssh root@170.64.181.165
 ```
 
+## Section 22: [EXTRA] Security: Information Gathering and Sniffing Traffic
+
+### 179. Scanning Networks with Nmap
+
+NMAP is a network discovery and security auditing tool
+
+- TCP Scans:
+  - SYN Scan: -sS (root only)
+  - Connect Scan: -sT
+- UDT Scan: -sU
+- ICMP Scan: -sn or -sP
+
+#### Options
+
+- `-sV`: including version
+- `-p-`: all ports (it will take some time)
+
+Example: `nmap -sS -p 22,100 -sV 192.168.0.1`
+
+GUI interface from official NMAP: [Zenmap GUI](https://nmap.org/zenmap/)
+
+```sh
+# from linux 2
+apt insetall nmap
+
+nmap 192.168.0.20
+nmap -sS 192.168.0.20 # can't do this without root permission
+nmap -sS 170.64.181.165
+# Starting Nmap 7.80 ( https://nmap.org ) at 2023-07-01 09:42 AEST
+# Nmap scan report for 170.64.181.165
+# Host is up (0.0067s latency).
+# Not shown: 996 filtered ports
+# PORT    STATE SERVICE
+# 22/tcp  open  ssh
+# 53/tcp  open  domain
+# 80/tcp  open  http
+# 443/tcp open  https
+
+# Nmap done: 1 IP address (1 host up) scanned in 5.79 seconds
+
+nmap -sT 170.64.181.165
+# Starting Nmap 7.80 ( https://nmap.org ) at 2023-07-01 09:42 AEST
+# Nmap scan report for 170.64.181.165
+# Host is up (0.013s latency).
+# Not shown: 996 filtered ports
+# PORT    STATE SERVICE
+# 22/tcp  open  ssh
+# 53/tcp  open  domain
+# 80/tcp  open  http
+# 443/tcp open  https
+
+# Nmap done: 1 IP address (1 host up) scanned in 4.77 seconds
+```
+
+```sh
+# on destication
+vim /etc/ssh/sshd_config
+# change the port 50005 from 22
+system
+systemctl resstart ssh
+netstat -tupan | grep ssh
+netstat -tupan | grep ssh
+# tcp        0      0 0.0.0.0:50005              0.0.0.0:*               LISTEN      890/sshd: /usr/sbin
+# tcp6       0      0 :::50005                   :::*                    LISTEN      890/sshd: /usr/sbin
+```
+
+```sh
+# on linux 2
+
+# port 22 is gone and can't see port 50005 either
+nmap 170.64.181.165
+# PORT    STATE SERVICE
+# 53/tcp  open  domain
+# 80/tcp  open  http
+# 443/tcp open  https
+
+nmap -p 20,22,80,50005 170.64.181.165
+# PORT      STATE   SERVICE
+# 20/tcp    closed  ftp-data
+# 22/tcp    closed  ssh
+# 80/tcp    open    http
+# 50005/tcp open    unknown
+
+nmap -p 80,50005 -sV 170.64.181.165
+# Starting Nmap 7.80 ( https://nmap.org ) at 2023-07-01 09:57 AEST
+# Nmap scan report for 170.64.181.165
+# Host is up (0.0050s latency).
+
+# PORT      STATE SERVICE VERSION
+# 80/tcp    open  http    Apache httpd 2.4.54
+# 50005/tcp open  ssh     OpenSSH 9.0p1 Ubuntu 1ubuntu7 (Ubuntu Linux; protocol 2.0)
+# Service Info: Host: ticketing-prod.site; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+# Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done: 1 IP address (1 host up) scanned in 8.53 seconds
+
+# Scanning all ports (when enter it will show the progress)
+nmap -p- 170.64.181.165
+# Starting Nmap 7.80 ( https://nmap.org ) at 2023-07-01 09:59 AEST
+
+# Stats: 0:00:05 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+# SYN Stealth Scan Timing: About 1.58% done; ETC: 10:04 (0:05:12 remaining)
+
+# Stats: 0:00:14 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+# SYN Stealth Scan Timing: About 7.34% done; ETC: 10:02 (0:02:57 remaining)
+
+# UDP scan
+nmap -sU localhost
+# Starting Nmap 7.80 ( https://nmap.org ) at 2023-07-01 09:59 AEST
+# Nmap scan report for localhost (127.0.0.1)
+# Host is up (0.0000030s latency).
+# Not shown: 998 closed ports
+
+# PORT     STATE         SERVICE
+# 631/udp  open|filtered ipp
+# 5353/udp open|filtered zeroconf
+
+# Nmap done: 1 IP address (1 host up) scanned in 1.30 seconds
+
+# ICMP Scan, it will display all networks
+nmap -sn 192.168.0.0/24
+Starting Nmap 7.80 ( https://nmap.org ) at 2023-07-01 10:00 AEST
+```
+
 ## Section 23: [EXTRA] IPFS - The Interplanetary File System
 
 ### 184. What is IPFS and How It Works
