@@ -126,6 +126,34 @@ nmap -sn 192.168.0.0/24
 Starting Nmap 7.80 ( https://nmap.org ) at 2023-07-01 10:00 AEST
 ```
 
+### 180. ARP Scanning (arp-scan and netdiscover)
+
+```sh
+arp -an
+apt install arp-scan
+arp-scan --help
+# --localnet or -l option is the most useful
+
+ifconfig
+arp-scan -I eth0 -l
+```
+
+```sh
+apt update && apt install netdiscover
+netdiscover
+#  Currently scanning: 192.168.28.0/16   |   Screen View: Unique Hosts
+
+#  0 Captured ARP Req/Rep packets, from 0 hosts.   Total size: 0
+#  _____________________________________________________________________________
+#    IP            At MAC Address     Count     Len  MAC Vendor / Hostname
+#  -----------------------------------------------------------------------------
+
+netdiscover -i eth0
+
+# whole network
+netdiscover -i eth0 -r 192.168.0.0/24
+```
+
 ## Section 23: [EXTRA] IPFS - The Interplanetary File System
 
 ### 184. What is IPFS and How It Works
