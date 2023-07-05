@@ -169,6 +169,14 @@ netdiscover -i eth0 -r 192.168.0.0/24
 
 Or navigate https://google.com/advanced_search
 
+### 182. Using Wireshark for Packet Sniffing and Analyzing
+
+[Wire Shark](https://www.wireshark.org/)
+
+```sh
+apt install wireshark
+```
+
 ## Section 23: [EXTRA] IPFS - The Interplanetary File System
 
 ### 184. What is IPFS and How It Works
