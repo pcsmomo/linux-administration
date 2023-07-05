@@ -154,6 +154,21 @@ netdiscover -i eth0
 netdiscover -i eth0 -r 192.168.0.0/24
 ```
 
+### 181. Hacking Google Searches (Google Dorks)
+
+[Google dorks](https://www.exploit-db.com/google-hacking-database)
+
+- "web scraping with python"
+- Tools: past year
+- "web scraping with python" filetype:pdf
+- 2022 apple sales filetype:xlsx
+- 2022 apple sales -iphone filetype:xlsx
+  - exclude iphone keyword
+- site:wikipedia.org intitle:security
+- (bitcoin | ethereum) hash algorithm
+
+Or navigate https://google.com/advanced_search
+
 ## Section 23: [EXTRA] IPFS - The Interplanetary File System
 
 ### 184. What is IPFS and How It Works
