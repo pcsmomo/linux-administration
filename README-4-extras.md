@@ -177,6 +177,32 @@ Or navigate https://google.com/advanced_search
 apt install wireshark
 ```
 
+### 183. Capture Traffic Using tcpdump
+
+[TCPDUMP](https://www.tcpdump.org/)
+
+```sh
+tcpdump -i eth0
+tcpdump -i eth0 host 8.8.8.8
+tcpdump -i eth0 dst medium.com -n
+tcpdump -i eth0 net 192.168.0.0/24
+tcpdump -i eth0 port 443 -vv -n
+tcpdump -i eth0 dst port 53 -vv -n
+tcpdump -i eth0 port 80 -A -n
+```
+
+```sh
+# write and read
+tcpdump -i eth0 port 80 -w cern.ch.pcap
+tcpdump -r cern.ch.pcap
+```
+
+```sh
+tcpdump -r cern.ch.pcap -n -vv -X
+tcpdump -i eth0 icmp and host 8.8.8.8
+tcpdump -i eth0 port 80 or port 443
+```
+
 ## Section 23: [EXTRA] IPFS - The Interplanetary File System
 
 ### 184. What is IPFS and How It Works
