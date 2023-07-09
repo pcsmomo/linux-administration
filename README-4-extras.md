@@ -236,6 +236,22 @@ sudo ipfs add ipfs.txt
 scp -P 2299 ipfs.txt root@170.64.181.165:/var/www/html
 ```
 
+### 185. Installing IPFS on Linux
+
+- [Install IPFS Desktop][https://github.com/ipfs/ipfs-desktop#mac]
+- [Download IPFS Distirubitions](https://dist.ipfs.tech/)
+
+```sh
+# (for mac)
+brew install --cask ipfs
+
+sudo ipfs init
+sudo ipfs id
+
+sudo ipfs swarm peers
+sudo ipfs cat /ipfs/QOASDIOVXC1VJQOZLKXDCKXZCVLA > ~/Desktop/spaceship.jpg
+```
+
 ## Section 24: [EXTRA] Security: Netfilter and Iptables Firewall
 
 ### 188. Introduction to Netfilter and Iptables
