@@ -252,6 +252,23 @@ sudo ipfs swarm peers
 sudo ipfs cat /ipfs/QOASDIOVXC1VJQOZLKXDCKXZCVLA > ~/Desktop/spaceship.jpg
 ```
 
+### 186. Running an IPFS Node on Linux
+
+```sh
+sudo ipfs daemon
+```
+
+```sh
+mkdir Project
+cp /etc/passwd Project/
+
+# add a screenshot to the Project folder
+
+# -r: recursive
+ipfs add -r Project/
+sudo ipfs ls [HASH]
+```
+
 ## Section 24: [EXTRA] Security: Netfilter and Iptables Firewall
 
 ### 188. Introduction to Netfilter and Iptables
