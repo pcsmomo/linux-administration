@@ -269,6 +269,27 @@ ipfs add -r Project/
 sudo ipfs ls [HASH]
 ```
 
+### 187. Pinning Objects
+
+Pinning prevents to be removed by garbage collector
+
+```sh
+ip addr > ip.txt
+sudo ipfs add ip.txt
+sudo ipfs pin ls --type=all
+sudo ipfs pin rm [HASH]
+sudo ipfs cat [HASH]  # it is still there!
+
+# to remove the pinned file, manually run the garbage collector
+sudo ipfs repo gc
+```
+
+#### Some examples of pinning services
+
+- [Pinata Cloud](https://www.pinata.cloud/)
+- [Infura](https://www.infura.io/)
+- [Eternum IO](https://www.eternum.io/)
+
 ## Section 24: [EXTRA] Security: Netfilter and Iptables Firewall
 
 ### 188. Introduction to Netfilter and Iptables
