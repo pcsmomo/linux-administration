@@ -1149,3 +1149,21 @@ tail -f /var/log/kern.log
 
 # Try to ssh connect on the other linux
 ```
+
+## Section 26: [EXTRA] Security: SSH Public Key Authentication
+
+### 205. SSH Public Key Authentication Overview
+
+#### SSH Public Key Authentication (PKA)
+
+PKA or Public Key Authentication is an authentication method that uses a key pair for authentication instead of a password which is the default method.
+
+##### Advantages:
+
+- increased security
+- authentication from within scripts or automation tools (automated backups, updates, network automation etc)
+
+In PKA there are two types of keys generated:
+
+- Private key (it stays on the SSH Client)
+- Public key (it stays on the SSH Server)
