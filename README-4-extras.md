@@ -1167,3 +1167,13 @@ In PKA there are two types of keys generated:
 
 - Private key (it stays on the SSH Client)
 - Public key (it stays on the SSH Server)
+
+### 206. Generating SSH Key Pair on Windows
+
+Requirements
+
+- ssh client that supports RSA authentication
+- a private and a public key
+- ssh server that supports SSH PKA
+
+[puttygen.exe](https://www.puttygen.com/)
