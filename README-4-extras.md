@@ -1177,3 +1177,15 @@ Requirements
 - ssh server that supports SSH PKA
 
 [puttygen.exe](https://www.puttygen.com/)
+
+### 208. Generating SSH Key Pair on Linux
+
+```sh
+ssh-keygen -b 2048 -t rsa -C "linux user Jul 2023"
+
+ls -l ~/.ssh/
+# total 12
+# -rw------- 1 root root  687 May 30 11:03 authorized_keys
+# -rw------- 1 root root 1823 Jul 11 21:54 id_rsa
+# -rw-r--r-- 1 root root  401 Jul 11 21:54 id_rsa.pub
+```
