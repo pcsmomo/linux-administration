@@ -1189,3 +1189,97 @@ ls -l ~/.ssh/
 # -rw------- 1 root root 1823 Jul 11 21:54 id_rsa
 # -rw-r--r-- 1 root root  401 Jul 11 21:54 id_rsa.pub
 ```
+
+### 209. Configuring SSH Public Key Authentication on Linux
+
+```sh
+# on the new linux: 192.168.8.177
+
+# initially ssh is not up
+systemctl status sshd
+# Unit sshd.service could not be found.
+
+systemctl -l --type service --all | grep ssh
+# None
+
+sudo apt-get install openssh-server
+
+systemctl status ssh
+# ● ssh.service - OpenBSD Secure Shell server
+#      Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
+#      Active: active (running) since Sat 2023-07-15 06:57:13 AEST; 27s ago
+#        Docs: man:sshd(8)
+#              man:sshd_config(5)
+#    Main PID: 9398 (sshd)??????????????????????????????????????????c-2013 sshd[9398]: Server listening on 0.0.0.0 port 22.
+# Jul 15 06:57:13 noah-mac-2013 sshd[9398]: Server listening on :: port 22.
+# Jul 15 06:57:13 noah-mac-2013 systemd[1]: Started OpenBSD Secure Shell server.
+
+ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: wlp3s0b1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 54:26:96:ce:99:0d brd ff:ff:ff:ff:ff:ff
+    inet 192.168.8.177/24 brd 192.168.8.255 scope global dynamic noprefixroute wlp3s0b1
+       valid_lft 85519sec preferred_lft 85519sec
+    inet6 fde0:4007:5f3d:fc00:7ea5:10a5:2a81:1643/64 scope global temporary dynamic
+       valid_lft 6721sec preferred_lft 3121sec
+    inet6 fde0:4007:5f3d:fc00:d79d:71ba:12db:29b8/64 scope global dynamic mngtmpaddr noprefixroute
+       valid_lft 6721sec preferred_lft 3121sec
+    inet6 fe80::b268:8f80:4394:f252/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+```
+
+```sh
+# on the client: macbook
+ssh-copy-id -i id_rsa.pub noah@192.168.8.177
+# /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "id_rsa.pub"
+# /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+# /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+
+# Number of key(s) added:        1
+
+# Now try logging into the machine, with:   "ssh 'noah@192.168.8.177'"
+# and check to make sure that only the key(s) you wanted were added.
+
+ssh noah@192.168.8.177
+```
+
+```sh
+# alternative way of copying publick key (instead of ssh-copy-id)
+# on the client
+scp -P 22 ~/.ssh/id_rsa.pub noah@192.168.8.177:~
+
+# on the server
+ls -l ~
+# -rw-r--r-- 1 noah noah  582 Jul 15 07:24 id_rsa.pub
+cat id_rsa.pub >> ~/.ssh/authorized_keys
+```
+
+```sh
+# on the server
+cat ~/.ssh/authorized_keys
+```
+
+#### Trouble shooting
+
+```sh
+# on client
+# verbose
+ssh -v noah@192.168.8.177
+
+# if the permission of private key is too loose, it'd cause a problem
+chmod 400 ~/.ssh/id_rsa
+chmod 600 ~/.ssh/id_rsa #(default)
+```
+
+```sh
+# on server, not allow password authentication
+vim /etc/ssh/sshd_config
+# PasswordAuthentication no
+
+systemctl restart ssh
+```
