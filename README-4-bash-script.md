@@ -75,3 +75,38 @@ lt
 
 - `apt`:` (newer version), is more automated and user-friendly
 - `apt-get`: gives you more control over package management process
+
+### 151. Intro to Bash Shell Scripting
+
+```sh
+echo $0
+# bash
+cat /etc/shells
+# # /etc/shells: valid login shells
+# /bin/sh
+# /bin/bash
+# /usr/bin/bash
+# /bin/rbash
+# /usr/bin/rbash
+# /bin/dash
+# /usr/bin/dash
+cat /etc/passwd
+# noah:x:1000:1000:noah,,,:/home/noah:/bin/bash
+```
+
+```sh
+mkdir 20-scripts
+vim 151-first_script.sh
+```
+
+```sh
+./151-first_script.sh
+/home/noah/scripts/151-first_script.sh
+
+# however this won't work
+# without specific path, it will look for under the PATH only
+151-first_script.sh
+
+echo $PATH
+# /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+```
