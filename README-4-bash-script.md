@@ -180,3 +180,53 @@ set nu
 > However, it doesn't work for me! (becuase of nvim)\
 > https://stackoverflow.com/a/46994483/11390254 > \
 > Note, you can simply add `source ~/.vimrc` in `~/.config/nvim/init.vim` to source configs without relying on symbolic links.
+
+### 153. Running Scripts
+
+we can use command `bash`, `python3` to run script without specific path
+
+```sh
+./first_script.sh
+# total 4
+# -rw-rw-r-- 1 noah noah 10 Jul 18 08:45 file.txt
+# some text
+first_script.sh
+# first_script.sh: command not found
+bash first_script.sh
+# total 4
+# -rw-rw-r-- 1 noah noah 10 Jul 18 08:46 file.txt
+# some text
+python3 152-script.sh
+# 3.8.10 (default, May 26 2023, 14:05:08)
+# [GCC 9.4.0]
+```
+
+It can run without execution permission
+
+```sh
+ls -l first_script.sh
+# -rwx------ 1 noah noah 88 Jul 17 06:57 first_script.sh
+chmod -x first_script.sh
+ls -l first_script.sh
+# -rw------- 1 noah noah 88 Jul 17 06:57 first_script.sh
+
+# it will override the shebang
+bash first_script.sh
+# total 4
+# -rw-rw-r-- 1 noah noah 10 Jul 18 08:47 file.txt
+# some text
+
+./first_script.sh
+# bash: ./first_script.sh: Permission denied
+
+# it ignores permission as well
+source first_script.sh
+# total 4
+# -rw-rw-r-- 1 noah noah 10 Jul 18 08:47 file.txt
+# some text
+```
+
+#### the difference between `./first_script.sh` and `source first_script.sh`
+
+- `./first_script.sh` will run in a new shell
+- `source first_script.sh` will be executed in the current shell(=terminal)
