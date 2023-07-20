@@ -230,3 +230,123 @@ source first_script.sh
 
 - `./first_script.sh` will run in a new shell
 - `source first_script.sh` will be executed in the current shell(=terminal)
+
+### 154. Variables in Bash
+
+```sh
+os=Linux
+
+# doesn't allow space
+os = Linux
+# os: command not found
+
+distro="MX Linux"
+age=30
+
+# doesn't allow number first
+4you=True
+# 4you=True: command not found
+
+# doesn't allow symbols except `_`
+a.b=100
+# a.b=100: command not found
+Anne@
+# Anne@: command not found
+Anne@Marry=d
+# Anne@Marry=d: command not found
+
+you4=False
+server_name="Apache 2.4"
+A=34
+```
+
+```sh
+echo $age
+# 30
+echo $os
+# Linux
+echo $you4
+# False
+echo "I'm learning $os and I'm $age old."
+# I'm learning Linux and I'm 30 old.
+
+# single qoute doesn't work
+echo '$os something $age'
+# $os something $age
+
+echo "The value of \$os is $os"
+# The value of $os is Linux
+
+distro="Ubuntu"
+my_distro="$os $distro"
+echo $my_distro
+# Linux Ubuntu
+```
+
+#### check defined variables
+
+```sh
+set
+
+set | grep distro
+# distro=Ubuntu
+# my_distro='Linux Ubuntu'
+
+# unset variable
+unset distro
+echo $distro
+#
+```
+
+#### env variables introduces by operating system are in CAPITAL letters
+
+```sh
+echo $PATH
+# /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+echo $USER
+# noah
+echo $HOME
+# /home/noah
+echo $HISTFILE
+# /home/noah/.bash_history
+echo $HISTSIZE
+# 1000
+```
+
+> so it'd be better to use lower case variable
+
+#### Make constants (Read-only)
+
+```sh
+declare -r logdir="/var/log"
+ls $logdir
+
+# can't override the constants
+logdir=abc
+# -bash: logdir: readonly variable
+```
+
+#### Create a new script
+
+```sh
+nvim 154-file_stat.sh
+```
+
+```sh
+#!/bin/bash
+filename="/etc/passwd"
+echo "Number of lines:"
+wc -l $filename
+echo "####################"
+echo "First 5 lines:"
+head -n 5 $filename
+
+echo "####################"
+echo "Last 7 lines:"
+tail -n 7 $filename
+```
+
+```sh
+chmod +x 154-file_stat.sh
+./154-file_stat.sh
+```
