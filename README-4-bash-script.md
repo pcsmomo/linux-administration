@@ -350,3 +350,59 @@ tail -n 7 $filename
 chmod +x 154-file_stat.sh
 ./154-file_stat.sh
 ```
+
+### 155. Environment Variables
+
+- Environment variables
+  - defined for the current shell and are inherited by any child shells or processes.
+  - they are used to pass information to processes that are spawned from the current shell
+  - displayed using `env` and `printenv`
+- Shell variables
+  - are contained exclusively within the shell in which they were set or defined
+  - displayed using set
+
+#### configuration files
+
+- User configuration file: `~/.bashrc`
+- System-wide configuration file: `/etc/bash.bashrc` and `/etc/profile`
+
+```sh
+# see all env variables
+env | less
+env | grep USER
+
+printenv
+printenv SHELL
+printenv SHELL PWD LC_TIME
+```
+
+```sh
+# see all shell variables
+set
+abc=123
+env | grep abc
+set | grep abc
+# abc=123
+
+# set posix (Potable Operating System Interface) mode (not displaying shell functions)
+set -o posix
+set | less  # display only environment/shell variables`
+```
+
+```sh
+# Add new path to PATH
+vim ~/.bashrc
+export PATH=$PATH:~/scripts
+export MYVAR=342
+
+source ~/.bashrc
+
+# if you want to change bash for all users, modify these
+ls -l /etc/profile
+# -rw-r--r-- 1 root root 581 Dec  6  2019 /etc/profile
+ls -l /etc/bash.bashrc
+# -rw-r--r-- 1 root root 2319 Feb 25  2020 /etc/bash.bashrc
+
+# environment variables here
+ls -l /etc/environment
+```
