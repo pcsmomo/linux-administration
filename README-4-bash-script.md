@@ -406,3 +406,50 @@ ls -l /etc/bash.bashrc
 # environment variables here
 ls -l /etc/environment
 ```
+
+### 156. Getting User Input
+
+```sh
+read name
+# Noah
+echo $name
+# Noah
+read -p "Enter the IP address: " ip
+# Enter the IP address: 192.168.8.112
+ping -c 1 $ip
+# PING 192.168.8.112 (192.168.8.112) 56(84) bytes of data.
+# 64 bytes from 192.168.8.112: icmp_seq=1 ttl=128 time=109 ms
+
+# --- 192.168.8.112 ping statistics ---
+# 1 packets transmitted, 1 received, 0% packet loss, time 0ms
+# rtt min/avg/max/mdev = 109.066/109.066/109.066/0.000 ms
+```
+
+```sh
+vim 156-block_ip.sh
+```
+
+```sh
+#!/bin/bash
+read -p "Enter the IP address of domain to block: " ip
+iptables -I INPUT -s $ip -j DROP
+echo "The packets from $ip will be dropped."
+```
+
+```sh
+chmod +x 156-block_ip.sh
+sudo ./156-block_ip.sh
+# Enter the IP address of domain to block: 1.1.1.1
+# The packets from 1.1.1.1 will be dropped.
+
+# delete all filters
+sudo iptables -t filter -F
+```
+
+#### Input password
+
+```sh
+read -s -p "Enter password: " pswd
+# Enter password:
+echo $pswd
+```
