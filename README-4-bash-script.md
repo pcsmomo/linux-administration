@@ -453,3 +453,104 @@ read -s -p "Enter password: " pswd
 # Enter password:
 echo $pswd
 ```
+
+### 157. Special Variables and Positional Arguments
+
+`./script.sh filename1 dir1 10.0.0.1`
+
+- `$0`: is the name of the script itself (script.sh)
+- `$1`: is the first positional argument (filename1)
+- `$2`: is the second positional argument (dir)
+- `$3`: is the last positional argument (10.0.0.1)
+- `$9`: would be the ninth argument and ${10} the tenth
+
+and
+
+- `$#`: is the number of the positional arguments
+- `"$*"`: is a string representation of all positional arguments: `$1`, `$2`, `$3` ...
+- `$?`: is the most recent foreground command exit status
+
+### example 1. display arguments
+
+```sh
+vim 157-arguments.sh
+```
+
+```sh
+#!/bin/bash
+echo "\$0 is $0"
+echo "\$1 is $1"
+echo "\$2 is $2"
+echo "\$3 is $3"
+echo "\$* is $*"
+echo "\$# is $#"
+```
+
+```sh
+chmod +x 157-arguments.sh
+./arguments.sh
+# $0 is ./157-arguments.sh
+# $1 is
+# $2 is
+# $3 is
+# $* is
+# $# is 0
+./157-arguments.sh linux windows mac 10
+# $0 is ./157-arguments.sh
+# $1 is linux
+# $2 is windows
+# $3 is mac
+# $* is linux windows mac 10
+# $# is 4
+```
+
+#### example 2. display and compress file
+
+```sh
+vim 157-display_and_compress.sh
+```
+
+```sh
+#!/bin/bash
+echo "Displaying the contents of $1 ..."
+sleep 2
+cat $1
+echo
+echo "Compressing $1 ..."
+sleep 2
+tar -czvf "$1.tar.gz" $1
+```
+
+```sh
+chmod +x 157-display_and_compress.sh
+./157-display_and_compress.sh 157-arguments.sh
+# Displaying the contents of 157-arguments.sh ...
+# Compressing 157-arguments.sh ...
+# 157-arguments.sh
+ls
+# 157-arguments.sh  157-arguments.sh.tar.gz  157-display_and_compress.sh
+sudo ./157-display_and_compress.sh /etc/passwd
+ls /etc/passwd*
+# /etc/passwd  /etc/passwd-  /etc/passwd.tar.gz
+```
+
+### example 3.
+
+```sh
+cat 156-block_ip.sh
+cp 156-block_ip.sh 157-drop_ip.sh
+vim 157-drop_ip.sh
+```
+
+```sh
+#!/bin/bash
+echo "Dropping packets from $1"
+iptables -I INPUT -s $1 -j DROP
+echo "The packets from $1 will be dropped."
+```
+
+```sh
+sudo ./157-drop_ip.sh 4.4.4.4
+# Dropping packets from 4.4.4.4
+# The packets from 4.4.4.4 will be dropped.
+```
