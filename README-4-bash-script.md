@@ -554,3 +554,20 @@ sudo ./157-drop_ip.sh 4.4.4.4
 # Dropping packets from 4.4.4.4
 # The packets from 4.4.4.4 will be dropped.
 ```
+
+### 160. Testing Conditions For Numbers
+
+```sh
+vim 160-age.sh
+chmod +x 160-age.sh
+
+/160-age.sh
+# Enter your age: 10
+# You are a minor.
+./160-age.sh
+# Enter your age: 50
+# You are major.
+./160-age.sh
+# Enter your age: 18
+# Congratulations, you're just become major!
+```
