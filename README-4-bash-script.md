@@ -618,6 +618,17 @@ $? => the most recent foreground command exit status
 ### 160. Testing Conditions For Numbers
 
 ```sh
+man test
+```
+
+- `n1 -eq n2`: True if the integers n1 and n2 are algebraically equal.
+- `n1 -ne n2`: True if the integers n1 and n2 are not algebraically equal.
+- `n1 -gt n2`: True if the integer n1 is algebraically greater than the integer n2.
+- `n1 -ge n2`: True if the integer n1 is algebraically greater than or equal to the integer n2.
+- `n1 -lt n2`: True if the integer n1 is algebraically less than the integer n2.
+- `n1 -le n2`: True if the integer n1 is algebraically less than or equal to the integer n2.
+
+```sh
 vim 160-age.sh
 chmod +x 160-age.sh
 
@@ -630,4 +641,28 @@ chmod +x 160-age.sh
 ./160-age.sh
 # Enter your age: 18
 # Congratulations, you're just become major!
+```
+
+### 161. Multiple Conditions and Nested If Statements
+
+```sh
+./160-age.sh
+# Enter your age: 101
+# Invalid age.
+```
+
+```sh
+vim 161-display-nested-if.sh
+chmod +x 161-display-nested-if.sh
+```
+
+#### Block indentation in VIM
+
+1. Select with Shift + V
+2. Define the selection with arrow keys
+3. Press > (Shift + .)
+
+```sh
+./161-nested-if.sh
+# The script should be run with an argument.
 ```
