@@ -666,3 +666,37 @@ chmod +x 161-display-nested-if.sh
 ./161-nested-if.sh
 # The script should be run with an argument.
 ```
+
+### 162. Command Substitution
+
+```sh
+now=`date`
+now1="`date`"
+now2="$(date)"
+echo $now
+echo $now1
+echo $now2
+
+users="$(who)"
+echo $users
+users1="`who`"
+echo $users1
+
+output="$(ps -ef | grep bash)"
+echo "$output"
+```
+
+```sh
+man date
+date +%F
+# 2023-07-26
+
+date +%F_%H%M
+# 2023-07-26_08_26
+
+sudo tar -czvf etc-$(date +%F_%H%M%S).tar.gz /etc/
+sudo tar -czvf etc-$(date +%F_%H%M%S).tar.gz /etc/
+ls -l
+# -rw-r--r-- 1 root root 1264740 Jul 26 08:30 etc-2023-07-26_083023.tar.gz
+# -rw-r--r-- 1 root root 1264740 Jul 26 08:30 etc-2023-07-26_083031.tar.gz
+```
