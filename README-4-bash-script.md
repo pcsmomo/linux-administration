@@ -700,3 +700,54 @@ ls -l
 # -rw-r--r-- 1 root root 1264740 Jul 26 08:30 etc-2023-07-26_083023.tar.gz
 # -rw-r--r-- 1 root root 1264740 Jul 26 08:30 etc-2023-07-26_083031.tar.gz
 ```
+
+### 163. Comparing Strings in If Statements
+
+```sh
+nvim 163-compare_strings.sh
+chmod +x 163-compare_strings.sh
+
+./163-compare_strings.sh
+# String1: abc
+# S†ring2: abc
+# The strings are equal.
+# The strings are equal.
+./163-compare_strings.sh
+# String1: abc
+# S†ring2: abd
+# The strings are not equal.
+# The strings are not equal.
+# The strings are NOT equal.
+```
+
+```sh
+# these two syntax are the same
+if [[ "$str1" != "$str2" ]]
+then
+fi
+
+if [[ "$str1" != "$str2" ]];then
+fi
+```
+
+```sh
+nvim 163-substrings.sh
+chmod +x 163-substrings.sh
+
+./163-substrings.sh
+# The substring Linux is there.
+```
+
+```sh
+if [[ "$str1" == *"Linux"* ]]
+then
+fi
+```
+
+- `-n STRING`: the length of STRING is nonzero
+- `-z STRING`: the length of STRING is zero
+
+```sh
+nvim 163-empty_string.sh
+chmod +x 163-empty_string.sh
+```
