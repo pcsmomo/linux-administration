@@ -473,7 +473,7 @@ and
 ### example 1. display arguments
 
 ```sh
-vim 157-arguments.sh
+vim 157-01-arguments.sh
 ```
 
 ```sh
@@ -487,16 +487,16 @@ echo "\$# is $#"
 ```
 
 ```sh
-chmod +x 157-arguments.sh
+chmod +x 157-01-arguments.sh
 ./arguments.sh
-# $0 is ./157-arguments.sh
+# $0 is ./157-01-arguments.sh
 # $1 is
 # $2 is
 # $3 is
 # $* is
 # $# is 0
-./157-arguments.sh linux windows mac 10
-# $0 is ./157-arguments.sh
+./157-01-arguments.sh linux windows mac 10
+# $0 is ./157-01-arguments.sh
 # $1 is linux
 # $2 is windows
 # $3 is mac
@@ -507,7 +507,7 @@ chmod +x 157-arguments.sh
 #### example 2. display and compress file
 
 ```sh
-vim 157-display_and_compress.sh
+vim 157-02-display_and_compress.sh
 ```
 
 ```sh
@@ -522,14 +522,14 @@ tar -czvf "$1.tar.gz" $1
 ```
 
 ```sh
-chmod +x 157-display_and_compress.sh
-./157-display_and_compress.sh 157-arguments.sh
-# Displaying the contents of 157-arguments.sh ...
-# Compressing 157-arguments.sh ...
-# 157-arguments.sh
+chmod +x 157-02-display_and_compress.sh
+./157-02-display_and_compress.sh 157-01-arguments.sh
+# Displaying the contents of 157-01-arguments.sh ...
+# Compressing 157-01-arguments.sh ...
+# 157-01-arguments.sh
 ls
-# 157-arguments.sh  157-arguments.sh.tar.gz  157-display_and_compress.sh
-sudo ./157-display_and_compress.sh /etc/passwd
+# 157-01-arguments.sh  157-01-arguments.sh.tar.gz  157-02-display_and_compress.sh
+sudo ./157-02-display_and_compress.sh /etc/passwd
 ls /etc/passwd*
 # /etc/passwd  /etc/passwd-  /etc/passwd.tar.gz
 ```
@@ -538,8 +538,8 @@ ls /etc/passwd*
 
 ```sh
 cat 156-block_ip.sh
-cp 156-block_ip.sh 157-drop_ip.sh
-vim 157-drop_ip.sh
+cp 156-block_ip.sh 157-03-drop_ip.sh
+vim 157-03-drop_ip.sh
 ```
 
 ```sh
@@ -550,7 +550,7 @@ echo "The packets from $1 will be dropped."
 ```
 
 ```sh
-sudo ./157-drop_ip.sh 4.4.4.4
+sudo ./157-03-drop_ip.sh 4.4.4.4
 # Dropping packets from 4.4.4.4
 # The packets from 4.4.4.4 will be dropped.
 ```
@@ -704,15 +704,15 @@ ls -l
 ### 163. Comparing Strings in If Statements
 
 ```sh
-nvim 163-compare_strings.sh
-chmod +x 163-compare_strings.sh
+nvim 163-01-compare_strings.sh
+chmod +x 163-01-compare_strings.sh
 
-./163-compare_strings.sh
+./163-01-compare_strings.sh
 # String1: abc
 # S†ring2: abc
 # The strings are equal.
 # The strings are equal.
-./163-compare_strings.sh
+./163-01-compare_strings.sh
 # String1: abc
 # S†ring2: abd
 # The strings are not equal.
@@ -731,10 +731,10 @@ fi
 ```
 
 ```sh
-nvim 163-substrings.sh
-chmod +x 163-substrings.sh
+nvim 163-02-substrings.sh
+chmod +x 163-02-substrings.sh
 
-./163-substrings.sh
+./163-02-substrings.sh
 # The substring Linux is there.
 ```
 
@@ -748,6 +748,6 @@ fi
 - `-z STRING`: the length of STRING is zero
 
 ```sh
-nvim 163-empty_string.sh
-chmod +x 163-empty_string.sh
+nvim 163-03-empty_string.sh
+chmod +x 163-03-empty_string.sh
 ```
