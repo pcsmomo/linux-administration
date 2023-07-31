@@ -751,3 +751,37 @@ fi
 nvim 163-03-empty_string.sh
 chmod +x 163-03-empty_string.sh
 ```
+
+### 164. Lab: Testing Network Connections
+
+```sh
+nvim 164-connection_testing.sh
+chmod +x 164-connection_testing.sh
+
+# echo $output
+./164-connection_testing.sh 8.8.8.8
+# PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data. 64 bytes from 8.8.8.8: icmp_seq=1 ttl=56 time=8.63 ms 64 bytes from 8.8.8.8: icmp_seq=2 ttl=56 time=10.0 ms 64 bytes from 8.8.8.8: icmp_seq=3 ttl=56 time=10.1 ms --- 8.8.8.8 ping statistics --- 3 packets transmitted, 3 received, 0% packet loss, time 2003ms rtt min/avg/max/mdev = 8.634/9.593/10.134/0.680 ms0
+```
+
+#### if you want to print line by line
+
+```sh
+# echo "$output"
+./164-connection_testing.sh 8.8.8.8
+# PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+# 64 bytes from 8.8.8.8: icmp_seq=1 ttl=56 time=10.9 ms
+# 64 bytes from 8.8.8.8: icmp_seq=2 ttl=56 time=8.67 ms
+
+# --- 8.8.8.8 ping statistics ---
+# 3 packets transmitted, 2 received, 33.3333% packet loss, time 2003ms
+# rtt min/avg/max/mdev = 8.674/9.783/10.892/1.109 ms
+```
+
+#### add if condition
+
+```sh
+./164-connection_testing.sh 8.8.8.8
+# The network connection to 8.8.8.8 is working.
+./164-connection_testing.sh 1.2.3.4
+# The network connection to 1.2.3.4 is not working.
+```
