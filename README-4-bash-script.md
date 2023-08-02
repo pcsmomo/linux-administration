@@ -818,3 +818,36 @@ chmod +x 164-connection_testing.sh
 # &&  => the logical and operator
 # ||  => the logical or operator
 ```
+
+### 166. For Loops
+
+```sh
+nvim 166-01-for.sh
+chmod +x 166-01-for.sh
+```
+
+### from bash version 4, increment
+
+```sh
+# default, increment by 1
+for num in {3..7}
+
+# Bash version 4, we can add increment number
+for num in {10..100..5}
+# zsh doesn't work this..
+```
+
+```sh
+nvim 166-02-for.sh
+chmod +x 166-02-for.sh
+```
+
+```sh
+nvim 166-03-rename_files.sh
+chmod +x 166-03-rename_files.sh
+```
+
+```sh
+nvim 166-04-c_style_for_loop.sh
+chmod +x 166-04-c_style_for_loop.sh
+```
