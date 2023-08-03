@@ -851,3 +851,22 @@ chmod +x 166-03-rename_files.sh
 nvim 166-04-c_style_for_loop.sh
 chmod +x 166-04-c_style_for_loop.sh
 ```
+
+### 167. Lab: Dropping a List of IP addresses Using a For Loop
+
+```sh
+cat 157-03-drop_ip.sh
+
+# we're going to enhance this script
+nvim 167-01-drop_ips.sh
+chmod +x 167-01-drop_ips.sh
+sudo ./167-01-drop_ips.sh
+
+cp 167-01-drop_ips.sh 167-02-deny_packets.sh
+nvim 167-02-deny_packets.sh
+nvim 167-02-ips.txt
+sudo ./167-02-deny_packets.sh
+
+# delete(=Flush) all filters
+sudo iptables -t filter -F
+```
