@@ -870,3 +870,21 @@ sudo ./167-02-deny_packets.sh
 # delete(=Flush) all filters
 sudo iptables -t filter -F
 ```
+
+### 168. While Loops
+
+```sh
+nvim 168-01-while.sh
+chmod +x 168-01-while.sh
+```
+
+```sh
+a=5
+b=6
+c=$((a+b))
+echo $c
+# 11
+let d=a+b
+echo $d
+# 11
+```
