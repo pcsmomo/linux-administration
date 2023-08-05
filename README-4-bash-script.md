@@ -888,3 +888,104 @@ let d=a+b
 echo $d
 # 11
 ```
+
+### 169. Case Statement
+
+```sh
+nvim 169-01-favorite-pet.sh
+chmod +x 169-01-favorite-pet.sh
+
+./169-01-favorite-pet.sh
+# Enter your favorite pet:d og
+# Your favorite pet is the dog.
+./169-01-favorite-pet.sh
+# Enter your favorite pet: cat
+# You like cats.
+./169-01-favorite-pet.sh
+# Enter your favorite pet: African Turtle
+# Fish or turtles are great!
+./169-01-favorite-pet.sh
+# Enter your favorite pet: no
+# Your favorite pet is unknown!
+```
+
+```sh
+nvim 169-02-signal.sh
+chmod +x 169-02-signal.sh
+
+sleep 1001 &
+# [1] 5861
+pgrep sleep
+# 5861
+
+./169-02-signal.sh 1 5861
+# Sending the SIGHUP signal to 5861
+# [1]+  Hangup                  sleep 1001
+
+pgrep sleep
+# (nothing)
+
+./169-02-signal.sh 1
+# Run the script with 2 arguments: Signals and PID.
+```
+
+#### Signals
+
+```sh
+kill -1
+#  1) SIGHUP	 2) SIGINT	 3) SIGQUIT	 4) SIGILL	 5) SIGTRAP
+#  6) SIGABRT	 7) SIGBUS	 8) SIGFPE	 9) SIGKILL	10) SIGUSR1
+# 11) SIGSEGV	12) SIGUSR2	13) SIGPIPE	14) SIGALRM	15) SIGTERM
+# 16) SIGSTKFLT	17) SIGCHLD	18) SIGCONT	19) SIGSTOP	20) SIGTSTP
+# 21) SIGTTIN	22) SIGTTOU	23) SIGURG	24) SIGXCPU	25) SIGXFSZ
+# 26) SIGVTALRM	27) SIGPROF	28) SIGWINCH	29) SIGIO	30) SIGPWR
+# 31) SIGSYS	34) SIGRTMIN	35) SIGRTMIN+1	36) SIGRTMIN+2	37) SIGRTMIN+3
+# 38) SIGRTMIN+4	39) SIGRTMIN+5	40) SIGRTMIN+6	41) SIGRTMIN+7	42) SIGRTMIN+8
+# 43) SIGRTMIN+9	44) SIGRTMIN+10	45) SIGRTMIN+11	46) SIGRTMIN+12	47) SIGRTMIN+13
+# 48) SIGRTMIN+14	49) SIGRTMIN+15	50) SIGRTMAX-14	51) SIGRTMAX-13	52) SIGRTMAX-12
+# 53) SIGRTMAX-11	54) SIGRTMAX-10	55) SIGRTMAX-9	56) SIGRTMAX-8	57) SIGRTMAX-7
+# 58) SIGRTMAX-6	59) SIGRTMAX-5	60) SIGRTMAX-4	61) SIGRTMAX-3	62) SIGRTMAX-2
+# 63) SIGRTMAX-1	64) SIGRTMAX
+```
+
+- https://faculty.cs.niu.edu/~hutchins/csci480/signals.htm
+
+| #   | Signal Name | Default Action | Comment                                                       | POSIX |
+| --- | ----------- | -------------- | ------------------------------------------------------------- | ----- |
+| 1   | SIGHUP      | Terminate      | Hang up controlling terminal or process                       | Yes   |
+| 2   | SIGINT      | Terminate      | Interrupt from keyboard, Control-C                            | Yes   |
+| 3   | SIGQUIT     | Dump           | Quit from keyboard, Control-\                                 | Yes   |
+| 4   | SIGILL      | Dump           | Illegal instruction                                           | Yes   |
+| 5   | SIGTRAP     | Dump           | Breakpoint for debugging                                      | No    |
+| 6   | SIGABRT     | Dump           | Abnormal termination                                          | Yes   |
+| 6   | SIGIOT      | Dump           | Equivalent to SIGABRT                                         | No    |
+| 7   | SIGBUS      | Dump           | Bus error                                                     | No    |
+| 8   | SIGFPE      | Dump           | Floating-point exception                                      | Yes   |
+| 9   | SIGKILL     | Terminate      | Forced-process termination                                    | Yes   |
+| 10  | SIGUSR1     | Terminate      | Available to processes                                        | Yes   |
+| 11  | SIGSEGV     | Dump           | Invalid memory reference                                      | Yes   |
+| 12  | SIGUSR2     | Terminate      | Available to processes                                        | Yes   |
+| 13  | SIGPIPE     | Terminate      | Write to pipe with no readers                                 | Yes   |
+| 14  | SIGALRM     | Terminate      | Real-timer clock                                              | Yes   |
+| 15  | SIGTERM     | Terminate      | Process termination                                           | Yes   |
+| 16  | SIGSTKFLT   | Terminate      | Coprocessor stack error                                       | No    |
+| 17  | SIGCHLD     | Ignore         | Child process stopped or terminated or got a signal if traced | Yes   |
+| 18  | SIGCONT     | Continue       | Resume execution, if stopped                                  | Yes   |
+| 19  | SIGSTOP     | Stop           | Stop process execution, Ctrl-Z                                | Yes   |
+| 20  | SIGTSTP     | Stop           | Stop process issued from tty                                  | Yes   |
+| 21  | SIGTTIN     | Stop           | Background process requires input                             | Yes   |
+| 22  | SIGTTOU     | Stop           | Background process requires output                            | Yes   |
+| 23  | SIGURG      | Ignore         | Urgent condition on socket                                    | No    |
+| 24  | SIGXCPU     | Dump           | CPU time limit exceeded                                       | No    |
+| 25  | SIGXFSZ     | Dump           | File size limit exceeded                                      | No    |
+| 26  | SIGVTALRM   | Terminate      | Virtual timer clock                                           | No    |
+| 27  | SIGPROF     | Terminate      | Profile timer clock                                           | No    |
+| 28  | SIGWINCH    | Ignore         | Window resizing                                               | No    |
+| 29  | SIGIO       | Terminate      | I/O now possible                                              | No    |
+| 29  | SIGPOLL     | Terminate      | Equivalent to SIGIO                                           | No    |
+| 30  | SIGPWR      | Terminate      | Power supply failure                                          | No    |
+| 31  | SIGSYS      | Dump           | Bad system call                                               | No    |
+| 31  | SIGUNUSED   | Dump           | Equivalent to SIGSYS                                          | No    |
+
+- POSIX real-time signals
+  - From 34) SIGRTMIN
