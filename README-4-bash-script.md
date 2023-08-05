@@ -989,3 +989,27 @@ kill -1
 
 - POSIX real-time signals
   - From 34) SIGRTMIN
+
+### 170. Functions in Bash
+
+```sh
+nvim 170-01-functions.sh
+chmod +x 170-01-functions.sh
+
+./170-01-functions.sh
+# I'm a simple function!
+# Hello fuctions!
+# Creating aa.txt...
+# Creating bb.txt
+# 10
+# 3
+```
+
+> Bash function doesn't allow return value /
+> we can use `$?` instead
+
+```sh
+grep -c chmod 170-01-functions.sh
+# 3
+grep -c usb /var/log/dmesg
+```
