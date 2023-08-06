@@ -1013,3 +1013,16 @@ grep -c chmod 170-01-functions.sh
 # 3
 grep -c usb /var/log/dmesg
 ```
+
+### 171. Variable Scope in Functions
+
+- `local` keyword
+
+```sh
+nvim 171-variable_scope.sh
+chmod +x 171-variable_scope.sh
+
+./171-variable_scope.sh
+# Inside func1: var1=XX, var2=YY
+# After calling func1: var1=XX, var2=BB
+```
