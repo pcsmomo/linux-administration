@@ -1026,3 +1026,23 @@ chmod +x 171-variable_scope.sh
 # Inside func1: var1=XX, var2=YY
 # After calling func1: var1=XX, var2=BB
 ```
+
+### 172. Menus in Bash. The Select Statement
+
+```sh
+nvim 172-menus.sh
+chmod +x 172-menus.sh
+
+./172-menus.sh
+# 1) Germany
+# 2) French
+# 3) USA
+# 4) United Kingdom
+# 5) Quit
+# Choose your country: 3
+# You speak American English.
+# Choose your country: 7
+# Invalid option 7
+# Choose your country: 5
+# Quitting ...
+```
