@@ -1046,3 +1046,54 @@ chmod +x 172-menus.sh
 # Choose your country: 5
 # Quitting ...
 ```
+
+### 173. Lab: System Administration Script using Menus
+
+```sh
+nvim 173-system_administration.sh
+chmod +x 173-system_administration.sh
+
+
+./173-system_administration.sh
+# 1) Add User
+# 2) List All Processes
+# 3) Kill Process
+# 4) Install Program
+# 5) Quit
+Your choice: 1
+Enter the username: noah
+# The username noah already exists.
+Your choice: 1
+Enter the username: u100
+[sudo] password for noah:
+# The user u100 was added successfully.
+# u100:x:1001:1001::/home/u100:/bin/bash
+Your choice: 2
+# Listing all processes...
+# UID          PID    PPID  C STIME TTY          TIME CMD
+# root           1       0  0 Jul30 ?        00:00:07 /sbin/init splash
+# root           2       0  0 Jul30 ?        00:00:00 [kthreadd]
+# ...
+# noah       14622   14580  0 20:50 pts/1    00:00:00 /bin/bash ./173-system_administration.sh
+# root       14636       2  0 20:50 ?        00:00:00 [kworker/u8:3-events_unbound]
+# noah       14638   14622  0 20:50 pts/1    00:00:00 ps -ef
+Your choice: 3
+# Enter the process to kill: sleep
+Your choice: 4
+# Enter the program to install: nmap
+# Hit:1 http://au.archive.ubuntu.com/ubuntu focal InRelease
+# Get:2 http://au.archive.ubuntu.com/ubuntu focal-updates InRelease [114 kB]
+# ...
+# Setting up liblinear4:amd64 (2.3.0+dfsg-3build1) ...
+# Setting up nmap (7.80+dfsg1-2build1) ...
+# Processing triggers for man-db (2.9.1-1) ...
+# Processing triggers for libc-bin (2.31-0ubuntu9.9) ...
+Your choice: 5
+# Quitting...
+```
+
+```sh
+# on the other terminal
+sleep 100
+# Terminated
+```
