@@ -1097,3 +1097,64 @@ Your choice: 5
 sleep 100
 # Terminated
 ```
+
+### 174. Intro to Bash Arrays
+
+- `[@]` or `[*]`: all values
+- `![@]`: all indexes
+- `#[@]`: length of the array
+
+```sh
+ages=(20 22 40 38)
+echo $ages
+# 20
+echo ${ages[@]}
+# 20 22 40 38
+echo ${ages[*]}
+# 20 22 40 38
+echo ${!ages[*]}
+# 0 1 2 3
+echo ${#ages[*]}
+# 4
+echo ${ages[0]}
+# 20
+echo ${ages[2]}
+# 40
+
+# invalid index will dis  paly nothing
+echo ${ages[100]}
+#
+echo ${ages[-1]}
+# 38
+echo ${ages[-2]}
+# 40
+numbers[0]=100
+numbers[1]=200
+echo ${numbers[@]}
+# 100 200
+numbers[1]=600
+echo ${numbers[@]}
+# 100 600 400
+```
+
+```sh
+declare -a names
+names[0]="Dan"
+names[1]="Alina"
+names[2]="Diana"
+echo ${names[@]}
+# Dan Alina Diana
+
+# set the index higher then the length
+names[7]="Maya"
+# it displays all elements but the index is different
+echo ${names[@]}
+# Dan Alina Diana Maya
+echo ${!names[@]}
+# 0 1 2 7
+unset names[1]
+echo ${names[@]}
+# Dan Diana Maya
+echo ${!names[@]}
+# 0 2 7
+```
