@@ -1158,3 +1158,77 @@ echo ${names[@]}
 echo ${!names[@]}
 # 0 2 7
 ```
+
+### 175. Arrays In Depth
+
+```sh
+years=(2019 2020 2021 2022 2023)
+
+# add more elements
+years+=(2024)
+years+=(2025 2026 2027)
+
+echo ${years[@]}
+# 2019 2020 2021 2022 2023 2024 2025 2026 2027
+echo ${years[@]:2}
+# 2021 2022 2023 2024 2025 2026 2027
+echo ${years[@]:2:4}
+# 2021 2022 2023 2024
+```
+
+#### Associative Arrays (looks like Object/Dict, but array)
+
+- `[@]` or `[*]`: all values
+- `![@]`: all keys (indexes)
+- `#[@]`: length of the array
+
+```sh
+declare -A userdata
+userdata[username]="youradmin"
+userdata[password]="fdsa4."
+userdata[uid]="1010"
+
+echo ${userdata[username]}
+# youradmin
+echo ${userdata[@]}
+# fdsa4. 1010 youradmin
+echo ${!userdata[@]}
+# password uid username
+userdata[login]="$(date --utc +%s)"
+echo ${userdata[@]}
+# fdsa4. 1691095988 1010 youradmin
+userdata[login]="$(date +%T)"
+echo ${userdata[@]}
+# fdsa4. 06:57:30 1010 youradmin
+
+# add more elements
+userdata+=([shell]="Bash" [admin]="False")
+echo ${userdata[@]}
+# False fdsa4. 06:57:30 Bash 1010 youradmin
+echo ${!userdata[@]}
+# admin password login shell uid username
+```
+
+##### read-only associative array
+
+cannot modify or add elements
+
+```sh
+declare -r -A SUPERSTARS=(
+> [Germany]="Boney M"
+> [USA]="Bon Jovi"
+> [England]="The Beatles"
+> )
+echo ${SUPERSTARS[@]}
+# Bon Jovi The Beatles Boney M
+SUPERSTARS[USA]="Metallica"
+# -bash: SUPERSTARS: readonly variable
+```
+
+##### remove an element
+
+```sh
+unset userdata[password]
+echo ${userdata[@]}
+# False 06:57:30 Bash 1010 youradmin
+```
