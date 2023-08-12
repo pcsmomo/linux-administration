@@ -1232,3 +1232,70 @@ unset userdata[password]
 echo ${userdata[@]}
 # False 06:57:30 Bash 1010 youradmin
 ```
+
+### 176. Using the Readarray Command
+
+```sh
+readarray months
+# Jan
+# Feb
+# Mar
+# Apr
+# May
+# Jun
+# ^C
+echo ${months[@]}
+# Jan Feb Mar Apr May Jun
+echo ${!months[@]}
+# 0 1 2 3 4 5
+echo ${#months[@]}
+# 6
+```
+
+#### readarray from file
+
+```sh
+cat months.txt
+# Janumary
+# February
+# March
+# April
+# May
+# June
+# July
+# August
+# September
+# October
+# November
+# December
+
+
+echo ${months[@]}
+# Janumary February March April May June July August September October November December
+echo ${!months[@]}
+# 0 1 2 3 4 5 6 7 8 9 10 11
+
+# trailing \n
+echo ${months[@]@Q}
+# $'Janumary\n' $'February\n' $'March\n' $'April\n' $'May\n' $'June\n' $'July\n' $'August\n' $'September\n' $'October\n' $'November\n' $'December\n'
+```
+
+```sh
+# replace trailing \n to \t
+readarray -t months< <(cat months.txt)
+echo ${months[@]}
+# Janumary February March April May June July August September October November December
+echo ${months[@]@Q}
+# 'Janumary' 'February' 'March' 'April' 'May' 'June' 'July' 'August' 'September' 'October' 'November' 'December'
+```
+
+#### other examples
+
+```sh
+readarray users< <(cut -d: -f1 /etc/passwd)
+echo ${users[@]}
+# root daemon bin sys sync games man lp mail news uucp proxy www-data backup list irc gnats nobody systemd-network systemd-resolve systemd-timesync messagebus syslog _apt tss uuidd tcpdump avahi-autoipd usbmux rtkit dnsmasq cups-pk-helper speech-dispatcher avahi kernoops saned nm-openvpn hplip whoopsie colord geoclue pulse gnome-initial-setup gdm noah systemd-coredump fwupd-refresh sshd u100
+
+readarray -t files< <(ls /etc)
+echo ${files[@]}
+```
