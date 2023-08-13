@@ -1299,3 +1299,13 @@ echo ${users[@]}
 readarray -t files< <(ls /etc)
 echo ${files[@]}
 ```
+
+### 177. Iterating Over Arrays
+
+```sh
+# read all files under /etc
+nvim 177-array_iterate.sh
+chmod +x 177-array_iterate.sh
+
+./177-array_iterate.sh
+```
