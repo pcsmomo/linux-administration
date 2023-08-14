@@ -1309,3 +1309,31 @@ chmod +x 177-array_iterate.sh
 
 ./177-array_iterate.sh
 ```
+
+### 178. Project: Account Creation
+
+```sh
+nvim 178-users.txt
+
+nvim 178-01-users_and_groups.sh
+chmod +x 178-01-users_and_groups.sh
+
+sudo ./178-01-users_and_groups.sh
+[sudo] password for noah:
+# Group management added successfully!
+# User john added successfully!
+# #####################
+# Group programming added successfully!
+# User diana added successfully!
+# #####################
+# Group accounting added successfully!
+# User paul added successfully!
+# #####################
+```
+
+```sh
+nvim 178-02-delete_users_and_groups.sh
+chmod +x 178-02-delete_users_and_groups.sh
+
+sudo ./178-02-delete_users_and_groups.sh
+```
