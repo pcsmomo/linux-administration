@@ -1337,3 +1337,58 @@ chmod +x 178-02-delete_users_and_groups.sh
 
 sudo ./178-02-delete_users_and_groups.sh
 ```
+
+### 179. Running a DoS Attack Without root Access (ulimit)
+
+```sh
+nvim 179-bomb.sh
+chmod +x 179-bomb.sh
+
+# if I run this script, my ubuntu will not respond
+# it is basically execution of unlimited loop
+
+cat 179-bomb.sh
+# $0 && $0 &
+```
+
+#### Prevent this type of user bomb
+
+```sh
+ulimit -u
+# 30932
+
+ulimit -a
+# core file size          (blocks, -c) 0
+# data seg size           (kbytes, -d) unlimited
+# scheduling priority             (-e) 0
+# file size               (blocks, -f) unlimited
+# pending signals                 (-i) 30932
+# max locked memory       (kbytes, -l) 65536
+# max memory size         (kbytes, -m) unlimited
+# open files                      (-n) 1024
+# pipe size            (512 bytes, -p) 8
+# POSIX message queues     (bytes, -q) 819200
+# real-time priority              (-r) 0
+# stack size              (kbytes, -s) 8192
+# cpu time               (seconds, -t) unlimited
+# max user processes              (-u) 30932
+# virtual memory          (kbytes, -v) unlimited
+# file locks                      (-x) unlimited
+```
+
+Let's limit the number of available processes for this user
+
+- noah: user name
+- @admins: group name
+
+```sh
+sudo vim /etc/security/limits.conf
+
+# noah            hard    nproc           2000
+# @admins         hard    nproc           4000
+
+# after change this file, the user has to get logged in again.
+
+./179-bomb.sh
+# this sripts will get error instead of taking all resources.
+```
